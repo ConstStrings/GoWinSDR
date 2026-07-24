@@ -1,3 +1,15 @@
+# GoWinSDRv2 Coming Soon, Currently Under Development
+
+**Main Improvements and Progress:**
+
+| Name | Features or Improvements | Development Progress |
+| :--- | :----------------------- | :------------------- |
+| SDR Core Board | Optimized RF and Ethernet layout to enhance stability; optimized interface arrangement; reserved programmer interface; added 40-pin expansion interface; adopted TCXO (Temperature Compensated Crystal Oscillator); added status indicator lights | Hardware PCB fabrication completed, currently debugging |
+| On-board Programmer | Can be directly mounted on the SDR core board, single-cable programming | Development completed |
+| SDR Expansion Board | Integrated DAC analog output, audio output and audio amplifier, GPS clock calibration, serial display | PCB design in progress |
+| FPGA Firmware | Fixing known bugs | Under development |
+
+**Currently, the v2 version is not yet fully developed. Under normal circumstances, please DO NOT use this version!!! This page is for preview purposes only; please use the v1 version!!!**
 # GoWinSDR
 
 **Last edited by ConstString on 2026-03-16*
