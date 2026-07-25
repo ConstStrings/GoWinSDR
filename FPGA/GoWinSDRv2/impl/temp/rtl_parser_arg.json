@@ -1,0 +1,73 @@
+{
+ "Device" : "GW5AT-60B",
+ "Files" : [
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii/dds_ii.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_arp.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_crc.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_GMII2RGMII.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll/gmii_pll.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll/gmii_pll_mod.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_ad9361_cmos_dev.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_gc0802_cmos_dev.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_led.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/pll_init.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_ddr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_rxdv_ddr/eth_rxdv_ddr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/impl/temp/rtl_parser.result",
+ "Top" : "top",
+ "VerilogStd" : "verilog_2001",
+ "VhdlStd" : "vhdl_93"
+}

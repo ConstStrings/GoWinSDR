@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Module name="top" Register="26" Lut="46" T_Register="75(26)" T_Lut="48(46)">
- <SubModule name="u_ad9363_dev_cmos" Register="49" Lut="2" T_Register="49(49)" T_Lut="2(2)"/>
-</Module>

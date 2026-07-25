@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="top" T_Register="2298(0)" T_Alu="183(0)" T_Lut="1721(0)" T_Bsram="15(0)">
+ <SubModule name="gw_gao_inst_0" Register="1122" Alu="13" Lut="630" Bsram="13" T_Register="1122(1122)" T_Alu="13(13)" T_Lut="630(630)" T_Bsram="13(13)"/>
+ <SubModule name="u_gc0802_dev_cmos" Register="3" T_Register="3(3)"/>
+ <SubModule name="dds_test_u" Register="450" Alu="48" Lut="152" Bsram="1" T_Register="450(450)" T_Alu="48(48)" T_Lut="152(152)" T_Bsram="1(1)"/>
+ <SubModule name="eth_transceiver_u" Register="662" Alu="98" Lut="867" Bsram="1" T_Register="694(662)" T_Alu="98(98)" T_Lut="937(867)" T_Bsram="1(1)">
+  <SubModule name="pll_inst">
+   <SubModule name="u_pll"/>
+  </SubModule>
+  <SubModule name="rgmii_rx_data_ddr_u"/>
+  <SubModule name="rgmii_rx_ctl_ddr_u"/>
+  <SubModule name="crc_inst" Register="32" Lut="70" T_Register="32(32)" T_Lut="70(70)"/>
+  <SubModule name="gmii2rgmii_inst"/>
+ </SubModule>
+ <SubModule name="phy_led_u" Register="29" Alu="24" Lut="2" T_Register="29(29)" T_Alu="24(24)" T_Lut="2(2)"/>
+</Module>

@@ -1,0 +1,33 @@
+Reading netlist file: "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\GoWinSDRv2.vg"
+Parsing netlist file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\GoWinSDRv2.vg" completed
+Processing netlist completed
+Reading constraint file: "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\sdr_base.cst"
+Physical Constraint parsed completed
+Running placement......
+[10%] Placement Phase 0 completed
+[20%] Placement Phase 1 completed
+[30%] Placement Phase 2 completed
+WARN  (TA1132) :  'tck_pad_i' was determined to be a clock but was not created.
+WARN  (TA1132) :  'u_gc0802_dev_cmos/tx_logic_clk' was determined to be a clock but was not created.
+WARN  (TA1132) :  'u_gc0802_dev_cmos/tx_out_clk_wire' was determined to be a clock but was not created.
+[50%] Placement Phase 3 completed
+Running routing......
+[60%] Routing Phase 0 completed
+[70%] Routing Phase 1 completed
+[80%] Routing Phase 2 completed
+WARN  (PR1014) : Generic routing resource will be used to clock signal 'sys_clk_d' by the specified constraint. And then it may lead to the excessive delay or skew
+[90%] Routing Phase 3 completed
+Running timing analysis......
+[95%] Timing analysis completed
+Placement and routing completed
+Bitstream generation in progress......
+Bitstream generation completed
+Running power analysis......
+[100%] Power analysis completed
+Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.power.html" completed
+Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.pin.html" completed
+Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.rpt.html" completed
+Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.rpt.txt" completed
+Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.tr.html" completed
+Sat Jul 25 21:54:45 2026
+

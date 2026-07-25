@@ -1,0 +1,27 @@
+<?xml version="1" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW5AT-60B" pn="GW5AT-LV60PG484AC1/I0">gw5at60b-002</Device>
+    <FileList>
+        <File path="src/dds_ii/dds_ii.v" type="file.verilog" enable="1"/>
+        <File path="src/eth2rf_process.v" type="file.verilog" enable="1"/>
+        <File path="src/eth_arp.v" type="file.verilog" enable="1"/>
+        <File path="src/eth_crc.v" type="file.verilog" enable="1"/>
+        <File path="src/eth_rxdv_ddr/eth_rxdv_ddr.v" type="file.verilog" enable="1"/>
+        <File path="src/eth_transceiver.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_ddr/eth_GMII2RGMII.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_ddr/eth_ddr.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_pll/gmii_pll.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_pll/gmii_pll_mod.v" type="file.verilog" enable="1"/>
+        <File path="src/phy_ad9361_cmos_dev.v" type="file.verilog" enable="1"/>
+        <File path="src/phy_gc0802_cmos_dev.v" type="file.verilog" enable="1"/>
+        <File path="src/phy_led.v" type="file.verilog" enable="1"/>
+        <File path="src/pll_init.v" type="file.verilog" enable="1"/>
+        <File path="src/top_sdr.v" type="file.verilog" enable="1"/>
+        <File path="src/sdr_base.cst" type="file.cst" enable="1"/>
+        <File path="src/sdr.sdc" type="file.sdc" enable="1"/>
+        <File path="src/ila_sdr.rao" type="file.gao" enable="1"/>
+    </FileList>
+</Project>
