@@ -11,6 +11,7 @@
         <File path="src/eth_crc.v" type="file.verilog" enable="1"/>
         <File path="src/eth_rxdv_ddr/eth_rxdv_ddr.v" type="file.verilog" enable="1"/>
         <File path="src/eth_transceiver.v" type="file.verilog" enable="1"/>
+        <File path="src/fifo_eth2rf/fifo_eth2rf.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_ddr/eth_GMII2RGMII.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_ddr/eth_ddr.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_pll/gmii_pll.v" type="file.verilog" enable="1"/>
@@ -19,6 +20,7 @@
         <File path="src/phy_gc0802_cmos_dev.v" type="file.verilog" enable="1"/>
         <File path="src/phy_led.v" type="file.verilog" enable="1"/>
         <File path="src/pll_init.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_process.v" type="file.verilog" enable="1"/>
         <File path="src/top_sdr.v" type="file.verilog" enable="1"/>
         <File path="src/sdr_base.cst" type="file.cst" enable="1"/>
         <File path="src/sdr.sdc" type="file.sdc" enable="1"/>

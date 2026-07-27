@@ -1,6 +1,5 @@
 module eth2rf_processor #(
     parameter FRAME_HEAD = 32'hEB90CAD3,  // 帧头标识
-    parameter FRAME_TAIL = 32'h55AA5C4B   // 帧尾标识
 )(
     // 以太网接收时钟域
     input  wire        eth_rx_clk,
@@ -9,286 +8,153 @@ module eth2rf_processor #(
     input  wire        rx_data_valid,
     input  wire        rx_frame_start,
     input  wire        rx_frame_end,
+    input  wire [15:0] rx_data_length,  
     
     // 射频发送时钟域
     input  wire        rf_tx_clk,
     input  wire        rf_tx_rst_n,
     output reg  [7:0]  rf_tx_data,
     output reg         rf_tx_valid,
+
     output wire        fifo_almost_full  // FIFO快满信号，用于流控
 );
 
-    // ========================================
-    // 1. 以太网接收侧状态机 (添加帧头帧尾)
-    // ========================================
-    localparam IDLE       = 4'd0;
-    localparam SEND_HEAD1 = 4'd1;
-    localparam SEND_HEAD2 = 4'd2;
-    localparam SEND_HEAD3 = 4'd3;
-    localparam SEND_HEAD4 = 4'd4;
-    localparam SEND_DATA  = 4'd5;
-    localparam SEND_TAIL1 = 4'd6;
-    localparam SEND_TAIL2 = 4'd7;
-    localparam SEND_TAIL3 = 4'd8;
-    localparam SEND_TAIL4 = 4'd9;
-    localparam SEND_LAST1 = 4'd10;
-    localparam SEND_LAST2 = 4'd11;
-    localparam SEND_LAST3 = 4'd12;
-    localparam SEND_LAST4 = 4'd13;
-    localparam SEND_LAST5 = 4'd14;
+localparam IDLE = 3'd0;
+localparam SEND_HEAD = 3'd1;
+localparam SEND_LEN  = 3'd2;
+localparam SEND_PAYLOAD = 3'd3;
+localparam SEND_CRC = 3'd4;
 
-    reg [3:0]  state;
-    reg [7:0]  fifo_wr_data;
-    reg        fifo_wr_en;
-    reg [7:0] temp_data1;
-    reg [7:0] temp_data2;
-    reg [7:0] temp_data3;
-    reg [7:0] temp_data4;
-    reg [7:0] temp_data5;
-    
-    // 状态机：添加帧头和帧尾
-    always @(posedge eth_rx_clk or negedge eth_rx_rst_n) begin
-        if (!eth_rx_rst_n) begin
-            state <= IDLE;
-            fifo_wr_data <= 8'd0;
-            fifo_wr_en <= 1'b0;
-            temp_data1 <= 8'd0;
-            temp_data2 <= 8'd0;
-            temp_data3 <= 8'd0;
-            temp_data4 <= 8'd0;
-            temp_data5 <= 8'd0;
-        end else begin
-            case (state)
-                IDLE: begin
-                    fifo_wr_en <= 1'b0;
-                    if (rx_data_valid) begin
-                        state <= SEND_HEAD1;
-                        temp_data1 <= rx_data;
-                    end
-                end
-                
-                SEND_HEAD1: begin
-                    fifo_wr_data <= FRAME_HEAD[31:24];  // 帧头高字节
-                    fifo_wr_en <= 1'b1;
-                    temp_data1 <= rx_data;
-                    temp_data2 <= temp_data1;
-                    state <= SEND_HEAD2;
-                end
-                
-                SEND_HEAD2: begin
-                    fifo_wr_data <= FRAME_HEAD[23:16];   // 帧头低字节
-                    fifo_wr_en <= 1'b1;
-                    temp_data1 <= rx_data;
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    state <= SEND_HEAD3;
-                end
+reg [2:0] send_state;
 
-                SEND_HEAD3: begin
-                    fifo_wr_data <= FRAME_HEAD[15:8];  // 帧头次高字节
-                    fifo_wr_en <= 1'b1;
-                    temp_data1 <= rx_data;
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    state <= SEND_HEAD4;
-                end
+reg [41:0] payload_buffer;
+reg [7:0]  fifo_data_in;
+reg        fifo_wr_en;
+reg [15:0] eth_data_cnt;
+reg [15:0] payload_length;
 
-                SEND_HEAD4: begin
-                    fifo_wr_data <= FRAME_HEAD[7:0];   // 帧头次低字节
-                    fifo_wr_en <= 1'b1;
-                    temp_data1 <= rx_data;
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    state <= SEND_DATA;
-                end
-
-                SEND_DATA: begin
-                    if (!rx_frame_end) begin
-                        temp_data1 <= rx_data;
-                        temp_data2 <= temp_data1;
-                        temp_data3 <= temp_data2;
-                        temp_data4 <= temp_data3;
-                        temp_data5 <= temp_data4;
-                        fifo_wr_data <= temp_data5;
-                        fifo_wr_en <= 1'b1;
-                    end else begin
-                        fifo_wr_en <= 1'b0;
-                        state <= SEND_TAIL1;
-                    end
-                end
-                
-                SEND_TAIL1: begin
-                    temp_data1 <= FRAME_TAIL[31:24];  // 帧尾高字节
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_TAIL2;
-                end
-                
-                SEND_TAIL2: begin
-                    temp_data1 <= FRAME_TAIL[23:16];   // 帧尾次低字节
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_TAIL3;
-                end
-
-                SEND_TAIL3: begin
-                    temp_data1 <= FRAME_TAIL[15:8];  // 帧尾次高字节
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_TAIL4;
-                end
-
-                SEND_TAIL4: begin
-                    temp_data1 <= FRAME_TAIL[7:0];   // 帧尾次低字节
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_LAST1;
-                end
-
-                SEND_LAST1: begin
-                    temp_data1 <= 8'd0;
-                    temp_data2 <= temp_data1;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_LAST2;
-                end
-
-                SEND_LAST2: begin
-                    temp_data2 <= 8'd0;
-                    temp_data3 <= temp_data2;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_LAST3;
-                end
-
-                SEND_LAST3: begin
-                    temp_data3 <= 8'd0;
-                    temp_data4 <= temp_data3;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_LAST4;
-                end
-
-                SEND_LAST4: begin
-                    temp_data4 <= 8'd0;
-                    temp_data5 <= temp_data4;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= SEND_LAST5;
-                end
-
-                SEND_LAST5: begin
-                    temp_data5 <= 8'd0;
-                    fifo_wr_data <= temp_data5;
-                    fifo_wr_en <= 1'b1;
-                    state <= IDLE;
-                end
-                
-                default: begin
-                    state <= IDLE;
-                    fifo_wr_en <= 1'b0;
-                end
-            endcase
-        end
+always @(posedge eth_rx_clk or negedge eth_rx_rst_n) begin
+    if (!eth_rx_rst_n) begin
+        send_state <= IDLE;
+        payload_buffer <= 42'd0;
+        fifo_data_in <= 8'd0;
+        fifo_wr_en <= 1'b0;
+        payload_length <= 16'd0;
+        eth_data_cnt <= 16'd0;
     end
+    else begin
+        case (send_state)
+            IDLE: begin
+                payload_buffer <= 42'd0;
+                fifo_data_in <= 8'd0;
+                eth_data_cnt <= 16'd0;
 
-    // ========================================
-    // 2. 异步FIFO例化 (跨时钟域)
-    // ========================================
-    wire [7:0] fifo_rd_data;
-    wire       fifo_empty;
-    wire       fifo_full;
-    reg        fifo_rd_en;
-    
-    fifo_eth_rx fifo_eth_rx_u0 (
-        .Data(fifo_wr_data),        // input [7:0]
-        .WrClk(eth_rx_clk),         // input
-        .RdClk(rf_tx_clk),          // input
-        .WrEn(fifo_wr_en),          // input
-        .RdEn(fifo_rd_en),          // input
-        .Q(fifo_rd_data),           // output [7:0]
-        .Empty(fifo_empty),         // output
-        .Full(fifo_full)            // output
-    );
-    
-    // FIFO快满信号生成 (可选，用于背压控制)
-    // 注意：需要FIFO IP核支持Almost_Full信号，或者通过计数器估算
-    assign fifo_almost_full = fifo_full;  // 简化处理，实际应使用almost_full
+                if (rx_frame_start) begin
+                    send_state <= SEND_HEAD;
+                    fifo_wr_en <= 1'b1;
+                    payload_length <= rx_data_length;
+                end
+            end
+            SEND_HEAD: begin
+                eth_data_cnt <= eth_data_cnt + 1'b1;
+                payload_buffer <= {payload_buffer[41:8], rx_data};
+                case (eth_data_cnt)
+                    16'd0: fifo_data_in <= FRAME_HEAD[31:24];
+                    16'd1: fifo_data_in <= FRAME_HEAD[23:16];
+                    16'd2: fifo_data_in <= FRAME_HEAD[15:8];
+                    16'd3: begin
+                        fifo_data_in <= FRAME_HEAD[7:0];
+                        send_state <= SEND_LEN;
+                        eth_data_cnt <= 16'd0;
+                    end
+                    default: begin
+                        send_state <= IDLE;
+                    end
+                endcase
+            end
+            SEND_LEN: begin
+                eth_data_cnt <= eth_data_cnt + 1'b1;
+                fifo_data_in <= payload_length[15 - 8*eth_data_cnt +: 8];
+                payload_buffer <= {payload_buffer[41:8], rx_data};
+                if (eth_data_cnt == 16'd1) begin
+                    send_state <= SEND_PAYLOAD;
+                    eth_data_cnt <= 16'd0;
+                end
+            end
+            SEND_PAYLOAD: begin
+                eth_data_cnt <= eth_data_cnt + 1'b1;
+                fifo_data_in <= payload_buffer[41:34];
+                payload_buffer <= {payload_buffer[41:8], rx_data};
+                if (eth_data_cnt == payload_length - 1) begin
+                    send_state <= SEND_CRC;
+                    eth_data_cnt <= 16'd0;
+                end
+            end
+            SEND_CRC: begin
+                eth_data_cnt <= eth_data_cnt + 1'b1;
+                fifo_data_in <= 7'd0; // CRC占位符，实际CRC计算可在接收端实现
+                if (eth_data_cnt == 16'd3) begin
+                    send_state <= IDLE;
+                    fifo_wr_en <= 1'b0;
+                end
+            end
+        endcase
+    end
+end
 
-    // ========================================
-    // 3. 射频发送侧读取控制
-    // ========================================
-    reg [1:0] rd_state;
-    localparam RD_IDLE = 2'd0;
-    localparam RD_READ = 2'd1;
-    localparam RD_WAIT = 2'd2;
-    
-    // 读取状态机：从FIFO读取数据并输出
-    always @(posedge rf_tx_clk or negedge rf_tx_rst_n) begin
-        if (!rf_tx_rst_n) begin
-            rd_state <= RD_IDLE;
-            fifo_rd_en <= 1'b0;
-            rf_tx_data <= 8'd0;
-            rf_tx_valid <= 1'b0;
-        end else begin
-            case (rd_state)
-                RD_IDLE: begin
+reg [1:0] rd_state;
+localparam RD_IDLE = 2'd0;
+localparam RD_READ = 2'd1;
+localparam RD_WAIT = 2'd2;
+
+always @(posedge rf_tx_clk or negedge rf_tx_rst_n) begin
+    if (!rf_tx_rst_n) begin
+        rd_state <= RD_IDLE;
+        fifo_rd_en <= 1'b0;
+        rf_tx_data <= 8'd0;
+        rf_tx_valid <= 1'b0;
+    end else begin
+        case (rd_state)
+            RD_IDLE: begin
+                if (!fifo_empty) begin
+                    fifo_rd_en <= 1'b1;
+                    rd_state <= RD_READ;
+                end else begin
                     fifo_rd_en <= 1'b0;
                     rf_tx_valid <= 1'b0;
-                    if (!fifo_empty) begin
-                        fifo_rd_en <= 1'b1;
-                        rd_state <= RD_READ;
-                    end
                 end
-                
-                RD_READ: begin
-                    fifo_rd_en <= 1'b0;
-                    rd_state <= RD_WAIT;
-                end
-                
-                RD_WAIT: begin
 
-                    rf_tx_data <= fifo_rd_data;
-                    rf_tx_valid <= 1'b1;
-                    
-                    if (!fifo_empty) begin
-                        fifo_rd_en <= 1'b1;
-                        rd_state <= RD_WAIT;
-                    end else begin
-                        rd_state <= RD_IDLE;
-                    end
-                end
+            end
+       
+            RD_READ: begin
+                rf_tx_data <= fifo_rd_data;
+                rf_tx_valid <= 1'b1;
                 
-                default: begin
+                if (fifo_empty) begin
                     rd_state <= RD_IDLE;
+                    fifo_rd_en <= 1'b0;
+                end else begin
+                    fifo_rd_en <= 1'b1; 
                 end
-            endcase
-        end
+            end
+            
+            default: begin
+                rd_state <= RD_IDLE;
+            end
+        endcase
     end
+end
+
+    fifo_eth2rf u_fifo_eth2rf(
+		.Data(fifo_data_in), //input [7:0] Data
+		.WrClk(eth_rx_clk), //input WrClk
+		.RdClk(rf_tx_clk), //input RdClk
+		.WrEn(fifo_wr_en), //input WrEn
+		.RdEn(fifo_rd_en), //input RdEn
+		.Almost_Full(fifo_almost_full), //output Almost_Full
+		.Q(fifo_rd_data), //output [7:0] Q
+		.Empty(fifo_empty), //output Empty
+		.Full() //output Full
+	);
 
 endmodule

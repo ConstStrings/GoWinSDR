@@ -60,6 +60,14 @@
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
    "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
+   "Type" : "verilog"
   }
  ],
  "IncludePath" : [

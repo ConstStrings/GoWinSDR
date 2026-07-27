@@ -126,5 +126,13 @@
     "ModuleName" : "phy_led"
    }
   ]
+ },
+ {
+  "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
+  "InstLine" : 1,
+  "InstName" : "eth2rf_processor",
+  "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
+  "ModuleLine" : 1,
+  "ModuleName" : "eth2rf_processor"
  }
 ]
