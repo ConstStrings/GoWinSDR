@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="fifo_rf_databuf" Register="56" Alu="6" Lut="43" Bsram="1" T_Register="56(56)" T_Alu="6(6)" T_Lut="43(43)" T_Bsram="1(1)"/>

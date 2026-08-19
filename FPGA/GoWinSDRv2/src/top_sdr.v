@@ -1,6 +1,9 @@
-module top  #(
-    parameter                           SAMPLE_RATE = 32'd61440000 ,
-    parameter                           BIT_RATE    = 32'd10000000   
+﻿module top  #(
+    parameter                           SAMPLE_RATE = 32'd12500000 ,
+    parameter                           SYMBOL_RATE = 32'd12500000 ,
+    parameter                           IDLE_CARRIER_ENABLE = 1'b0,
+    // Temporarily bypass RRC for transmit-path bring-up.
+    parameter                           RRC_BYPASS_ENABLE = 1'b1
 )(
     input                               sys_clk                    ,
     input                               rst_n                      ,
@@ -32,116 +35,203 @@ module top  #(
                         
     );
 
-assign dac_data_in_i1 = sine;
-assign dac_data_in_q1 = cosine;
-assign dac_data_in_i2 = 12'd0;
-assign dac_data_in_q2 = 12'd0;
-
+// ============================================================
+// Clock & Reset
+// ============================================================
 wire                                    data_clk                   ;
-wire                   [  11:0]         sine                       ;
-wire                   [  11:0]         cosine                     ;
+wire                                    bb_symbol_clk              ;
+wire                                    bb_byte_clk                ;
+reg  [1:0]                              bb_byte_clk_div            ;
 
+// --- RF PLL: sys_clk (50MHz) -> 12.5 MHz symbol clock ---
+rf_PLL rf_PLL_u0(
+    .clkin   (sys_clk),
+    .clkout0 (bb_symbol_clk),
+    .mdclk   (sys_clk)
+);
+
+// One DQPSK byte comprises four 2-bit symbols.
+always @(posedge bb_symbol_clk or negedge rst_n) begin
+    if (!rst_n) begin
+        bb_byte_clk_div <= 2'd0;
+    end else begin
+        bb_byte_clk_div <= bb_byte_clk_div + 1'b1;
+    end
+end
+
+assign bb_byte_clk = bb_byte_clk_div[1];
+
+// ============================================================
+// RF Frontend (ADC/DAC DDR interface)
+// ============================================================
 wire                   [  11:0]         adc_data_out_i1            ;
 wire                   [  11:0]         adc_data_out_q1            ;
 wire                                    adc_out_valid              ;
 wire                                    adc_status                 ;
 
-wire                   [  11:0]         dac_data_in_i1             ;
-wire                   [  11:0]         dac_data_in_q1             ;
-wire                                    dac_in_valid               ;
+wire                   [  11:0]         dac_data_in_i1_w           ;
+wire                   [  11:0]         dac_data_in_q1_w           ;
+wire                                    dac_in_valid_w             ;
+
+gc0802_cmos_dev u_gc0802_dev_cmos(
+    .rst_n           (rst_n),
+    .clk_50m         (sys_clk),
+    .data_clk        (data_clk),
+        
+    .rx_data_in      (rx_data_in),
+    .rx_clk_in_p     (rx_clk_in_p),
+    .rx_frame_in_p   (rx_frame_in_p),
+       
+    .adc_data_out_i1 (adc_data_out_i1),
+    .adc_data_out_q1 (adc_data_out_q1),
+    .adc_out_valid   (adc_out_valid),
+    .adc_status      (adc_status),
+        
+    .dac_data_in_i1  (dac_data_in_i1_w),
+    .dac_data_in_q1  (dac_data_in_q1_w),
+    .dac_in_valid    (dac_in_valid_w),
+       
+    .tx_data_out     (tx_data_out),
+    .tx_clk_out_p    (tx_clk_out_p),
+    .tx_frame_out_p  (tx_frame_out_p),
+
+    .en_agc          (en_agc),
+    .enable          (enable),
+    .txnrx           (txnrx),
+    .reset           (reset)
+);
+
+// ============================================================
+// Ethernet
+// ============================================================
 wire                   [   7:0]         eth_rx_data                ;
 wire                                    eth_rx_data_valid          ;
 wire                                    eth_rx_frame_start         ;
 wire                                    eth_rx_frame_end           ;
+wire                   [  15:0]         eth_udp_length         ;
 wire                   [   7:0]         eth_tx_data                ;
 wire                                    eth_tx_data_valid          ;
 wire                                    eth_tx_frame_start         ;
 wire                                    eth_tx_ready               ;
 wire                                    eth_active                 ;
 
-assign dac_in_valid = rst_n;
+eth_transceiver #(
+    .BOARD_MAC   (48'h12_34_56_78_90_12),
+    .BOARD_IP    ({8'd192,8'd168,8'd3,8'd2}),
+    .BOARD_PORT  (16'h8000),
+    .DES_MAC     (48'hff_ff_ff_ff_ff_ff),
+    .DES_IP      ({8'd192,8'd168,8'd3,8'd3}),
+    .DES_PORT    (16'h8000)
+) eth_transceiver_u(
+    .sys_clk         (sys_clk),
+    .rst_n           (rst_n),
+    .PHY_CLK         (),
+    .RGMII_RXCLK     (RGMII_RXCLK),
+    .RGMII_RXD       (RGMII_RXD),
+    .RGMII_RXDV      (RGMII_RXDV),
+    .RGMII_GTXCLK    (RGMII_GTXCLK),
+    .RGMII_TXD       (RGMII_TXD),
+    .RGMII_TXEN      (RGMII_TXEN),
+    .RGMII_RST_N     (RGMII_RST_N),
+    .tx_data         (eth_tx_data),
+    .tx_data_valid   (eth_tx_data_valid),
+    .tx_frame_start  (eth_tx_frame_start),
+    .tx_ready        (eth_tx_ready),
+    .rx_data         (eth_rx_data),
+    .rx_data_valid   (eth_rx_data_valid),
+    .rx_frame_start  (eth_rx_frame_start),
+    .rx_frame_end    (eth_rx_frame_end),
+    .udp_length  (eth_udp_length),
+    .eth_active      (eth_active)
+);
 
-assign eth_tx_data        = eth_rx_data;
-assign eth_tx_data_valid  = eth_rx_data_valid;
-assign eth_tx_frame_start = eth_rx_frame_start;
+// Ethernet TX loopback disabled (was test-only)
+assign eth_tx_data        = 8'd0;
+assign eth_tx_data_valid  = 1'b0;
+assign eth_tx_frame_start = 1'b0;
 
-    gc0802_cmos_dev u_gc0802_dev_cmos(
-    .rst_n                             (rst_n                     ),
-    .clk_50m                           (sys_clk                   ), // 50MHz 系统时钟基准
-        
-    .data_clk                          (data_clk                  ),
-       
-    .rx_data_in                        (rx_data_in                ),
-    .rx_clk_in_p                       (rx_clk_in_p               ),
-    .rx_frame_in_p                     (rx_frame_in_p             ),
-       
-    .adc_data_out_i1                   (adc_data_out_i1           ),
-    .adc_data_out_q1                   (adc_data_out_q1           ),
-    .adc_out_valid                     (adc_out_valid             ),
-    .adc_status                        (adc_status                ),
-        
-    .dac_data_in_i1                    (dac_data_in_i1            ),
-    .dac_data_in_q1                    (dac_data_in_q1            ),
-    .dac_in_valid                      (dac_in_valid              ),
-       
-    .tx_data_out                       (tx_data_out               ),
-    .tx_clk_out_p                      (tx_clk_out_p              ),
-    .tx_frame_out_p                    (tx_frame_out_p            ),
-
-    .en_agc                            (en_agc                    ),
-    .enable                            (enable                    ),
-    .txnrx                             (txnrx                     ),
-    .reset                             (reset                     )
-    );
+// ============================================================
+// ETH -> RF byte-clock domain (FIFO crossing from RGMII_RXCLK to bb_byte_clk)
+// ============================================================
+wire                   [   7:0]         rf_tx_data                 ;
+wire                                    rf_tx_valid                ;
+wire                                    rf_tx_ready                ;
+wire                                    fifo_eth_almost_full       ;
 
 
+eth2rf_processor #(
+    .FRAME_HEAD (32'hEB90CAD3)
+) u_eth2rf_processor (
+    .eth_rx_clk       (RGMII_RXCLK),
+    .eth_rx_rst_n     (rst_n),
+    .rx_data          (eth_rx_data),
+    .rx_data_valid    (eth_rx_data_valid),
+    .rx_frame_start   (eth_rx_frame_start),
+    .rx_frame_end     (eth_rx_frame_end),
+    .udp_length   (eth_udp_length),
+    
+    .rf_tx_clk        (bb_byte_clk),
+    .rf_tx_rst_n      (rst_n),
+    .rf_tx_ready      (rf_tx_ready),
+    .rf_tx_data       (rf_tx_data),
+    .rf_tx_valid      (rf_tx_valid),
 
-    DDS_II_Top dds_test_u(
-    .clk_i                             (data_clk                  ),//input clk_i
-    .rst_n_i                           (rst_n                     ),//input rst_n_i
-    .cosine_o                          (cosine                    ), //output [11:0] cosine_o
-    .sine_o                            (sine                      ),//output [11:0] sine_o
-    .data_valid_o                      (                          ) //output data_valid_o
-    );
+    .fifo_almost_full (fifo_eth_almost_full)
+);
 
-    eth_transceiver #(
-    .BOARD_MAC                         (48'h12_34_56_78_90_12     ),
-    .BOARD_IP                          ({8'd192,8'd168,8'd3,8'd2} ),
-    .BOARD_PORT                        (16'h8000                  ),
-    .DES_MAC                           (48'hff_ff_ff_ff_ff_ff     ),
-    .DES_IP                            ({8'd192,8'd168,8'd3,8'd3} ),
-    .DES_PORT                          (16'h8000                  )
-    ) eth_transceiver_u(
-    .sys_clk                           (sys_clk                   ),
-    .rst_n                             (rst_n                     ),
-    .PHY_CLK                           (                          ),
-    .RGMII_RXCLK                       (RGMII_RXCLK               ),
-    .RGMII_RXD                         (RGMII_RXD                 ),
-    .RGMII_RXDV                        (RGMII_RXDV                ),
-    .RGMII_GTXCLK                      (RGMII_GTXCLK              ),
-    .RGMII_TXD                         (RGMII_TXD                 ),
-    .RGMII_TXEN                        (RGMII_TXEN                ),
-    .RGMII_RST_N                       (RGMII_RST_N               ),
-    .tx_data                           (eth_tx_data               ),
-    .tx_data_valid                     (eth_tx_data_valid         ),
-    .tx_frame_start                    (eth_tx_frame_start        ),
-    .tx_ready                          (eth_tx_ready              ),
-    .rx_data                           (eth_rx_data               ),
-    .rx_data_valid                     (eth_rx_data_valid         ),
-    .rx_frame_start                    (eth_rx_frame_start        ),
-    .rx_frame_end                      (eth_rx_frame_end          ),
-    .eth_active                        (eth_active                )
-    );
+// ============================================================
+// RF Signal Processing (DQPSK encoder + RRC + FIFO -> DAC)
+// ============================================================
+wire                   [  11:0]         dac_data_out_i1            ;
+wire                   [  11:0]         dac_data_out_q1            ;
+wire                                    dac_out_valid              ;
 
-    phy_led phy_led_u(
-    .sys_clk                            (sys_clk                   ),
-    .rst_n                              (rst_n                     ),
-    .eth_act                            (1'b0                      ),
-    .error                              (1'b1                      ),
-    .data_clk                           (data_clk                  ),
-    .rx_act                             (1'b0                      ),
-    .tx_act                             (1'b0                      ),
-    .led                                (led                       )
-    );
+rf_process #(
+    .SAMPLE_RATE          (SAMPLE_RATE),
+    .SYMBOL_RATE          (SYMBOL_RATE),
+    .IDLE_CARRIER_ENABLE  (IDLE_CARRIER_ENABLE),
+    .RRC_BYPASS_ENABLE    (RRC_BYPASS_ENABLE)
+) u_rf_process (
+    .sys_clk         (sys_clk),
+    .rst_n           (rst_n),
+    .sample_clk      (data_clk),
+    .bb_symbol_clk   (bb_symbol_clk),
+    .bb_byte_clk     (bb_byte_clk),
+
+    // RX (from ADC)
+    .adc_data_in_i1  (adc_data_out_i1),
+    .adc_data_in_q1  (adc_data_out_q1),
+    .adc_in_valid    (adc_out_valid),
+
+    // TX (from Ethernet via CDC)
+    .tx_data_in      (rf_tx_data),
+    .tx_clk_in       (bb_byte_clk),
+    .tx_data_valid   (rf_tx_valid),
+    .tx_data_ready   (rf_tx_ready),
+
+    // TX (to DAC)
+    .dac_data_out_i1 (dac_data_out_i1),
+    .dac_data_out_q1 (dac_data_out_q1),
+    .dac_out_valid   (dac_out_valid)
+);
+
+// Connect rf_process DAC outputs to RF frontend
+assign dac_data_in_i1_w = dac_data_out_i1;
+assign dac_data_in_q1_w = dac_data_out_q1;
+assign dac_in_valid_w   = dac_out_valid;
+
+// ============================================================
+// Status LEDs
+// ============================================================
+phy_led phy_led_u(
+    .sys_clk  (sys_clk),
+    .rst_n    (rst_n),
+    .eth_act  (eth_active),
+    .error    (fifo_eth_almost_full),
+    .data_clk (data_clk),
+    .rx_act   (adc_out_valid),
+    .tx_act   (dac_out_valid),
+    .led      (led)
+);
 
 endmodule

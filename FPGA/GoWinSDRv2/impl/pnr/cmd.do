@@ -4,7 +4,7 @@
 -cst D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\sdr_base.cst
 -cfg D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\device.cfg
 -sdc D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\sdr.sdc
--gao_crc 0010111101001100
+-gao_crc 1011111111011100
 -bit
 -tr
 -ph

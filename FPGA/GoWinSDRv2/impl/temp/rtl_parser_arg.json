@@ -2,7 +2,15 @@
  "Device" : "GW5AT-60B",
  "Files" : [
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/RRC_fir_filter/RRC_fir_filter.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii/dds_ii.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
    "Type" : "verilog"
   },
   {
@@ -14,11 +22,35 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_rxdv_ddr/eth_rxdv_ddr.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_databuf/fifo_rf_databuf.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_tx/fifo_rf.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_tx/fifo_rf_tx.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_GMII2RGMII.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_ddr.v",
    "Type" : "verilog"
   },
   {
@@ -46,27 +78,23 @@
    "Type" : "verilog"
   },
   {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_dqpsk_encoder.v",
    "Type" : "verilog"
   },
   {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_ddr.v",
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
    "Type" : "verilog"
   },
   {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_rxdv_ddr/eth_rxdv_ddr.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll_mod.v",
    "Type" : "verilog"
   },
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
    "Type" : "verilog"
   }
  ],

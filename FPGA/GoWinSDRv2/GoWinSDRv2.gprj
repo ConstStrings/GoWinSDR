@@ -5,6 +5,7 @@
     <Version>5</Version>
     <Device name="GW5AT-60B" pn="GW5AT-LV60PG484AC1/I0">gw5at60b-002</Device>
     <FileList>
+        <File path="src/RRC_fir_filter/RRC_fir_filter.v" type="file.verilog" enable="1"/>
         <File path="src/dds_ii/dds_ii.v" type="file.verilog" enable="1"/>
         <File path="src/eth2rf_process.v" type="file.verilog" enable="1"/>
         <File path="src/eth_arp.v" type="file.verilog" enable="1"/>
@@ -12,6 +13,9 @@
         <File path="src/eth_rxdv_ddr/eth_rxdv_ddr.v" type="file.verilog" enable="1"/>
         <File path="src/eth_transceiver.v" type="file.verilog" enable="1"/>
         <File path="src/fifo_eth2rf/fifo_eth2rf.v" type="file.verilog" enable="1"/>
+        <File path="src/fifo_rf_databuf/fifo_rf_databuf.v" type="file.verilog" enable="1"/>
+        <File path="src/fifo_rf_tx/fifo_rf.v" type="file.verilog" enable="1"/>
+        <File path="src/fifo_rf_tx/fifo_rf_tx.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_ddr/eth_GMII2RGMII.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_ddr/eth_ddr.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_pll/gmii_pll.v" type="file.verilog" enable="1"/>
@@ -20,6 +24,9 @@
         <File path="src/phy_gc0802_cmos_dev.v" type="file.verilog" enable="1"/>
         <File path="src/phy_led.v" type="file.verilog" enable="1"/>
         <File path="src/pll_init.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_dqpsk_encoder.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_pll/rf_pll.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_pll/rf_pll_mod.v" type="file.verilog" enable="1"/>
         <File path="src/rf_process.v" type="file.verilog" enable="1"/>
         <File path="src/top_sdr.v" type="file.verilog" enable="1"/>
         <File path="src/sdr_base.cst" type="file.cst" enable="1"/>

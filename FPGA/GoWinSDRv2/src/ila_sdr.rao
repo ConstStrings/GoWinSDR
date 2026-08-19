@@ -2,7 +2,7 @@
 <GAO_CONFIG>
     <Version>3.0</Version>
     <Mode>Standard</Mode>
-    <AoCore index="0" sample_clock="eth_transceiver_u/clk_125m" trig_type="0" storage_depth="1024" window_num="1" capture_amount="1024" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
+    <AoCore index="0" sample_clock="RGMII_RXCLK" trig_type="0" storage_depth="8192" window_num="1" capture_amount="8192" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
         <SignalList>
             <Bus capture_enable="true" name="adc_data_out_i1[11:0]">
                 <Signal>adc_data_out_i1[11]</Signal>
@@ -32,148 +32,51 @@
                 <Signal>adc_data_out_q1[1]</Signal>
                 <Signal>adc_data_out_q1[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="dac_data_in_i1[11:0]">
-                <Signal>dac_data_in_i1[11]</Signal>
-                <Signal>dac_data_in_i1[10]</Signal>
-                <Signal>dac_data_in_i1[9]</Signal>
-                <Signal>dac_data_in_i1[8]</Signal>
-                <Signal>dac_data_in_i1[7]</Signal>
-                <Signal>dac_data_in_i1[6]</Signal>
-                <Signal>dac_data_in_i1[5]</Signal>
-                <Signal>dac_data_in_i1[4]</Signal>
-                <Signal>dac_data_in_i1[3]</Signal>
-                <Signal>dac_data_in_i1[2]</Signal>
-                <Signal>dac_data_in_i1[1]</Signal>
-                <Signal>dac_data_in_i1[0]</Signal>
+            <Bus capture_enable="true" name="dac_data_out_i1[11:0]">
+                <Signal>dac_data_out_i1[11]</Signal>
+                <Signal>dac_data_out_i1[10]</Signal>
+                <Signal>dac_data_out_i1[9]</Signal>
+                <Signal>dac_data_out_i1[8]</Signal>
+                <Signal>dac_data_out_i1[7]</Signal>
+                <Signal>dac_data_out_i1[6]</Signal>
+                <Signal>dac_data_out_i1[5]</Signal>
+                <Signal>dac_data_out_i1[4]</Signal>
+                <Signal>dac_data_out_i1[3]</Signal>
+                <Signal>dac_data_out_i1[2]</Signal>
+                <Signal>dac_data_out_i1[1]</Signal>
+                <Signal>dac_data_out_i1[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="dac_data_in_q1[11:0]">
-                <Signal>dac_data_in_q1[11]</Signal>
-                <Signal>dac_data_in_q1[10]</Signal>
-                <Signal>dac_data_in_q1[9]</Signal>
-                <Signal>dac_data_in_q1[8]</Signal>
-                <Signal>dac_data_in_q1[7]</Signal>
-                <Signal>dac_data_in_q1[6]</Signal>
-                <Signal>dac_data_in_q1[5]</Signal>
-                <Signal>dac_data_in_q1[4]</Signal>
-                <Signal>dac_data_in_q1[3]</Signal>
-                <Signal>dac_data_in_q1[2]</Signal>
-                <Signal>dac_data_in_q1[1]</Signal>
-                <Signal>dac_data_in_q1[0]</Signal>
+            <Bus capture_enable="true" name="dac_data_out_q1[11:0]">
+                <Signal>dac_data_out_q1[11]</Signal>
+                <Signal>dac_data_out_q1[10]</Signal>
+                <Signal>dac_data_out_q1[9]</Signal>
+                <Signal>dac_data_out_q1[8]</Signal>
+                <Signal>dac_data_out_q1[7]</Signal>
+                <Signal>dac_data_out_q1[6]</Signal>
+                <Signal>dac_data_out_q1[5]</Signal>
+                <Signal>dac_data_out_q1[4]</Signal>
+                <Signal>dac_data_out_q1[3]</Signal>
+                <Signal>dac_data_out_q1[2]</Signal>
+                <Signal>dac_data_out_q1[1]</Signal>
+                <Signal>dac_data_out_q1[0]</Signal>
             </Bus>
+            <Signal capture_enable="true">bb_symbol_clk</Signal>
             <Signal capture_enable="true">data_clk</Signal>
-            <Bus capture_enable="true" name="eth_transceiver_u/tx_data[7:0]">
-                <Signal>eth_transceiver_u/tx_data[7]</Signal>
-                <Signal>eth_transceiver_u/tx_data[6]</Signal>
-                <Signal>eth_transceiver_u/tx_data[5]</Signal>
-                <Signal>eth_transceiver_u/tx_data[4]</Signal>
-                <Signal>eth_transceiver_u/tx_data[3]</Signal>
-                <Signal>eth_transceiver_u/tx_data[2]</Signal>
-                <Signal>eth_transceiver_u/tx_data[1]</Signal>
-                <Signal>eth_transceiver_u/tx_data[0]</Signal>
+            <Signal capture_enable="true">bb_byte_clk</Signal>
+            <Bus capture_enable="true" name="u_rf_process/tx_data_in[7:0]">
+                <Signal>u_rf_process/tx_data_in[7]</Signal>
+                <Signal>u_rf_process/tx_data_in[6]</Signal>
+                <Signal>u_rf_process/tx_data_in[5]</Signal>
+                <Signal>u_rf_process/tx_data_in[4]</Signal>
+                <Signal>u_rf_process/tx_data_in[3]</Signal>
+                <Signal>u_rf_process/tx_data_in[2]</Signal>
+                <Signal>u_rf_process/tx_data_in[1]</Signal>
+                <Signal>u_rf_process/tx_data_in[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rx_data[7:0]">
-                <Signal>eth_transceiver_u/rx_data[7]</Signal>
-                <Signal>eth_transceiver_u/rx_data[6]</Signal>
-                <Signal>eth_transceiver_u/rx_data[5]</Signal>
-                <Signal>eth_transceiver_u/rx_data[4]</Signal>
-                <Signal>eth_transceiver_u/rx_data[3]</Signal>
-                <Signal>eth_transceiver_u/rx_data[2]</Signal>
-                <Signal>eth_transceiver_u/rx_data[1]</Signal>
-                <Signal>eth_transceiver_u/rx_data[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rx_state[3:0]">
-                <Signal>eth_transceiver_u/rx_state[3]</Signal>
-                <Signal>eth_transceiver_u/rx_state[2]</Signal>
-                <Signal>eth_transceiver_u/rx_state[1]</Signal>
-                <Signal>eth_transceiver_u/rx_state[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rx_eth_type[15:0]">
-                <Signal>eth_transceiver_u/rx_eth_type[15]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[14]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[13]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[12]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[11]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[10]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[9]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[8]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[7]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[6]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[5]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[4]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[3]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[2]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[1]</Signal>
-                <Signal>eth_transceiver_u/rx_eth_type[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rx_dest_mac[47:0]">
-                <Signal>eth_transceiver_u/rx_dest_mac[47]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[46]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[45]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[44]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[43]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[42]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[41]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[40]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[39]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[38]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[37]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[36]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[35]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[34]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[33]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[32]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[31]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[30]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[29]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[28]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[27]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[26]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[25]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[24]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[23]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[22]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[21]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[20]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[19]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[18]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[17]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[16]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[15]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[14]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[13]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[12]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[11]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[10]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[9]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[8]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[7]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[6]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[5]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[4]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[3]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[2]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[1]</Signal>
-                <Signal>eth_transceiver_u/rx_dest_mac[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="RGMII_RXD[3:0]">
-                <Signal>RGMII_RXD[3]</Signal>
-                <Signal>RGMII_RXD[2]</Signal>
-                <Signal>RGMII_RXD[1]</Signal>
-                <Signal>RGMII_RXD[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rgmii_rxd_ddr[7:0]">
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[7]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[6]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[5]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[4]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[3]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[2]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[1]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rxd_ddr[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rgmii_rx_ctl_ddr[1:0]">
-                <Signal>eth_transceiver_u/rgmii_rx_ctl_ddr[1]</Signal>
-                <Signal>eth_transceiver_u/rgmii_rx_ctl_ddr[0]</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/send_state[2:0]">
+                <Signal>u_eth2rf_processor/send_state[2]</Signal>
+                <Signal>u_eth2rf_processor/send_state[1]</Signal>
+                <Signal>u_eth2rf_processor/send_state[0]</Signal>
             </Bus>
             <Bus capture_enable="true" name="eth_transceiver_u/gmii_rxd[7:0]">
                 <Signal>eth_transceiver_u/gmii_rxd[7]</Signal>
@@ -185,78 +88,74 @@
                 <Signal>eth_transceiver_u/gmii_rxd[1]</Signal>
                 <Signal>eth_transceiver_u/gmii_rxd[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/rx_cnt[15:0]">
-                <Signal>eth_transceiver_u/rx_cnt[15]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[14]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[13]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[12]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[11]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[10]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[9]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[8]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[7]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[6]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[5]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[4]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[3]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[2]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[1]</Signal>
-                <Signal>eth_transceiver_u/rx_cnt[0]</Signal>
+            <Bus capture_enable="true" name="eth_udp_length[15:0]">
+                <Signal>eth_udp_length[15]</Signal>
+                <Signal>eth_udp_length[14]</Signal>
+                <Signal>eth_udp_length[13]</Signal>
+                <Signal>eth_udp_length[12]</Signal>
+                <Signal>eth_udp_length[11]</Signal>
+                <Signal>eth_udp_length[10]</Signal>
+                <Signal>eth_udp_length[9]</Signal>
+                <Signal>eth_udp_length[8]</Signal>
+                <Signal>eth_udp_length[7]</Signal>
+                <Signal>eth_udp_length[6]</Signal>
+                <Signal>eth_udp_length[5]</Signal>
+                <Signal>eth_udp_length[4]</Signal>
+                <Signal>eth_udp_length[3]</Signal>
+                <Signal>eth_udp_length[2]</Signal>
+                <Signal>eth_udp_length[1]</Signal>
+                <Signal>eth_udp_length[0]</Signal>
             </Bus>
-            <Signal capture_enable="true">RGMII_RXDV</Signal>
-            <Signal capture_enable="true">eth_transceiver_u/gmii_rxdv</Signal>
-            <Signal capture_enable="true">eth_transceiver_u/gmii_rxer</Signal>
-            <Bus capture_enable="true" name="eth_transceiver_u/gmii_txd[7:0]">
-                <Signal>eth_transceiver_u/gmii_txd[7]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[6]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[5]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[4]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[3]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[2]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[1]</Signal>
-                <Signal>eth_transceiver_u/gmii_txd[0]</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/fifo_data_in[7:0]">
+                <Signal>u_eth2rf_processor/fifo_data_in[7]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[6]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[5]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[4]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[3]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[2]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[1]</Signal>
+                <Signal>u_eth2rf_processor/fifo_data_in[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/tx_state[3:0]">
-                <Signal>eth_transceiver_u/tx_state[3]</Signal>
-                <Signal>eth_transceiver_u/tx_state[2]</Signal>
-                <Signal>eth_transceiver_u/tx_state[1]</Signal>
-                <Signal>eth_transceiver_u/tx_state[0]</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/rx_data[7:0]">
+                <Signal>u_eth2rf_processor/rx_data[7]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[6]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[5]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[4]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[3]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[2]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[1]</Signal>
+                <Signal>u_eth2rf_processor/rx_data[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/tx_buf_len[15:0]">
-                <Signal>eth_transceiver_u/tx_buf_len[15]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[14]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[13]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[12]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[11]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[10]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[9]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[8]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[7]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[6]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[5]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[4]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[3]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[2]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[1]</Signal>
-                <Signal>eth_transceiver_u/tx_buf_len[0]</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/rx_data_valid</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/eth_data_cnt[15:0]">
+                <Signal>u_eth2rf_processor/eth_data_cnt[15]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[14]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[13]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[12]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[11]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[10]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[9]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[8]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[7]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[6]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[5]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[4]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[3]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[2]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[1]</Signal>
+                <Signal>u_eth2rf_processor/eth_data_cnt[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/tx_cnt[15:0]">
-                <Signal>eth_transceiver_u/tx_cnt[15]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[14]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[13]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[12]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[11]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[10]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[9]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[8]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[7]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[6]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[5]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[4]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[3]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[2]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[1]</Signal>
-                <Signal>eth_transceiver_u/tx_cnt[0]</Signal>
+            <Signal capture_enable="true">rf_tx_ready</Signal>
+            <Signal capture_enable="true">rf_tx_valid</Signal>
+            <Bus capture_enable="true" name="rf_tx_data[7:0]">
+                <Signal>rf_tx_data[7]</Signal>
+                <Signal>rf_tx_data[6]</Signal>
+                <Signal>rf_tx_data[5]</Signal>
+                <Signal>rf_tx_data[4]</Signal>
+                <Signal>rf_tx_data[3]</Signal>
+                <Signal>rf_tx_data[2]</Signal>
+                <Signal>rf_tx_data[1]</Signal>
+                <Signal>rf_tx_data[0]</Signal>
             </Bus>
         </SignalList>
         <Triggers>
@@ -312,5 +211,5 @@
             <Expression>M1</Expression>
         </Expressions>
     </AoCore>
-    <GAO_ID>0010111101001100</GAO_ID>
+    <GAO_ID>1011111111011100</GAO_ID>
 </GAO_CONFIG>

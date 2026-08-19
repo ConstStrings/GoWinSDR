@@ -31,6 +31,7 @@
     output              rx_data_valid,      // 接收数据有效
     output              rx_frame_start,     // 帧开始
     output              rx_frame_end,       // 帧结束
+    output [15:0]       udp_length,         // UDP数据报长度
     
     // 状态指示
     output              eth_active
@@ -125,7 +126,7 @@ reg [15:0]  rx_eth_type;
 reg [31:0]  rx_src_ip;
 reg [15:0]  rx_src_port;
 reg [15:0]  rx_dest_port;
-reg [15:0]  rx_payload_len;
+reg [15:0]  udp_length_reg;
 reg [15:0]  arp_hw_type;
 reg [15:0]  arp_proto_type;
 reg [7:0]   arp_hw_len;
@@ -147,6 +148,7 @@ assign rx_data_valid  = rx_data_valid_reg;
 assign rx_frame_start = rx_frame_start_reg;
 assign rx_frame_end   = rx_frame_end_reg;
 assign rx_active      = rx_active_reg;
+assign udp_length = udp_length_reg;
 
 // 接收状态机
 always @(posedge RGMII_RXCLK or negedge rst_n) begin
@@ -158,6 +160,8 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
         rx_frame_start_reg  <= 1'b0;
         rx_frame_end_reg    <= 1'b0;
         rx_active_reg       <= 1'b0;
+        rx_dest_port        <= 16'd0;
+        udp_length_reg      <= 16'd0;
         arp_hw_type         <= 16'd0;
         arp_proto_type      <= 16'd0;
         arp_hw_len          <= 8'd0;
@@ -306,8 +310,6 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
                     rx_cnt <= rx_cnt + 1'b1;
                     
                     case (rx_cnt)
-                        16'd2:  rx_payload_len[15:8] <= gmii_rxd;
-                        16'd3:  rx_payload_len[7:0]  <= gmii_rxd;
                         16'd12: rx_src_ip[31:24]     <= gmii_rxd;
                         16'd13: rx_src_ip[23:16]     <= gmii_rxd;
                         16'd14: rx_src_ip[15:8]      <= gmii_rxd;
@@ -333,6 +335,8 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
                         16'd1: rx_src_port[7:0]   <= gmii_rxd;
                         16'd2: rx_dest_port[15:8] <= gmii_rxd;
                         16'd3: rx_dest_port[7:0]  <= gmii_rxd;
+                        16'd4: udp_length_reg[15:8] <= gmii_rxd;
+                        16'd5: udp_length_reg[7:0]  <= gmii_rxd;
                     endcase
                     
                     if (rx_cnt == 16'd7) begin
@@ -358,10 +362,11 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
                     rx_data_valid_reg <= 1'b1;
                     rx_cnt            <= rx_cnt + 1'b1;
                     
-                    // UDP数据长度 = IP总长 - IP头(20) - UDP头(8)
-                    if (rx_cnt >= (rx_payload_len - 16'd29)) begin
-                        rx_state          <= RX_END;
-                        rx_data_valid_reg <= 1'b0;
+                    // UDP数据长度 = UDP总长 - UDP头(8)
+                    if (rx_cnt >= (udp_length_reg - 16'd9)) begin
+                        // Keep valid asserted for the final payload byte.
+                        // RX_END clears it on the following clock.
+                        rx_state <= RX_END;
                     end
                 end
                 else begin

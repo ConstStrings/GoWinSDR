@@ -1,0 +1,23 @@
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v'
+Analyzing included file 'define.vh'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+Analyzing included file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\static_macro_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v'
+Analyzing included file 'define.vh'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":1)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":1)
+Analyzing included file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\static_macro_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":2)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":2)
+Analyzing included file 'parameter.vh'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":29)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":29)
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\static_macro_define.v'
+Compiling module 'Advanced_FIR_Filter_Top'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter_wrap.v":4)
+Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+Extracting RAM for identifier '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+WARN  (EX3791) : Expression size ** truncated to fit in target size **("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\ipcore\ADVANCED_FIR\data\advanced_fir_filter.v":5499)
+NOTE  (EX0101) : Current top module is "Advanced_FIR_Filter_Top"
+[5%] Running netlist conversion ...
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
