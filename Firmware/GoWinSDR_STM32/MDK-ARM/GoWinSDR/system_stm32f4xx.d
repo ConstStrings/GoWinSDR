@@ -2,7 +2,7 @@ gowinsdr\system_stm32f4xx.o: ../Core/Src/system_stm32f4xx.c
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Include/core_cm4.h
-gowinsdr\system_stm32f4xx.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h
+gowinsdr\system_stm32f4xx.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdint.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -14,7 +14,7 @@ gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_r
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gowinsdr\system_stm32f4xx.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stddef.h
+gowinsdr\system_stm32f4xx.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stddef.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -22,6 +22,9 @@ gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_e
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h
+gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h
+gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gowinsdr\system_stm32f4xx.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h

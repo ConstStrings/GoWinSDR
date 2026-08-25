@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -266,7 +267,7 @@ AD9361_InitParam default_init_param = {
 	15,		//rx_data_clock_delay *** adi,rx-data-clock-delay
 	0,		//rx_data_delay *** adi,rx-data-delay
 	7,		//tx_fb_clock_delay *** adi,tx-fb-clock-delay
-	15,		//tx_data_delay *** adi,tx-data-delay
+	0,		//tx_data_delay *** adi,tx-data-delay
 	150,	//lvds_bias_mV *** adi,lvds-bias-mV
 	1,		//lvds_rx_onchip_termination_enable *** adi,lvds-rx-onchip-termination-enable 
 	0,		//rx1rx2_phase_inversion_en *** adi,rx1-rx2-phase-inversion-enable
@@ -403,6 +404,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI2_Init();
   MX_TIM1_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(RST_FPGA_GPIO_Port, RST_FPGA_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);

@@ -1,10 +1,10 @@
 gowinsdr\dac_core.o: ..\Hardware\ad9361\dac_core.c
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdint.h
 gowinsdr\dac_core.o: ..\Hardware\ad9361\dac_core.h
 gowinsdr\dac_core.o: ..\Hardware\ad9361\ad9361.h
 gowinsdr\dac_core.o: ..\Hardware\ad9361\common.h
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdbool.h
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\string.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdbool.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\string.h
 gowinsdr\dac_core.o: ../Hardware/api/api.h
 gowinsdr\dac_core.o: ../Core/Inc/main.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -21,7 +21,7 @@ gowinsdr\dac_core.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gowinsdr\dac_core.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stddef.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stddef.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -29,6 +29,9 @@ gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h
+gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h
+gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
@@ -40,8 +43,8 @@ gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 gowinsdr\dac_core.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 gowinsdr\dac_core.o: ../Core/Inc/spi.h
 gowinsdr\dac_core.o: ..\Hardware\ad9361\parameters.h
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdlib.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdlib.h
 gowinsdr\dac_core.o: ..\Hardware\ad9361\util.h
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\limits.h
-gowinsdr\dac_core.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdio.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\limits.h
+gowinsdr\dac_core.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdio.h
 gowinsdr\dac_core.o: ..\Hardware\ad9361\config.h

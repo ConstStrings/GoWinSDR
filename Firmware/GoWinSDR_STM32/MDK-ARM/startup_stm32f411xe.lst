@@ -732,11 +732,10 @@ ARM Macro Assembler    Page 12
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=gowinsdr\startup_stm32f411xe.d -ogowinsdr\startup_stm32f411x
-e.o -I.\RTE\_GoWinSDR -IE:\Hardware\MDK\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Includ
-e -IE:\Hardware\MDK\Packs\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM
-32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION S
-ETA 539" --predefine="_RTE_ SETA 1" --predefine="STM32F411xE SETA 1" --predefin
-e="_RTE_ SETA 1" --list=startup_stm32f411xe.lst startup_stm32f411xe.s
+e.o -I.\RTE\_GoWinSDR -ID:\Program\keil\Pack\ARM\CMSIS\6.3.0\CMSIS\Core\Include
+ --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 543" --pre
+define="STM32F411xE SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f411
+xe.lst startup_stm32f411xe.s
 
 
 

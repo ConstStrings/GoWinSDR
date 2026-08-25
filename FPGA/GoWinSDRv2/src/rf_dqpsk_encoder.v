@@ -18,7 +18,12 @@ reg [1:0] nibble_idx;           // 2-bit nibble selector within byte
 reg [1:0] tx_data_iq;           // current 2-bit data to differentially encode
 wire [1:0] tx_data_iq_diff;     // differentially encoded 2-bit symbol
 
-reg        carrier_gen;
+// The idle carrier completes exactly one revolution per symbol period.
+// SAMPLE_RATE must be an integer multiple of SYMBOL_RATE.
+localparam integer SAMPLES_PER_SYMBOL = SAMPLE_RATE / SYMBOL_RATE;
+reg [31:0] carrier_sample_idx;
+wire [36:0] carrier_lut_scaled = carrier_sample_idx * 5'd16;
+wire [4:0]  carrier_lut_index  = carrier_lut_scaled / SAMPLES_PER_SYMBOL;
 
 // bb_symbol_clk is the QPSK symbol clock: consume one dibit per cycle.
 always @(posedge bb_symbol_clk or negedge rst_n) begin
@@ -111,7 +116,7 @@ always @(posedge bb_symbol_clk or negedge rst_n) begin
     if (!rst_n) begin
         qpsk_i      <= 12'd0;
         qpsk_q      <= 12'd0;
-        carrier_gen <= 1'b0;
+        carrier_sample_idx <= 32'd0;
     end else if (!stall) begin
         if (tx_data_valid) begin
             case (tx_data_iq_diff)
@@ -133,18 +138,34 @@ always @(posedge bb_symbol_clk or negedge rst_n) begin
                 end
             endcase
         end else begin
-            // Carrier mode: only when NOT stalled and no data
-            if (carrier_gen) begin
-                qpsk_i <= -12'd1448;
-                qpsk_q <=  12'd1448;
-            end else begin
-                qpsk_i <=  12'd1448;
-                qpsk_q <= -12'd1448;
-            end
-            carrier_gen <= ~carrier_gen;
+            // The phase index is derived from SAMPLE_RATE / SYMBOL_RATE.
+            // At 30.72 MSPS / 7.68 MSym/s this visits 0,4,8,12, i.e. the
+            // same four quadrature points used previously.
+            case (carrier_lut_index)
+                5'd0 : begin qpsk_i <=  12'd1448; qpsk_q <= -12'd1448; end
+                5'd1 : begin qpsk_i <=  12'd1338; qpsk_q <= -12'd554;  end
+                5'd2 : begin qpsk_i <=  12'd1448; qpsk_q <=  12'd0;    end
+                5'd3 : begin qpsk_i <=  12'd1338; qpsk_q <=  12'd554;  end
+                5'd4 : begin qpsk_i <=  12'd1024; qpsk_q <=  12'd1024; end
+                5'd5 : begin qpsk_i <=  12'd554;  qpsk_q <=  12'd1338; end
+                5'd6 : begin qpsk_i <=  12'd0;    qpsk_q <=  12'd1448; end
+                5'd7 : begin qpsk_i <= -12'd554;  qpsk_q <=  12'd1338; end
+                5'd8 : begin qpsk_i <= -12'd1024; qpsk_q <=  12'd1024; end
+                5'd9 : begin qpsk_i <= -12'd1338; qpsk_q <=  12'd554;  end
+                5'd10: begin qpsk_i <= -12'd1448; qpsk_q <=  12'd0;    end
+                5'd11: begin qpsk_i <= -12'd1338; qpsk_q <= -12'd554;  end
+                5'd12: begin qpsk_i <= -12'd1024; qpsk_q <= -12'd1024; end
+                5'd13: begin qpsk_i <= -12'd554;  qpsk_q <= -12'd1338; end
+                5'd14: begin qpsk_i <=  12'd0;    qpsk_q <= -12'd1448; end
+                default: begin qpsk_i <= 12'd554;  qpsk_q <= -12'd1338; end
+            endcase
+            if (carrier_sample_idx == SAMPLES_PER_SYMBOL - 1)
+                carrier_sample_idx <= 32'd0;
+            else
+                carrier_sample_idx <= carrier_sample_idx + 1'b1;
         end
     end
-    // stall=1: qpsk_i, qpsk_q, carrier_gen all hold current value
+    // stall=1: qpsk_i, qpsk_q, carrier_sample_idx all hold current value
 end
 
 // Output assignments

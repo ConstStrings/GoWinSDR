@@ -44,12 +44,38 @@
   ]
  },
  {
-  "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_ad9361_cmos_dev.v",
+  "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_gc0802_cmos_dev.v",
   "InstLine" : 1,
-  "InstName" : "ad9361_cmos_dev",
-  "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_ad9361_cmos_dev.v",
+  "InstName" : "gc0802_cmos_dev",
+  "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_gc0802_cmos_dev.v",
   "ModuleLine" : 1,
-  "ModuleName" : "ad9361_cmos_dev"
+  "ModuleName" : "gc0802_cmos_dev"
+ },
+ {
+  "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
+  "InstLine" : 1,
+  "InstName" : "rf_PLL",
+  "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
+  "ModuleLine" : 1,
+  "ModuleName" : "rf_PLL",
+  "SubInsts" : [
+   {
+    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
+    "InstLine" : 21,
+    "InstName" : "u_pll",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll_mod.v",
+    "ModuleLine" : 11,
+    "ModuleName" : "rf_PLL_MOD"
+   },
+   {
+    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
+    "InstLine" : 34,
+    "InstName" : "u_pll_init",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/pll_init.v",
+    "ModuleLine" : 4,
+    "ModuleName" : "PLL_INIT"
+   }
+  ]
  },
  {
   "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
@@ -61,41 +87,43 @@
   "SubInsts" : [
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 47,
-    "InstName" : "rf_PLL_u0",
-    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
+    "InstLine" : 87,
+    "InstName" : "u_ad9361_cmos_dev",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_ad9361_cmos_dev.v",
     "ModuleLine" : 1,
-    "ModuleName" : "rf_PLL",
+    "ModuleName" : "ad9361_cmos_dev",
     "SubInsts" : [
      {
-      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
-      "InstLine" : 21,
-      "InstName" : "u_pll",
-      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll_mod.v",
-      "ModuleLine" : 11,
-      "ModuleName" : "rf_PLL_MOD"
-     },
-     {
-      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_pll/rf_pll.v",
-      "InstLine" : 34,
-      "InstName" : "u_pll_init",
-      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/pll_init.v",
-      "ModuleLine" : 4,
-      "ModuleName" : "PLL_INIT"
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_ad9361_cmos_dev.v",
+      "InstLine" : 49,
+      "InstName" : "u_Gowin_PLL_rfclk",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk.v",
+      "ModuleLine" : 1,
+      "ModuleName" : "Gowin_PLL_rfclk",
+      "SubInsts" : [
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk.v",
+        "InstLine" : 21,
+        "InstName" : "u_pll",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk_mod.v",
+        "ModuleLine" : 11,
+        "ModuleName" : "Gowin_PLL_rfclk_MOD"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk.v",
+        "InstLine" : 34,
+        "InstName" : "u_pll_init",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/pll_init.v",
+        "ModuleLine" : 4,
+        "ModuleName" : "PLL_INIT"
+       }
+      ]
      }
     ]
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 76,
-    "InstName" : "u_gc0802_dev_cmos",
-    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_gc0802_cmos_dev.v",
-    "ModuleLine" : 1,
-    "ModuleName" : "gc0802_cmos_dev"
-   },
-   {
-    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 125,
+    "InstLine" : 136,
     "InstName" : "eth_transceiver_u",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
     "ModuleLine" : 1,
@@ -163,7 +191,7 @@
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 164,
+    "InstLine" : 175,
     "InstName" : "u_eth2rf_processor",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
     "ModuleLine" : 1,
@@ -191,7 +219,7 @@
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 194,
+    "InstLine" : 205,
     "InstName" : "u_rf_process",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
     "ModuleLine" : 1,
@@ -261,7 +289,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 263,
+      "InstLine" : 333,
       "InstName" : "fifo_rf_tx_i",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_tx/fifo_rf.v",
       "ModuleLine" : 1200,
@@ -279,7 +307,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 276,
+      "InstLine" : 346,
       "InstName" : "fifo_rf_tx_q",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_tx/fifo_rf.v",
       "ModuleLine" : 1200,
@@ -294,12 +322,172 @@
         "ModuleName" : "~fifo.fifo_rf"
        }
       ]
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
+      "InstLine" : 372,
+      "InstName" : "costas_u0",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+      "ModuleLine" : 1,
+      "ModuleName" : "costas",
+      "SubInsts" : [
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+        "InstLine" : 21,
+        "InstName" : "dds_costas_u0",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii_costas/dds_ii.v",
+        "ModuleLine" : 1854,
+        "ModuleName" : "DDS_Costas",
+        "SubInsts" : [
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii_costas/dds_ii.v",
+          "InstLine" : 1873,
+          "InstName" : "u_dds_compiler_core",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii_costas/dds_ii.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "~dds_ii_core.DDS_Costas"
+         }
+        ]
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+        "InstLine" : 36,
+        "InstName" : "mul_u0",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_1212/gowin_mult.v",
+        "ModuleLine" : 11,
+        "ModuleName" : "Gowin_MULT_1212"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+        "InstLine" : 45,
+        "InstName" : "mul_u1",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_1212/gowin_mult.v",
+        "ModuleLine" : 11,
+        "ModuleName" : "Gowin_MULT_1212"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+        "InstLine" : 53,
+        "InstName" : "mul_u2",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_1212/gowin_mult.v",
+        "ModuleLine" : 11,
+        "ModuleName" : "Gowin_MULT_1212"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+        "InstLine" : 62,
+        "InstName" : "mul_u3",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_1212/gowin_mult.v",
+        "ModuleLine" : 11,
+        "ModuleName" : "Gowin_MULT_1212"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+        "InstLine" : 96,
+        "InstName" : "costas_loop_filter_inst",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_flt.v",
+        "ModuleLine" : 1,
+        "ModuleName" : "costas_loop_filter_new"
+       }
+      ]
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
+      "InstLine" : 386,
+      "InstName" : "gardner_sync_u0",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_sync.v",
+      "ModuleLine" : 1,
+      "ModuleName" : "gardner_sync",
+      "SubInsts" : [
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_sync.v",
+        "InstLine" : 20,
+        "InstName" : "interpolate_filter_inst",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+        "ModuleLine" : 2,
+        "ModuleName" : "interpolate_filter",
+        "SubInsts" : [
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+          "InstLine" : 97,
+          "InstName" : "mult_interploate_f1_1_I",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "Gowin_MULT_1716"
+         },
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+          "InstLine" : 109,
+          "InstName" : "mult_interploate_f1_2_I",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "Gowin_MULT_1716"
+         },
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+          "InstLine" : 119,
+          "InstName" : "mult_interploate_f2_1_I",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "Gowin_MULT_1716"
+         },
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+          "InstLine" : 134,
+          "InstName" : "mult_interploate_f1_1_Q",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "Gowin_MULT_1716"
+         },
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+          "InstLine" : 146,
+          "InstName" : "mult_interploate_f1_2_Q",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "Gowin_MULT_1716"
+         },
+         {
+          "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+          "InstLine" : 156,
+          "InstName" : "mult_interploate_f2_1_Q",
+          "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+          "ModuleLine" : 11,
+          "ModuleName" : "Gowin_MULT_1716"
+         }
+        ]
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_sync.v",
+        "InstLine" : 34,
+        "InstName" : "gardner_ted_inst",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_ted.v",
+        "ModuleLine" : 3,
+        "ModuleName" : "gardner_ted"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_sync.v",
+        "InstLine" : 49,
+        "InstName" : "nco_inst",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gradner_nco.v",
+        "ModuleLine" : 2,
+        "ModuleName" : "nco"
+       }
+      ]
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
+      "InstLine" : 405,
+      "InstName" : "u_rf_dqpsk_decoder",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_dqpsk_decoder.v",
+      "ModuleLine" : 6,
+      "ModuleName" : "rf_dqpsk_decoder"
      }
     ]
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 226,
+    "InstLine" : 237,
     "InstName" : "phy_led_u",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_led.v",
     "ModuleLine" : 1,

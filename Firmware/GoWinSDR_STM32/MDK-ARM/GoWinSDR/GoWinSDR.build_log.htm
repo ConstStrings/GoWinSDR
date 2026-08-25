@@ -3,63 +3,64 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.39.0.0
-Copyright (C) 2023 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Const String, -, LIC=SDAOP-MY1UI-45PT5-GHU5Z-R17VI-NKP57
+IDE-Version: ¦ÌVision V5.43.1.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: String Const, 111, LIC=D0D7S-LYNZD-8TN3P-MJSRY-2WWZ5-DA2T0
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.39.0.0
-Toolchain Path:  E:\Hardware\MDK\Core\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Plus  Version: 5.43.0.0
+Toolchain Path:  D:\Program\keil\Core\ARM\AC5\Bin
 C Compiler:      Armcc.exe V5.06 update 7 (build 960)
 Assembler:       Armasm.exe V5.06 update 7 (build 960)
 Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
 Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
-CPU DLL:         SARMCM3.DLL V5.39.0.0
+CPU DLL:         SARMCM3.DLL V5.43.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      CMSIS_AGDI.dll V1.33.16.0
-Dialog DLL:      TCM.DLL V1.56.4.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.1.0
+Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
-d:\Code\git\GoWinSDR\Firmware\GoWinSDR_STM32_Xilinx\MDK-ARM\GoWinSDR.uvprojx
-Project File Date:  11/24/2025
+D:\Code\Project\GoWinSDRv2\Firmware\GoWinSDR_STM32\MDK-ARM\GoWinSDR.uvprojx
+Project File Date:  08/25/2026
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Hardware\MDK\Core\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Program\keil\Core\ARM\AC5\Bin'
 Build target 'GoWinSDR'
 Note: source file '..\Hardware\ad9361\main.c' - object file renamed from 'GoWinSDR\main.o' to 'GoWinSDR\main_1.o'.
-compiling command.c...
-..\Hardware\ad9361\command.h(46): warning:  #47-D: incompatible redefinition of macro "NULL"  (declared at line 84 of "E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stddef.h")
-  #define NULL		((void *)0)
+compiling main.c...
 ../Hardware/api/api.h(10): warning:  #1-D: last line of file ends without a newline
   #endif // API_H
-..\Hardware\ad9361\command.c: 2 warnings, 0 errors
+../Hardware/api/softspi.h(53): warning:  #1-D: last line of file ends without a newline
+  #endif /* __SOFT_SPI_H */
+../Hardware/ad9361/command.h(47): warning:  #47-D: incompatible redefinition of macro "NULL"  (declared at line 72 of "D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdlib.h")
+  #define NULL		((void *)0)
+../Core/Src/main.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=54778 RO-data=11254 RW-data=2184 ZI-data=5664  
+Program Size: Code=56558 RO-data=11322 RW-data=2216 ZI-data=5736  
 FromELF: creating hex file...
-"GoWinSDR\GoWinSDR.axf" - 0 Error(s), 2 Warning(s).
+"GoWinSDR\GoWinSDR.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
-                ARM::CMSIS@5.9.0
+                https://www.keil.com/pack/ARM.CMSIS.6.3.0.pack
+                ARM::CMSIS@6.3.0
                 CMSIS (Common Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.6.0
+   * Component: CORE Version: 6.2.0
 
 Package Vendor: Keil
-                https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.1.pack
-                Keil::STM32F4xx_DFP@2.17.1
-                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.3.1.1.pack
+                Keil::STM32F4xx_DFP@3.1.1
+                STMicroelectronics STM32F4 Series Device Support
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_GoWinSDR
-  E:/Hardware/MDK/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  E:/Hardware/MDK/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  D:/Program/keil/Pack/ARM/CMSIS/6.3.0/CMSIS/Core/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE@5.6.0
+   * Component: ARM::CMSIS:CORE@6.2.0
       Include file:  CMSIS/Core/Include/tz_context.h
 Build Time Elapsed:  00:00:02
 </pre>

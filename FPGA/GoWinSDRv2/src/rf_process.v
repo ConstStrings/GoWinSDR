@@ -3,9 +3,9 @@
     parameter                           SYMBOL_RATE = 32'd7680000  ,
     // 1: insert a carrier when the TX byte FIFO is empty.
     // 0: transmit only queued data (burst mode).
-    parameter                           IDLE_CARRIER_ENABLE = 1'b1,
+    parameter                           IDLE_CARRIER_ENABLE = 1'b0,
     // 1: bypass the RRC output and feed DQPSK I/Q directly to the DAC FIFO.
-    parameter                           RRC_BYPASS_ENABLE = 1'b0
+    parameter                           RRC_BYPASS_ENABLE = 1'b1
 )(
     input                               sys_clk                    ,
     input                               rst_n                      ,
@@ -14,7 +14,7 @@
     input                               bb_byte_clk                ,
 
     // RX DATA Port
-    output                              rx_data_out                ,
+    output             [   7:0]         rx_data_out                ,
     output                              rx_clk_out                 ,
     output                              rx_data_valid              ,
     output                              rx_data_missing            ,    
@@ -226,6 +226,7 @@ assign tx_sample_valid = RRC_BYPASS_ENABLE ? fir_valid_in :
 
 // --- RF TX FIFOs (symbol rate -> sample rate crossing) ---
 wire        fifo_wr_en;
+reg         fifo_rd_en;
 
 wire [11:0] fifo_i_dout;
 wire [11:0] fifo_q_dout;
@@ -236,8 +237,17 @@ wire        fifo_q_full;
 
 assign fifo_wr_en = tx_sample_valid && !stall_pipeline;
 
-// Read side: continuously drain FIFO at sample_clk rate -> DAC
-// Pipeline register: one sample_clk delay for timing closure
+// Read side: FIFO words are QPSK symbols.  A symbol is held for BB_SYMBOL_DIV sample_clk periods. 
+localparam integer BB_SYMBOL_DIV = SAMPLE_RATE / SYMBOL_RATE;
+localparam [1:0] DAC_TX_IDLE      = 2'd0;
+localparam [1:0] DAC_TX_READ_WAIT = 2'd1;
+localparam [1:0] DAC_TX_LOAD      = 2'd2;
+localparam [1:0] DAC_TX_HOLD      = 2'd3;
+
+reg [1:0]  dac_tx_state;
+reg [31:0] dac_tx_state_cnt;
+reg        dac_tx_prefetch_pending;
+
 reg  [11:0] dac_i_reg;
 reg  [11:0] dac_q_reg;
 reg         dac_valid_reg;
@@ -247,10 +257,70 @@ always @(posedge sample_clk or negedge rst_n) begin
         dac_i_reg     <= 12'd0;
         dac_q_reg     <= 12'd0;
         dac_valid_reg <= 1'b0;
+        dac_tx_state  <= DAC_TX_IDLE;
+        fifo_rd_en     <= 1'b0;
+        dac_tx_state_cnt <= 32'd0;
+        dac_tx_prefetch_pending <= 1'b0;
     end else begin
-        dac_i_reg     <= fifo_i_dout;
-        dac_q_reg     <= fifo_q_dout;
-        dac_valid_reg <= !fifo_i_empty && !fifo_q_empty;
+        case (dac_tx_state)
+            DAC_TX_IDLE: begin
+                dac_valid_reg <= 1'b0;
+                dac_tx_state_cnt <= 32'd0;
+                dac_tx_prefetch_pending <= 1'b0;
+                fifo_rd_en <= 1'b0;
+                if (!fifo_i_empty && !fifo_q_empty) begin
+                    fifo_rd_en <= 1'b1;
+                    dac_tx_state <= DAC_TX_READ_WAIT;
+                end
+            end
+
+            DAC_TX_READ_WAIT: begin
+                fifo_rd_en <= 1'b0;
+                dac_tx_state <= DAC_TX_LOAD;
+            end
+
+            DAC_TX_LOAD: begin
+                dac_i_reg     <= fifo_i_dout;
+                dac_q_reg     <= fifo_q_dout;
+                dac_valid_reg <= 1'b1;
+                fifo_rd_en    <= 1'b0;
+                dac_tx_state_cnt <= 32'd1;
+                dac_tx_prefetch_pending <= 1'b0;
+                dac_tx_state  <= DAC_TX_HOLD;
+
+                if ((BB_SYMBOL_DIV == 2) && !fifo_i_empty && !fifo_q_empty) begin
+                    fifo_rd_en <= 1'b1;
+                    dac_tx_prefetch_pending <= 1'b1;
+                end
+            end
+
+            DAC_TX_HOLD: begin
+                fifo_rd_en <= 1'b0;
+                if (dac_tx_state_cnt == BB_SYMBOL_DIV - 1) begin
+                    dac_tx_state_cnt <= 32'd0;
+                    if (dac_tx_prefetch_pending)
+                        dac_tx_state <= DAC_TX_LOAD;
+                    else
+                        dac_tx_state <= DAC_TX_IDLE;
+                end
+                else if (dac_tx_state_cnt == BB_SYMBOL_DIV - 2) begin
+                    dac_tx_state_cnt <= dac_tx_state_cnt + 1'b1;
+                    if (!fifo_i_empty && !fifo_q_empty) begin
+                        fifo_rd_en <= 1'b1;
+                        dac_tx_prefetch_pending <= 1'b1;
+                    end
+                end
+                else begin
+                    dac_tx_state_cnt <= dac_tx_state_cnt + 1'b1;
+                end
+            end
+
+            default: begin
+                dac_tx_state <= DAC_TX_IDLE;
+                dac_valid_reg <= 1'b0;
+                fifo_rd_en <= 1'b0;
+            end
+        endcase
     end
 end
 
@@ -265,7 +335,7 @@ fifo_rf fifo_rf_tx_i(
     .WrClk        (bb_symbol_clk),
     .RdClk        (sample_clk),
     .WrEn         (fifo_wr_en),
-    .RdEn         (1'b1),
+    .RdEn         (fifo_rd_en),
     .Almost_Empty (fifo_i_almost_empty),
     .Almost_Full  (fifo_i_almost_full),
     .Q            (fifo_i_dout),
@@ -278,7 +348,7 @@ fifo_rf fifo_rf_tx_q(
     .WrClk        (bb_symbol_clk),
     .RdClk        (sample_clk),
     .WrEn         (fifo_wr_en),
-    .RdEn         (1'b1),
+    .RdEn         (fifo_rd_en),
     .Almost_Empty (fifo_q_almost_empty),
     .Almost_Full  (fifo_q_almost_full),
     .Q            (fifo_q_dout),
@@ -287,12 +357,65 @@ fifo_rf fifo_rf_tx_q(
 );
 
 // ============================================================
-// RX Path (TBD)
+// RX Path: ADC -> Costas -> Gardner timing recovery -> DQPSK decoder
 // ============================================================
 
-assign rx_data_out    = 1'b0;
-assign rx_clk_out     = 1'b0;
-assign rx_data_valid  = 1'b0;
-assign rx_data_missing = 1'b0;
+// RRC is bypassed on RX during bring-up; Costas operates directly on ADC I/Q.
+wire [11:0] rrc_out_i_adc;
+wire [11:0] rrc_out_q_adc;
+assign rrc_out_i_adc = adc_data_in_i1;
+assign rrc_out_q_adc = adc_data_in_q1;
+
+wire signed [11:0] costas_out_i_dbg;
+wire signed [11:0] costas_out_q_dbg;
+
+costas costas_u0 (
+    .rst_n      (rst_n        ),
+    .sample_clk (sample_clk   ),
+    .sample_i1  (rrc_out_i_adc),
+    .sample_q1  (rrc_out_q_adc),
+    .data_out_i (costas_out_i_dbg ),
+    .data_out_q (costas_out_q_dbg )
+);
+
+// // Gardner Timing Synchronization
+wire gardner_sync_I;
+wire gardner_sync_Q;
+wire gardner_sync_flag;
+
+gardner_sync gardner_sync_u0 (
+    .clk(sample_clk),
+    .rst_n(rst_n),
+    .data_in_I(costas_out_i_dbg),
+    .data_in_Q(costas_out_q_dbg),
+    .sync_out_I(gardner_sync_I),
+    .sync_out_Q(gardner_sync_Q),
+    .sync_flag(gardner_sync_flag)
+);
+
+
+wire signed [11:0] dqpsk_rx_i;
+wire signed [11:0] dqpsk_rx_q;
+wire [7:0]         dqpsk_rx_data;
+wire               dqpsk_rx_data_valid;
+
+assign dqpsk_rx_i = gardner_sync_I ? 12'sd1 : -12'sd1;
+assign dqpsk_rx_q = gardner_sync_Q ? 12'sd1 : -12'sd1;
+
+rf_dqpsk_decoder u_rf_dqpsk_decoder (
+    .bb_symbol_clk (sample_clk),
+    .rst_n         (rst_n),
+    .symbol_sync   (1'b0),
+    .symbol_valid  (gardner_sync_flag),
+    .qpsk_i_in     (dqpsk_rx_i),
+    .qpsk_q_in     (dqpsk_rx_q),
+    .rx_data_out   (dqpsk_rx_data),
+    .rx_data_valid (dqpsk_rx_data_valid)
+);
+
+assign rx_data_out     = dqpsk_rx_data;
+assign rx_clk_out      = sample_clk;
+assign rx_data_valid   = dqpsk_rx_data_valid;
+assign rx_data_missing = !adc_in_valid;
 
 endmodule

@@ -1,8 +1,8 @@
 gowinsdr\com_debug.o: ..\Hardware\api\com_debug.c
 gowinsdr\com_debug.o: ..\Hardware\api\com_debug.h
-gowinsdr\com_debug.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\string.h
-gowinsdr\com_debug.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdarg.h
-gowinsdr\com_debug.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdio.h
+gowinsdr\com_debug.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\string.h
+gowinsdr\com_debug.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdarg.h
+gowinsdr\com_debug.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdio.h
 gowinsdr\com_debug.o: ../Core/Inc/main.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gowinsdr\com_debug.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -11,7 +11,7 @@ gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Include/core_cm4.h
-gowinsdr\com_debug.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stdint.h
+gowinsdr\com_debug.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stdint.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -19,7 +19,7 @@ gowinsdr\com_debug.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gowinsdr\com_debug.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gowinsdr\com_debug.o: E:\Hardware\MDK\Core\ARM\ARMCC\Bin\..\include\stddef.h
+gowinsdr\com_debug.o: D:\Program\keil\Core\ARM\AC5\Bin\..\include\stddef.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -27,6 +27,9 @@ gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h
+gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h
+gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gowinsdr\com_debug.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h

@@ -1,0 +1,30 @@
+-series GW5AT
+-device GW5AT-60
+-device_version B
+-package PBGA484A
+-part_number GW5AT-LV60PG484AC1/I0
+
+
+-mod_name Gowin_MULT_1716
+-file_name gowin_mult_gardner
+-path D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/
+-type MULT
+-file_type vlg
+-ip_version 1.1
+-width_a 17
+-width_b 16
+-data_signed_a 1
+-data_signed_b 1
+-width_out 33
+-en_padd 0
+-reset_mode sync
+-ina_reg_clk 1
+-ina_reg_ce 0
+-ina_reg_rst 0
+-inb_reg_clk 1
+-inb_reg_ce 0
+-inb_reg_rst 0
+-pipe_reg_clk 0
+-out_reg_clk 1
+-out_reg_ce 0
+-out_reg_rst 0

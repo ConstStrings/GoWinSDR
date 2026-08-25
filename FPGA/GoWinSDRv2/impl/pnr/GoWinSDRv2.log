@@ -8,8 +8,7 @@ Running placement......
 [20%] Placement Phase 1 completed
 [30%] Placement Phase 2 completed
 WARN  (TA1132) :  'tck_pad_i' was determined to be a clock but was not created.
-WARN  (TA1132) :  'u_gc0802_dev_cmos/tx_logic_clk' was determined to be a clock but was not created.
-WARN  (TA1132) :  'u_gc0802_dev_cmos/tx_out_clk_wire' was determined to be a clock but was not created.
+WARN  (TA1132) :  'bb_symbol_clk' was determined to be a clock but was not created.
 WARN  (TA1132) :  'bb_byte_clk_div[1]' was determined to be a clock but was not created.
 [50%] Placement Phase 3 completed
 Running routing......
@@ -30,5 +29,5 @@ Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.pi
 Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.rpt.html" completed
 Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.rpt.txt" completed
 Generate file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\pnr\GoWinSDRv2.tr.html" completed
-Wed Aug 19 13:09:53 2026
+Tue Aug 25 23:08:32 2026
 

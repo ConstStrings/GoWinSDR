@@ -10,6 +10,10 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii_costas/dds_ii.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
    "Type" : "verilog"
   },
@@ -54,6 +58,14 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_1212/gowin_mult.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_mult_gardner/gowin_mult_gardner.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll/gmii_pll.v",
    "Type" : "verilog"
   },
@@ -78,7 +90,35 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_flt.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_costas_top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_dqpsk_decoder.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_dqpsk_encoder.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_interpolate_filter.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_sync.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_ted.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gradner_nco.v",
    "Type" : "verilog"
   },
   {
@@ -95,6 +135,14 @@
   },
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk_mod.v",
    "Type" : "verilog"
   }
  ],

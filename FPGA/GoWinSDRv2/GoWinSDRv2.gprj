@@ -7,6 +7,7 @@
     <FileList>
         <File path="src/RRC_fir_filter/RRC_fir_filter.v" type="file.verilog" enable="1"/>
         <File path="src/dds_ii/dds_ii.v" type="file.verilog" enable="1"/>
+        <File path="src/dds_ii_costas/dds_ii.v" type="file.verilog" enable="1"/>
         <File path="src/eth2rf_process.v" type="file.verilog" enable="1"/>
         <File path="src/eth_arp.v" type="file.verilog" enable="1"/>
         <File path="src/eth_crc.v" type="file.verilog" enable="1"/>
@@ -18,13 +19,24 @@
         <File path="src/fifo_rf_tx/fifo_rf_tx.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_ddr/eth_GMII2RGMII.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_ddr/eth_ddr.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_mult_1212/gowin_mult.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_mult_gardner/gowin_mult_gardner.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_pll/gmii_pll.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_pll/gmii_pll_mod.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_pll_rfclk/gowin_pll_rfclk.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_pll_rfclk/gowin_pll_rfclk_mod.v" type="file.verilog" enable="1"/>
         <File path="src/phy_ad9361_cmos_dev.v" type="file.verilog" enable="1"/>
         <File path="src/phy_gc0802_cmos_dev.v" type="file.verilog" enable="1"/>
         <File path="src/phy_led.v" type="file.verilog" enable="1"/>
         <File path="src/pll_init.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_costas_flt.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_costas_top.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_dqpsk_decoder.v" type="file.verilog" enable="1"/>
         <File path="src/rf_dqpsk_encoder.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_gardner_interpolate_filter.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_gardner_sync.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_gardner_ted.v" type="file.verilog" enable="1"/>
+        <File path="src/rf_gradner_nco.v" type="file.verilog" enable="1"/>
         <File path="src/rf_pll/rf_pll.v" type="file.verilog" enable="1"/>
         <File path="src/rf_pll/rf_pll_mod.v" type="file.verilog" enable="1"/>
         <File path="src/rf_process.v" type="file.verilog" enable="1"/>

@@ -39,6 +39,7 @@
 #ifndef __COMMAND_H__
 #define __COMMAND_H__
 #include "main.h"
+#include "adc.h"
 #include "tim.h"
 /******************************************************************************/
 /********************** Macros and Constants Definitions **********************/
@@ -48,6 +49,9 @@
 #define ERROR_AD		-1
 
 #define CONSOLE_COMMANDS
+
+#define CALIB_REF_RAW   58   
+#define CALIB_REF_TEMP  60.0f
 /******************************************************************************/
 /*************************** Types Declarations *******************************/
 /******************************************************************************/
@@ -237,6 +241,10 @@ void rx_lo_down(double* param, char param_no);
 void query_led_state(double* param, char param_no);
 
 void query_led_state_set(double* param, char param_no);
+
+void query_temp(double* param, char param_no);
+
+void fan_state_set(double* param, char param_no);;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 

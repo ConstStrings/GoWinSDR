@@ -110,6 +110,8 @@ command cmd_list[] = {
 	{"rx_lo_down=", "Decrease RX LO frequency.","", rx_lo_down},
 	{"query_led_state?", "Decrease RX LO frequency.","", query_led_state},
 	{"query_led_state=", "Decrease RX LO frequency.","", query_led_state_set},
+	{"query_temp?", "Get Board Temperature.","", query_temp},
+	{"fan_state_set=", "Set fan enable.","", fan_state_set},
 };
 const char cmd_no = (sizeof(cmd_list) / sizeof(command));
 
@@ -1158,6 +1160,61 @@ void query_led_state_set(double* param, char param_no)
 			led_interrupt_en = 0;
 			HAL_TIM_Base_Stop_IT(&htim1);
 			console_print("LED Interrupt Disabled\n");
+		}
+	}
+}
+
+void query_temp(double* param, char param_no)
+{
+	uint32_t adc_raw_value = 0;
+	float temperature = 0.0f;
+	
+	HAL_ADC_Start(&hadc1);
+    
+	if (HAL_ADC_PollForConversion(&hadc1, 100) == HAL_OK)
+	{
+			adc_raw_value = HAL_ADC_GetValue(&hadc1);
+			
+			float Vsense = ((float)adc_raw_value * 2.5f) / 4095.0f;
+			
+			temperature = ((Vsense - 0.76f) / 0.0025f) + 25.0f;
+	}
+	
+	int temp_int = (int)temperature;
+
+	int temp_frac = (int)(temperature * 100) % 100;
+	
+	HAL_ADC_Stop(&hadc1);
+	
+	console_print("MCU Temp: %d.%02d C\r\n", temp_int, temp_frac);
+	
+	uint8_t raw_temp = ad9361_spi_read(ad9361_phy->spi, 0x0E);
+	
+	temperature = ((float)raw_temp - CALIB_REF_RAW) / 1.14f + CALIB_REF_TEMP;
+
+	temp_int = (int)temperature;
+	temp_frac = (int)(temperature * 100) % 100; 
+	if (temp_frac < 0) {
+			temp_frac = -temp_frac;
+	}
+
+	printf("AD9361 Temp: %d.%02d C (Raw: %d)\r\n", temp_int, temp_frac, raw_temp);
+}
+
+void fan_state_set(double* param, char param_no)
+{
+	if(param_no >= 1)
+	{
+		uint8_t en = param[0];
+		if (en == 1)
+		{
+			HAL_GPIO_WritePin(FAN_GPIO_Port, FAN_Pin, GPIO_PIN_SET);
+			console_print("FAN ON\n");
+		}
+		else
+		{
+			HAL_GPIO_WritePin(FAN_GPIO_Port, FAN_Pin, GPIO_PIN_RESET);
+			console_print("FAN OFF\n");
 		}
 	}
 }

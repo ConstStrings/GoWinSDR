@@ -1,5 +1,6 @@
 module ad9361_cmos_dev(
     input                               rst_n                      ,
+    input                               clk_50m                    ,
 
     output                              data_clk                   ,
     //Rx Port
@@ -18,17 +19,50 @@ module ad9361_cmos_dev(
 
     output             [  11:0]         tx_data_out                ,
     output                              tx_clk_out_p               ,
-    output                              tx_frame_out_p              
+    output                              tx_frame_out_p             ,
+    
+    output                              en_agc                     ,
+    output reg                          enable                     ,
+    output reg                          txnrx                      ,
+    output                              reset       
 );
 
-assign data_clk = rx_clk_in_p;
-assign tx_clk_out_p = data_clk;
+assign      en_agc        = 1'b0        ;
+assign      reset         = rst_n       ;
+
+always @(posedge clk_50m or negedge rst_n) begin
+    if(!rst_n)begin
+    txnrx <= 1'b0;
+    enable<= 1'b0;
+    end
+    else begin
+        txnrx <= 1'b1;
+        enable<= 1'b0;
+    end
+end
+
+assign tx_clk_out_p = rx_clk_in_p;
 
 assign adc_out_valid = 1'b1;
 assign adc_status    = 1'b0;
 
+    Gowin_PLL_rfclk u_Gowin_PLL_rfclk(
+        .clkin(rx_clk_in_p), //input  clkin
+        .clkout0(data_clk), //output  clkout0
+        .mdclk(rx_clk_in_p) //input  mdclk
+    );
 
-reg                                     tx_frame       = 'd0       ;
+
+// 1R1T DDR TX framing.  Keep the frame state advancing with every
+// data-clock period, matching the validated AD9361 loopback interface.
+reg                                     tx_frame;
+
+always @(posedge data_clk or negedge rst_n) begin
+    if (!rst_n)
+        tx_frame <= 1'b0;
+    else
+        tx_frame <= ~tx_frame;
+end
 
 // IDDR instances (bits 0..11)
 IDDR IDDR_rx_frame_data_p_n_inst_0  (.Q0(adc_data_out_i1[0]),  .Q1(adc_data_out_q1[0]),  .CLK(data_clk), .D(rx_data_in[0]));

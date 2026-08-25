@@ -1,7 +1,7 @@
 ﻿module top  #(
-    parameter                           SAMPLE_RATE = 32'd12500000 ,
-    parameter                           SYMBOL_RATE = 32'd12500000 ,
-    parameter                           IDLE_CARRIER_ENABLE = 1'b0,
+    parameter                           SAMPLE_RATE = 32'd30720000 ,
+    parameter                           SYMBOL_RATE = 32'd7680000 ,
+    parameter                           IDLE_CARRIER_ENABLE = 1'b1,
     // Temporarily bypass RRC for transmit-path bring-up.
     parameter                           RRC_BYPASS_ENABLE = 1'b1
 )(
@@ -39,16 +39,27 @@
 // Clock & Reset
 // ============================================================
 wire                                    data_clk                   ;
-wire                                    bb_symbol_clk              ;
+reg                                     bb_symbol_clk              ;
 wire                                    bb_byte_clk                ;
 reg  [1:0]                              bb_byte_clk_div            ;
 
-// --- RF PLL: sys_clk (50MHz) -> 12.5 MHz symbol clock ---
-rf_PLL rf_PLL_u0(
-    .clkin   (sys_clk),
-    .clkout0 (bb_symbol_clk),
-    .mdclk   (sys_clk)
-);
+reg  [7:0]                              bb_symbol_clk_div_cnt      ;
+
+parameter                           BB_SYMBOL_DIV = SAMPLE_RATE / SYMBOL_RATE;  
+always @(posedge data_clk or negedge rst_n) begin
+    if (!rst_n) begin
+        bb_symbol_clk_div_cnt <= 8'd0;
+        bb_symbol_clk <= 1'b0;
+    end else begin
+        if (bb_symbol_clk_div_cnt == BB_SYMBOL_DIV/2 - 1) begin
+            bb_symbol_clk_div_cnt <= 8'd0;
+            bb_symbol_clk <= ~bb_symbol_clk;
+        end else begin
+            bb_symbol_clk_div_cnt <= bb_symbol_clk_div_cnt + 1'b1;
+            bb_symbol_clk <= bb_symbol_clk;
+        end
+    end
+end
 
 // One DQPSK byte comprises four 2-bit symbols.
 always @(posedge bb_symbol_clk or negedge rst_n) begin
@@ -73,7 +84,7 @@ wire                   [  11:0]         dac_data_in_i1_w           ;
 wire                   [  11:0]         dac_data_in_q1_w           ;
 wire                                    dac_in_valid_w             ;
 
-gc0802_cmos_dev u_gc0802_dev_cmos(
+ad9361_cmos_dev u_ad9361_cmos_dev(
     .rst_n           (rst_n),
     .clk_50m         (sys_clk),
     .data_clk        (data_clk),
