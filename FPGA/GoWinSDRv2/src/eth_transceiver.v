@@ -33,12 +33,16 @@
     output [15:0]       udp_length,         // UDP数据报长度
     
     // 状态指示
-    output              eth_active
+    output              eth_active,
+    output              rx_activity,
+    output              tx_activity
 );
 
 wire tx_active;
 wire rx_active;
 assign eth_active = tx_active || rx_active;
+assign rx_activity = rx_active;
+assign tx_activity = tx_active;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // 时钟生成

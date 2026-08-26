@@ -50,26 +50,6 @@ module gw_gao(
     bb_symbol_clk,
     data_clk,
     bb_byte_clk,
-    \u_rf_process/tx_data_in[7] ,
-    \u_rf_process/tx_data_in[6] ,
-    \u_rf_process/tx_data_in[5] ,
-    \u_rf_process/tx_data_in[4] ,
-    \u_rf_process/tx_data_in[3] ,
-    \u_rf_process/tx_data_in[2] ,
-    \u_rf_process/tx_data_in[1] ,
-    \u_rf_process/tx_data_in[0] ,
-    \u_eth2rf_processor/send_state[2] ,
-    \u_eth2rf_processor/send_state[1] ,
-    \u_eth2rf_processor/send_state[0] ,
-    \u_eth2rf_processor/rx_data[7] ,
-    \u_eth2rf_processor/rx_data[6] ,
-    \u_eth2rf_processor/rx_data[5] ,
-    \u_eth2rf_processor/rx_data[4] ,
-    \u_eth2rf_processor/rx_data[3] ,
-    \u_eth2rf_processor/rx_data[2] ,
-    \u_eth2rf_processor/rx_data[1] ,
-    \u_eth2rf_processor/rx_data[0] ,
-    \u_eth2rf_processor/rx_data_valid ,
     rf_tx_ready,
     rf_tx_valid,
     \rf_tx_data[7] ,
@@ -118,34 +98,71 @@ module gw_gao(
     \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[2] ,
     \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[1] ,
     \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[0] ,
-    \eth_transceiver_u/gmii_txd[7] ,
-    \eth_transceiver_u/gmii_txd[6] ,
-    \eth_transceiver_u/gmii_txd[5] ,
-    \eth_transceiver_u/gmii_txd[4] ,
-    \eth_transceiver_u/gmii_txd[3] ,
-    \eth_transceiver_u/gmii_txd[2] ,
-    \eth_transceiver_u/gmii_txd[1] ,
-    \eth_transceiver_u/gmii_txd[0] ,
-    \eth_transceiver_u/gmii_txd_r[7] ,
-    \eth_transceiver_u/gmii_txd_r[6] ,
-    \eth_transceiver_u/gmii_txd_r[5] ,
-    \eth_transceiver_u/gmii_txd_r[4] ,
-    \eth_transceiver_u/gmii_txd_r[3] ,
-    \eth_transceiver_u/gmii_txd_r[2] ,
-    \eth_transceiver_u/gmii_txd_r[1] ,
-    \eth_transceiver_u/gmii_txd_r[0] ,
-    \eth_transceiver_u/txen_pipe[2] ,
-    \eth_transceiver_u/txen_pipe[1] ,
-    \eth_transceiver_u/txen_pipe[0] ,
-    \eth_transceiver_u/gmii_txen ,
-    \eth_transceiver_u/gmii_txen_r ,
+    \u_rf_process/gardner_sync_u0/uk[15] ,
+    \u_rf_process/gardner_sync_u0/uk[14] ,
+    \u_rf_process/gardner_sync_u0/uk[13] ,
+    \u_rf_process/gardner_sync_u0/uk[12] ,
+    \u_rf_process/gardner_sync_u0/uk[11] ,
+    \u_rf_process/gardner_sync_u0/uk[10] ,
+    \u_rf_process/gardner_sync_u0/uk[9] ,
+    \u_rf_process/gardner_sync_u0/uk[8] ,
+    \u_rf_process/gardner_sync_u0/uk[7] ,
+    \u_rf_process/gardner_sync_u0/uk[6] ,
+    \u_rf_process/gardner_sync_u0/uk[5] ,
+    \u_rf_process/gardner_sync_u0/uk[4] ,
+    \u_rf_process/gardner_sync_u0/uk[3] ,
+    \u_rf_process/gardner_sync_u0/uk[2] ,
+    \u_rf_process/gardner_sync_u0/uk[1] ,
+    \u_rf_process/gardner_sync_u0/uk[0] ,
+    \u_rf_process/gardner_sync_u0/I_y[19] ,
+    \u_rf_process/gardner_sync_u0/I_y[18] ,
+    \u_rf_process/gardner_sync_u0/I_y[17] ,
+    \u_rf_process/gardner_sync_u0/I_y[16] ,
+    \u_rf_process/gardner_sync_u0/I_y[15] ,
+    \u_rf_process/gardner_sync_u0/I_y[14] ,
+    \u_rf_process/gardner_sync_u0/I_y[13] ,
+    \u_rf_process/gardner_sync_u0/I_y[12] ,
+    \u_rf_process/gardner_sync_u0/I_y[11] ,
+    \u_rf_process/gardner_sync_u0/I_y[10] ,
+    \u_rf_process/gardner_sync_u0/I_y[9] ,
+    \u_rf_process/gardner_sync_u0/I_y[8] ,
+    \u_rf_process/gardner_sync_u0/I_y[7] ,
+    \u_rf_process/gardner_sync_u0/I_y[6] ,
+    \u_rf_process/gardner_sync_u0/I_y[5] ,
+    \u_rf_process/gardner_sync_u0/I_y[4] ,
+    \u_rf_process/gardner_sync_u0/I_y[3] ,
+    \u_rf_process/gardner_sync_u0/I_y[2] ,
+    \u_rf_process/gardner_sync_u0/I_y[1] ,
+    \u_rf_process/gardner_sync_u0/I_y[0] ,
+    \u_rf_process/gardner_sync_u0/Q_y[19] ,
+    \u_rf_process/gardner_sync_u0/Q_y[18] ,
+    \u_rf_process/gardner_sync_u0/Q_y[17] ,
+    \u_rf_process/gardner_sync_u0/Q_y[16] ,
+    \u_rf_process/gardner_sync_u0/Q_y[15] ,
+    \u_rf_process/gardner_sync_u0/Q_y[14] ,
+    \u_rf_process/gardner_sync_u0/Q_y[13] ,
+    \u_rf_process/gardner_sync_u0/Q_y[12] ,
+    \u_rf_process/gardner_sync_u0/Q_y[11] ,
+    \u_rf_process/gardner_sync_u0/Q_y[10] ,
+    \u_rf_process/gardner_sync_u0/Q_y[9] ,
+    \u_rf_process/gardner_sync_u0/Q_y[8] ,
+    \u_rf_process/gardner_sync_u0/Q_y[7] ,
+    \u_rf_process/gardner_sync_u0/Q_y[6] ,
+    \u_rf_process/gardner_sync_u0/Q_y[5] ,
+    \u_rf_process/gardner_sync_u0/Q_y[4] ,
+    \u_rf_process/gardner_sync_u0/Q_y[3] ,
+    \u_rf_process/gardner_sync_u0/Q_y[2] ,
+    \u_rf_process/gardner_sync_u0/Q_y[1] ,
+    \u_rf_process/gardner_sync_u0/Q_y[0] ,
+    \u_rf_process/gardner_sync_u0/nco_strobe_flag ,
+    \u_rf_process/gardner_sync_u0/ted_strobe_flag ,
     rst_n,
     \eth_transceiver_u/rx_state[3] ,
     \eth_transceiver_u/rx_state[2] ,
     \eth_transceiver_u/rx_state[1] ,
     \eth_transceiver_u/rx_state[0] ,
+    \u_eth2rf_processor/rx_data_valid ,
     \u_rf2eth_processor/eth_tx_frame_start ,
-    RGMII_GTXCLK,
     tms_pad_i,
     tck_pad_i,
     tdi_pad_i,
@@ -203,26 +220,6 @@ input \dac_data_out_q1[0] ;
 input bb_symbol_clk;
 input data_clk;
 input bb_byte_clk;
-input \u_rf_process/tx_data_in[7] ;
-input \u_rf_process/tx_data_in[6] ;
-input \u_rf_process/tx_data_in[5] ;
-input \u_rf_process/tx_data_in[4] ;
-input \u_rf_process/tx_data_in[3] ;
-input \u_rf_process/tx_data_in[2] ;
-input \u_rf_process/tx_data_in[1] ;
-input \u_rf_process/tx_data_in[0] ;
-input \u_eth2rf_processor/send_state[2] ;
-input \u_eth2rf_processor/send_state[1] ;
-input \u_eth2rf_processor/send_state[0] ;
-input \u_eth2rf_processor/rx_data[7] ;
-input \u_eth2rf_processor/rx_data[6] ;
-input \u_eth2rf_processor/rx_data[5] ;
-input \u_eth2rf_processor/rx_data[4] ;
-input \u_eth2rf_processor/rx_data[3] ;
-input \u_eth2rf_processor/rx_data[2] ;
-input \u_eth2rf_processor/rx_data[1] ;
-input \u_eth2rf_processor/rx_data[0] ;
-input \u_eth2rf_processor/rx_data_valid ;
 input rf_tx_ready;
 input rf_tx_valid;
 input \rf_tx_data[7] ;
@@ -271,34 +268,71 @@ input \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[3] ;
 input \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[2] ;
 input \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[1] ;
 input \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[0] ;
-input \eth_transceiver_u/gmii_txd[7] ;
-input \eth_transceiver_u/gmii_txd[6] ;
-input \eth_transceiver_u/gmii_txd[5] ;
-input \eth_transceiver_u/gmii_txd[4] ;
-input \eth_transceiver_u/gmii_txd[3] ;
-input \eth_transceiver_u/gmii_txd[2] ;
-input \eth_transceiver_u/gmii_txd[1] ;
-input \eth_transceiver_u/gmii_txd[0] ;
-input \eth_transceiver_u/gmii_txd_r[7] ;
-input \eth_transceiver_u/gmii_txd_r[6] ;
-input \eth_transceiver_u/gmii_txd_r[5] ;
-input \eth_transceiver_u/gmii_txd_r[4] ;
-input \eth_transceiver_u/gmii_txd_r[3] ;
-input \eth_transceiver_u/gmii_txd_r[2] ;
-input \eth_transceiver_u/gmii_txd_r[1] ;
-input \eth_transceiver_u/gmii_txd_r[0] ;
-input \eth_transceiver_u/txen_pipe[2] ;
-input \eth_transceiver_u/txen_pipe[1] ;
-input \eth_transceiver_u/txen_pipe[0] ;
-input \eth_transceiver_u/gmii_txen ;
-input \eth_transceiver_u/gmii_txen_r ;
+input \u_rf_process/gardner_sync_u0/uk[15] ;
+input \u_rf_process/gardner_sync_u0/uk[14] ;
+input \u_rf_process/gardner_sync_u0/uk[13] ;
+input \u_rf_process/gardner_sync_u0/uk[12] ;
+input \u_rf_process/gardner_sync_u0/uk[11] ;
+input \u_rf_process/gardner_sync_u0/uk[10] ;
+input \u_rf_process/gardner_sync_u0/uk[9] ;
+input \u_rf_process/gardner_sync_u0/uk[8] ;
+input \u_rf_process/gardner_sync_u0/uk[7] ;
+input \u_rf_process/gardner_sync_u0/uk[6] ;
+input \u_rf_process/gardner_sync_u0/uk[5] ;
+input \u_rf_process/gardner_sync_u0/uk[4] ;
+input \u_rf_process/gardner_sync_u0/uk[3] ;
+input \u_rf_process/gardner_sync_u0/uk[2] ;
+input \u_rf_process/gardner_sync_u0/uk[1] ;
+input \u_rf_process/gardner_sync_u0/uk[0] ;
+input \u_rf_process/gardner_sync_u0/I_y[19] ;
+input \u_rf_process/gardner_sync_u0/I_y[18] ;
+input \u_rf_process/gardner_sync_u0/I_y[17] ;
+input \u_rf_process/gardner_sync_u0/I_y[16] ;
+input \u_rf_process/gardner_sync_u0/I_y[15] ;
+input \u_rf_process/gardner_sync_u0/I_y[14] ;
+input \u_rf_process/gardner_sync_u0/I_y[13] ;
+input \u_rf_process/gardner_sync_u0/I_y[12] ;
+input \u_rf_process/gardner_sync_u0/I_y[11] ;
+input \u_rf_process/gardner_sync_u0/I_y[10] ;
+input \u_rf_process/gardner_sync_u0/I_y[9] ;
+input \u_rf_process/gardner_sync_u0/I_y[8] ;
+input \u_rf_process/gardner_sync_u0/I_y[7] ;
+input \u_rf_process/gardner_sync_u0/I_y[6] ;
+input \u_rf_process/gardner_sync_u0/I_y[5] ;
+input \u_rf_process/gardner_sync_u0/I_y[4] ;
+input \u_rf_process/gardner_sync_u0/I_y[3] ;
+input \u_rf_process/gardner_sync_u0/I_y[2] ;
+input \u_rf_process/gardner_sync_u0/I_y[1] ;
+input \u_rf_process/gardner_sync_u0/I_y[0] ;
+input \u_rf_process/gardner_sync_u0/Q_y[19] ;
+input \u_rf_process/gardner_sync_u0/Q_y[18] ;
+input \u_rf_process/gardner_sync_u0/Q_y[17] ;
+input \u_rf_process/gardner_sync_u0/Q_y[16] ;
+input \u_rf_process/gardner_sync_u0/Q_y[15] ;
+input \u_rf_process/gardner_sync_u0/Q_y[14] ;
+input \u_rf_process/gardner_sync_u0/Q_y[13] ;
+input \u_rf_process/gardner_sync_u0/Q_y[12] ;
+input \u_rf_process/gardner_sync_u0/Q_y[11] ;
+input \u_rf_process/gardner_sync_u0/Q_y[10] ;
+input \u_rf_process/gardner_sync_u0/Q_y[9] ;
+input \u_rf_process/gardner_sync_u0/Q_y[8] ;
+input \u_rf_process/gardner_sync_u0/Q_y[7] ;
+input \u_rf_process/gardner_sync_u0/Q_y[6] ;
+input \u_rf_process/gardner_sync_u0/Q_y[5] ;
+input \u_rf_process/gardner_sync_u0/Q_y[4] ;
+input \u_rf_process/gardner_sync_u0/Q_y[3] ;
+input \u_rf_process/gardner_sync_u0/Q_y[2] ;
+input \u_rf_process/gardner_sync_u0/Q_y[1] ;
+input \u_rf_process/gardner_sync_u0/Q_y[0] ;
+input \u_rf_process/gardner_sync_u0/nco_strobe_flag ;
+input \u_rf_process/gardner_sync_u0/ted_strobe_flag ;
 input rst_n;
 input \eth_transceiver_u/rx_state[3] ;
 input \eth_transceiver_u/rx_state[2] ;
 input \eth_transceiver_u/rx_state[1] ;
 input \eth_transceiver_u/rx_state[0] ;
+input \u_eth2rf_processor/rx_data_valid ;
 input \u_rf2eth_processor/eth_tx_frame_start ;
-input RGMII_GTXCLK;
 input tms_pad_i;
 input tck_pad_i;
 input tdi_pad_i;
@@ -355,26 +389,6 @@ wire \dac_data_out_q1[0] ;
 wire bb_symbol_clk;
 wire data_clk;
 wire bb_byte_clk;
-wire \u_rf_process/tx_data_in[7] ;
-wire \u_rf_process/tx_data_in[6] ;
-wire \u_rf_process/tx_data_in[5] ;
-wire \u_rf_process/tx_data_in[4] ;
-wire \u_rf_process/tx_data_in[3] ;
-wire \u_rf_process/tx_data_in[2] ;
-wire \u_rf_process/tx_data_in[1] ;
-wire \u_rf_process/tx_data_in[0] ;
-wire \u_eth2rf_processor/send_state[2] ;
-wire \u_eth2rf_processor/send_state[1] ;
-wire \u_eth2rf_processor/send_state[0] ;
-wire \u_eth2rf_processor/rx_data[7] ;
-wire \u_eth2rf_processor/rx_data[6] ;
-wire \u_eth2rf_processor/rx_data[5] ;
-wire \u_eth2rf_processor/rx_data[4] ;
-wire \u_eth2rf_processor/rx_data[3] ;
-wire \u_eth2rf_processor/rx_data[2] ;
-wire \u_eth2rf_processor/rx_data[1] ;
-wire \u_eth2rf_processor/rx_data[0] ;
-wire \u_eth2rf_processor/rx_data_valid ;
 wire rf_tx_ready;
 wire rf_tx_valid;
 wire \rf_tx_data[7] ;
@@ -423,34 +437,71 @@ wire \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[3] ;
 wire \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[2] ;
 wire \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[1] ;
 wire \u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[0] ;
-wire \eth_transceiver_u/gmii_txd[7] ;
-wire \eth_transceiver_u/gmii_txd[6] ;
-wire \eth_transceiver_u/gmii_txd[5] ;
-wire \eth_transceiver_u/gmii_txd[4] ;
-wire \eth_transceiver_u/gmii_txd[3] ;
-wire \eth_transceiver_u/gmii_txd[2] ;
-wire \eth_transceiver_u/gmii_txd[1] ;
-wire \eth_transceiver_u/gmii_txd[0] ;
-wire \eth_transceiver_u/gmii_txd_r[7] ;
-wire \eth_transceiver_u/gmii_txd_r[6] ;
-wire \eth_transceiver_u/gmii_txd_r[5] ;
-wire \eth_transceiver_u/gmii_txd_r[4] ;
-wire \eth_transceiver_u/gmii_txd_r[3] ;
-wire \eth_transceiver_u/gmii_txd_r[2] ;
-wire \eth_transceiver_u/gmii_txd_r[1] ;
-wire \eth_transceiver_u/gmii_txd_r[0] ;
-wire \eth_transceiver_u/txen_pipe[2] ;
-wire \eth_transceiver_u/txen_pipe[1] ;
-wire \eth_transceiver_u/txen_pipe[0] ;
-wire \eth_transceiver_u/gmii_txen ;
-wire \eth_transceiver_u/gmii_txen_r ;
+wire \u_rf_process/gardner_sync_u0/uk[15] ;
+wire \u_rf_process/gardner_sync_u0/uk[14] ;
+wire \u_rf_process/gardner_sync_u0/uk[13] ;
+wire \u_rf_process/gardner_sync_u0/uk[12] ;
+wire \u_rf_process/gardner_sync_u0/uk[11] ;
+wire \u_rf_process/gardner_sync_u0/uk[10] ;
+wire \u_rf_process/gardner_sync_u0/uk[9] ;
+wire \u_rf_process/gardner_sync_u0/uk[8] ;
+wire \u_rf_process/gardner_sync_u0/uk[7] ;
+wire \u_rf_process/gardner_sync_u0/uk[6] ;
+wire \u_rf_process/gardner_sync_u0/uk[5] ;
+wire \u_rf_process/gardner_sync_u0/uk[4] ;
+wire \u_rf_process/gardner_sync_u0/uk[3] ;
+wire \u_rf_process/gardner_sync_u0/uk[2] ;
+wire \u_rf_process/gardner_sync_u0/uk[1] ;
+wire \u_rf_process/gardner_sync_u0/uk[0] ;
+wire \u_rf_process/gardner_sync_u0/I_y[19] ;
+wire \u_rf_process/gardner_sync_u0/I_y[18] ;
+wire \u_rf_process/gardner_sync_u0/I_y[17] ;
+wire \u_rf_process/gardner_sync_u0/I_y[16] ;
+wire \u_rf_process/gardner_sync_u0/I_y[15] ;
+wire \u_rf_process/gardner_sync_u0/I_y[14] ;
+wire \u_rf_process/gardner_sync_u0/I_y[13] ;
+wire \u_rf_process/gardner_sync_u0/I_y[12] ;
+wire \u_rf_process/gardner_sync_u0/I_y[11] ;
+wire \u_rf_process/gardner_sync_u0/I_y[10] ;
+wire \u_rf_process/gardner_sync_u0/I_y[9] ;
+wire \u_rf_process/gardner_sync_u0/I_y[8] ;
+wire \u_rf_process/gardner_sync_u0/I_y[7] ;
+wire \u_rf_process/gardner_sync_u0/I_y[6] ;
+wire \u_rf_process/gardner_sync_u0/I_y[5] ;
+wire \u_rf_process/gardner_sync_u0/I_y[4] ;
+wire \u_rf_process/gardner_sync_u0/I_y[3] ;
+wire \u_rf_process/gardner_sync_u0/I_y[2] ;
+wire \u_rf_process/gardner_sync_u0/I_y[1] ;
+wire \u_rf_process/gardner_sync_u0/I_y[0] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[19] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[18] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[17] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[16] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[15] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[14] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[13] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[12] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[11] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[10] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[9] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[8] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[7] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[6] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[5] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[4] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[3] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[2] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[1] ;
+wire \u_rf_process/gardner_sync_u0/Q_y[0] ;
+wire \u_rf_process/gardner_sync_u0/nco_strobe_flag ;
+wire \u_rf_process/gardner_sync_u0/ted_strobe_flag ;
 wire rst_n;
 wire \eth_transceiver_u/rx_state[3] ;
 wire \eth_transceiver_u/rx_state[2] ;
 wire \eth_transceiver_u/rx_state[1] ;
 wire \eth_transceiver_u/rx_state[0] ;
+wire \u_eth2rf_processor/rx_data_valid ;
 wire \u_rf2eth_processor/eth_tx_frame_start ;
-wire RGMII_GTXCLK;
 wire tms_pad_i;
 wire tck_pad_i;
 wire tdi_pad_i;
@@ -528,8 +579,8 @@ ao_top_0  u_la0_top(
     .trig1_i({\eth_transceiver_u/rx_state[3] ,\eth_transceiver_u/rx_state[2] ,\eth_transceiver_u/rx_state[1] ,\eth_transceiver_u/rx_state[0] }),
     .trig2_i(\u_eth2rf_processor/rx_data_valid ),
     .trig3_i(\u_rf2eth_processor/eth_tx_frame_start ),
-    .data_i({\adc_data_out_i1[11] ,\adc_data_out_i1[10] ,\adc_data_out_i1[9] ,\adc_data_out_i1[8] ,\adc_data_out_i1[7] ,\adc_data_out_i1[6] ,\adc_data_out_i1[5] ,\adc_data_out_i1[4] ,\adc_data_out_i1[3] ,\adc_data_out_i1[2] ,\adc_data_out_i1[1] ,\adc_data_out_i1[0] ,\adc_data_out_q1[11] ,\adc_data_out_q1[10] ,\adc_data_out_q1[9] ,\adc_data_out_q1[8] ,\adc_data_out_q1[7] ,\adc_data_out_q1[6] ,\adc_data_out_q1[5] ,\adc_data_out_q1[4] ,\adc_data_out_q1[3] ,\adc_data_out_q1[2] ,\adc_data_out_q1[1] ,\adc_data_out_q1[0] ,\dac_data_out_i1[11] ,\dac_data_out_i1[10] ,\dac_data_out_i1[9] ,\dac_data_out_i1[8] ,\dac_data_out_i1[7] ,\dac_data_out_i1[6] ,\dac_data_out_i1[5] ,\dac_data_out_i1[4] ,\dac_data_out_i1[3] ,\dac_data_out_i1[2] ,\dac_data_out_i1[1] ,\dac_data_out_i1[0] ,\dac_data_out_q1[11] ,\dac_data_out_q1[10] ,\dac_data_out_q1[9] ,\dac_data_out_q1[8] ,\dac_data_out_q1[7] ,\dac_data_out_q1[6] ,\dac_data_out_q1[5] ,\dac_data_out_q1[4] ,\dac_data_out_q1[3] ,\dac_data_out_q1[2] ,\dac_data_out_q1[1] ,\dac_data_out_q1[0] ,bb_symbol_clk,data_clk,bb_byte_clk,\u_rf_process/tx_data_in[7] ,\u_rf_process/tx_data_in[6] ,\u_rf_process/tx_data_in[5] ,\u_rf_process/tx_data_in[4] ,\u_rf_process/tx_data_in[3] ,\u_rf_process/tx_data_in[2] ,\u_rf_process/tx_data_in[1] ,\u_rf_process/tx_data_in[0] ,\u_eth2rf_processor/send_state[2] ,\u_eth2rf_processor/send_state[1] ,\u_eth2rf_processor/send_state[0] ,\u_eth2rf_processor/rx_data[7] ,\u_eth2rf_processor/rx_data[6] ,\u_eth2rf_processor/rx_data[5] ,\u_eth2rf_processor/rx_data[4] ,\u_eth2rf_processor/rx_data[3] ,\u_eth2rf_processor/rx_data[2] ,\u_eth2rf_processor/rx_data[1] ,\u_eth2rf_processor/rx_data[0] ,\u_eth2rf_processor/rx_data_valid ,rf_tx_ready,rf_tx_valid,\rf_tx_data[7] ,\rf_tx_data[6] ,\rf_tx_data[5] ,\rf_tx_data[4] ,\rf_tx_data[3] ,\rf_tx_data[2] ,\rf_tx_data[1] ,\rf_tx_data[0] ,\u_rf_process/gardner_sync_flag ,\u_rf_process/gardner_sync_I ,\u_rf_process/gardner_sync_Q ,\u_rf_process/dqpsk_rx_data[7] ,\u_rf_process/dqpsk_rx_data[6] ,\u_rf_process/dqpsk_rx_data[5] ,\u_rf_process/dqpsk_rx_data[4] ,\u_rf_process/dqpsk_rx_data[3] ,\u_rf_process/dqpsk_rx_data[2] ,\u_rf_process/dqpsk_rx_data[1] ,\u_rf_process/dqpsk_rx_data[0] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[7] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[6] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[5] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[4] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[3] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[2] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[1] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[0] ,\u_rf_process/u_rf_dqpsk_decoder/frame_head_found_dbg ,\u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[1] ,\u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[0] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[15] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[14] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[13] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[12] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[11] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[10] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[9] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[8] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[7] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[6] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[5] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[4] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[3] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[2] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[1] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[0] ,\eth_transceiver_u/gmii_txd[7] ,\eth_transceiver_u/gmii_txd[6] ,\eth_transceiver_u/gmii_txd[5] ,\eth_transceiver_u/gmii_txd[4] ,\eth_transceiver_u/gmii_txd[3] ,\eth_transceiver_u/gmii_txd[2] ,\eth_transceiver_u/gmii_txd[1] ,\eth_transceiver_u/gmii_txd[0] ,\eth_transceiver_u/gmii_txd_r[7] ,\eth_transceiver_u/gmii_txd_r[6] ,\eth_transceiver_u/gmii_txd_r[5] ,\eth_transceiver_u/gmii_txd_r[4] ,\eth_transceiver_u/gmii_txd_r[3] ,\eth_transceiver_u/gmii_txd_r[2] ,\eth_transceiver_u/gmii_txd_r[1] ,\eth_transceiver_u/gmii_txd_r[0] ,\eth_transceiver_u/txen_pipe[2] ,\eth_transceiver_u/txen_pipe[1] ,\eth_transceiver_u/txen_pipe[0] ,\eth_transceiver_u/gmii_txen ,\eth_transceiver_u/gmii_txen_r }),
-    .clk_i(RGMII_GTXCLK)
+    .data_i({\adc_data_out_i1[11] ,\adc_data_out_i1[10] ,\adc_data_out_i1[9] ,\adc_data_out_i1[8] ,\adc_data_out_i1[7] ,\adc_data_out_i1[6] ,\adc_data_out_i1[5] ,\adc_data_out_i1[4] ,\adc_data_out_i1[3] ,\adc_data_out_i1[2] ,\adc_data_out_i1[1] ,\adc_data_out_i1[0] ,\adc_data_out_q1[11] ,\adc_data_out_q1[10] ,\adc_data_out_q1[9] ,\adc_data_out_q1[8] ,\adc_data_out_q1[7] ,\adc_data_out_q1[6] ,\adc_data_out_q1[5] ,\adc_data_out_q1[4] ,\adc_data_out_q1[3] ,\adc_data_out_q1[2] ,\adc_data_out_q1[1] ,\adc_data_out_q1[0] ,\dac_data_out_i1[11] ,\dac_data_out_i1[10] ,\dac_data_out_i1[9] ,\dac_data_out_i1[8] ,\dac_data_out_i1[7] ,\dac_data_out_i1[6] ,\dac_data_out_i1[5] ,\dac_data_out_i1[4] ,\dac_data_out_i1[3] ,\dac_data_out_i1[2] ,\dac_data_out_i1[1] ,\dac_data_out_i1[0] ,\dac_data_out_q1[11] ,\dac_data_out_q1[10] ,\dac_data_out_q1[9] ,\dac_data_out_q1[8] ,\dac_data_out_q1[7] ,\dac_data_out_q1[6] ,\dac_data_out_q1[5] ,\dac_data_out_q1[4] ,\dac_data_out_q1[3] ,\dac_data_out_q1[2] ,\dac_data_out_q1[1] ,\dac_data_out_q1[0] ,bb_symbol_clk,data_clk,bb_byte_clk,rf_tx_ready,rf_tx_valid,\rf_tx_data[7] ,\rf_tx_data[6] ,\rf_tx_data[5] ,\rf_tx_data[4] ,\rf_tx_data[3] ,\rf_tx_data[2] ,\rf_tx_data[1] ,\rf_tx_data[0] ,\u_rf_process/gardner_sync_flag ,\u_rf_process/gardner_sync_I ,\u_rf_process/gardner_sync_Q ,\u_rf_process/dqpsk_rx_data[7] ,\u_rf_process/dqpsk_rx_data[6] ,\u_rf_process/dqpsk_rx_data[5] ,\u_rf_process/dqpsk_rx_data[4] ,\u_rf_process/dqpsk_rx_data[3] ,\u_rf_process/dqpsk_rx_data[2] ,\u_rf_process/dqpsk_rx_data[1] ,\u_rf_process/dqpsk_rx_data[0] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[7] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[6] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[5] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[4] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[3] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[2] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[1] ,\u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[0] ,\u_rf_process/u_rf_dqpsk_decoder/frame_head_found_dbg ,\u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[1] ,\u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[0] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[15] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[14] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[13] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[12] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[11] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[10] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[9] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[8] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[7] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[6] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[5] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[4] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[3] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[2] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[1] ,\u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[0] ,\u_rf_process/gardner_sync_u0/uk[15] ,\u_rf_process/gardner_sync_u0/uk[14] ,\u_rf_process/gardner_sync_u0/uk[13] ,\u_rf_process/gardner_sync_u0/uk[12] ,\u_rf_process/gardner_sync_u0/uk[11] ,\u_rf_process/gardner_sync_u0/uk[10] ,\u_rf_process/gardner_sync_u0/uk[9] ,\u_rf_process/gardner_sync_u0/uk[8] ,\u_rf_process/gardner_sync_u0/uk[7] ,\u_rf_process/gardner_sync_u0/uk[6] ,\u_rf_process/gardner_sync_u0/uk[5] ,\u_rf_process/gardner_sync_u0/uk[4] ,\u_rf_process/gardner_sync_u0/uk[3] ,\u_rf_process/gardner_sync_u0/uk[2] ,\u_rf_process/gardner_sync_u0/uk[1] ,\u_rf_process/gardner_sync_u0/uk[0] ,\u_rf_process/gardner_sync_u0/I_y[19] ,\u_rf_process/gardner_sync_u0/I_y[18] ,\u_rf_process/gardner_sync_u0/I_y[17] ,\u_rf_process/gardner_sync_u0/I_y[16] ,\u_rf_process/gardner_sync_u0/I_y[15] ,\u_rf_process/gardner_sync_u0/I_y[14] ,\u_rf_process/gardner_sync_u0/I_y[13] ,\u_rf_process/gardner_sync_u0/I_y[12] ,\u_rf_process/gardner_sync_u0/I_y[11] ,\u_rf_process/gardner_sync_u0/I_y[10] ,\u_rf_process/gardner_sync_u0/I_y[9] ,\u_rf_process/gardner_sync_u0/I_y[8] ,\u_rf_process/gardner_sync_u0/I_y[7] ,\u_rf_process/gardner_sync_u0/I_y[6] ,\u_rf_process/gardner_sync_u0/I_y[5] ,\u_rf_process/gardner_sync_u0/I_y[4] ,\u_rf_process/gardner_sync_u0/I_y[3] ,\u_rf_process/gardner_sync_u0/I_y[2] ,\u_rf_process/gardner_sync_u0/I_y[1] ,\u_rf_process/gardner_sync_u0/I_y[0] ,\u_rf_process/gardner_sync_u0/Q_y[19] ,\u_rf_process/gardner_sync_u0/Q_y[18] ,\u_rf_process/gardner_sync_u0/Q_y[17] ,\u_rf_process/gardner_sync_u0/Q_y[16] ,\u_rf_process/gardner_sync_u0/Q_y[15] ,\u_rf_process/gardner_sync_u0/Q_y[14] ,\u_rf_process/gardner_sync_u0/Q_y[13] ,\u_rf_process/gardner_sync_u0/Q_y[12] ,\u_rf_process/gardner_sync_u0/Q_y[11] ,\u_rf_process/gardner_sync_u0/Q_y[10] ,\u_rf_process/gardner_sync_u0/Q_y[9] ,\u_rf_process/gardner_sync_u0/Q_y[8] ,\u_rf_process/gardner_sync_u0/Q_y[7] ,\u_rf_process/gardner_sync_u0/Q_y[6] ,\u_rf_process/gardner_sync_u0/Q_y[5] ,\u_rf_process/gardner_sync_u0/Q_y[4] ,\u_rf_process/gardner_sync_u0/Q_y[3] ,\u_rf_process/gardner_sync_u0/Q_y[2] ,\u_rf_process/gardner_sync_u0/Q_y[1] ,\u_rf_process/gardner_sync_u0/Q_y[0] ,\u_rf_process/gardner_sync_u0/nco_strobe_flag ,\u_rf_process/gardner_sync_u0/ted_strobe_flag }),
+    .clk_i(data_clk)
 );
 
 endmodule

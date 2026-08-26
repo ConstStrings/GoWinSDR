@@ -123,8 +123,10 @@ wire                   [  15:0]         eth_udp_length         ;
 wire                   [   7:0]         eth_tx_data                ;
 wire                                    eth_tx_data_valid          ;
 wire                                    eth_tx_frame_start         ;
-wire                                    eth_tx_ready               ;
-wire                                    eth_active                 ;
+  wire                                    eth_tx_ready               ;
+  wire                                    eth_active                 ;
+  wire                                    eth_rx_activity            ;
+  wire                                    eth_tx_activity            ;
 
 eth_transceiver #(
     .BOARD_MAC   (48'h12_34_56_78_90_12),
@@ -151,8 +153,10 @@ eth_transceiver #(
     .rx_data_valid   (eth_rx_data_valid),
     .rx_frame_start  (eth_rx_frame_start),
     .rx_frame_end    (eth_rx_frame_end),
-    .udp_length  (eth_udp_length),
-    .eth_active      (eth_active)
+      .udp_length  (eth_udp_length),
+      .eth_active      (eth_active),
+      .rx_activity     (eth_rx_activity),
+      .tx_activity     (eth_tx_activity)
 );
 
 // Ethernet TX is driven by rf2eth_processor below.
@@ -271,11 +275,11 @@ assign dac_in_valid_w   = dac_out_valid;
 phy_led phy_led_u(
     .sys_clk  (sys_clk),
     .rst_n    (rst_n),
-    .eth_act  (eth_active),
-    .error    (fifo_eth_almost_full),
-    .data_clk (data_clk),
-    .rx_act   (adc_out_valid),
-    .tx_act   (dac_out_valid),
+      .eth_act  (eth_active),
+      .error    (fifo_eth_almost_full),
+      .data_clk (data_clk),
+      .rx_act   (eth_rx_activity),
+      .tx_act   (eth_tx_activity),
     .led      (led)
 );
 

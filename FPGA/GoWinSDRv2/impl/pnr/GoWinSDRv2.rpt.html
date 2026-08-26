@@ -83,7 +83,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Wed Aug 26 15:19:27 2026
+<td>Wed Aug 26 22:58:26 2026
 </td>
 </tr>
 <tr>
@@ -97,24 +97,24 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td class="label">Place & Route Process</td>
 <td>Running placement:
-   Placement Phase 0: CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s
+   Placement Phase 0: CPU time = 0h 0m 0.926s, Elapsed time = 0h 0m 0.926s
    Placement Phase 1: CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s
-   Placement Phase 2: CPU time = 0h 0m 6s, Elapsed time = 0h 0m 6s
-   Placement Phase 3: CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s
-   Total Placement: CPU time = 0h 0m 14s, Elapsed time = 0h 0m 14s
+   Placement Phase 2: CPU time = 0h 0m 5s, Elapsed time = 0h 0m 5s
+   Placement Phase 3: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s
+   Total Placement: CPU time = 0h 0m 10s, Elapsed time = 0h 0m 10s
 Running routing:
-   Routing Phase 0: CPU time = 0h 0m 0.006s, Elapsed time = 0h 0m 0.007s
-   Routing Phase 1: CPU time = 0h 2m 34s, Elapsed time = 0h 2m 34s
-   Routing Phase 2: CPU time = 0h 0m 0.108s, Elapsed time = 0h 0m 0.108s
+   Routing Phase 0: CPU time = 0h 0m 0.002s, Elapsed time = 0h 0m 0.002s
+   Routing Phase 1: CPU time = 0h 0m 40s, Elapsed time = 0h 0m 40s
+   Routing Phase 2: CPU time = 0h 0m 0.136s, Elapsed time = 0h 0m 0.135s
    Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-   Total Routing: CPU time = 0h 2m 34s, Elapsed time = 0h 2m 34s
+   Total Routing: CPU time = 0h 0m 40s, Elapsed time = 0h 0m 40s
 Generate output files:
-   CPU time = 0h 0m 10s, Elapsed time = 0h 0m 10s
+   CPU time = 0h 0m 6s, Elapsed time = 0h 0m 6s
 </td>
 </tr>
 <tr>
 <td class="label">Total Time and Memory Usage</td>
-<td>CPU time = 0h 2m 58s, Elapsed time = 0h 2m 58s, Peak memory usage = 2588MB</td>
+<td>CPU time = 0h 0m 55s, Elapsed time = 0h 0m 55s, Peak memory usage = 2588MB</td>
 </tr>
 </table>
 <br/>
@@ -129,12 +129,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Logic</td>
-<td>3383/59904</td>
+<td>3411/59904</td>
 <td>6%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --LUT,ALU,ROM16</td>
-<td>3383(2792 LUT, 591 ALU, 0 ROM16)</td>
+<td>3411(2821 LUT, 590 ALU, 0 ROM16)</td>
 <td>-</td>
 </tr>
 <tr>
@@ -144,7 +144,7 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Register</td>
-<td>2585/60780</td>
+<td>2689/60780</td>
 <td>5%</td>
 </tr>
 <tr>
@@ -154,7 +154,7 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as FF</td>
-<td>2582/59904</td>
+<td>2685/59904</td>
 <td>5%</td>
 </tr>
 <tr>
@@ -164,12 +164,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --I/O Register as FF</td>
-<td>3/876</td>
+<td>4/876</td>
 <td><1%</td>
 </tr>
 <tr>
 <td class="label">CLS</td>
-<td>2839/29952</td>
+<td>2912/29952</td>
 <td>10%</td>
 </tr>
 <tr>
@@ -204,8 +204,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">BSRAM</td>
-<td>99 SDPB<br/>1 SDPX9B<br/>1 pROM<br/></td>
-<td>86%</td>
+<td>107 SDPB<br/>1 SDPX9B<br/>1 pROM<br/></td>
+<td>93%</td>
 </tr>
 <tr>
 <td class="label">DSP</td>
@@ -282,8 +282,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">LW</td>
-<td>5/8</td>
-<td>63%</td>
+<td>6/8</td>
+<td>75%</td>
 </tr>
 <tr>
 <td class="label">GCLK_PIN</td>
@@ -327,12 +327,12 @@ Generate output files:
 <tr>
 <td class="label">rf_rx_clk</td>
 <td>PRIMARY</td>
-<td> PTR1 PTR2 PBR1</td>
+<td> PTR0 PTR1 PTR2 PBR0 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">RGMII_GTXCLK_d</td>
 <td>PRIMARY</td>
-<td> PTR0 PTR1 PTR2 PBR1 PBR2</td>
+<td> PTR1 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">bb_byte_clk_div[1]</td>
@@ -342,7 +342,7 @@ Generate output files:
 <tr>
 <td class="label">gw_gao_inst_0/control0[0]</td>
 <td>PRIMARY</td>
-<td> PTR0 PTR1 PTR2 PBR1 PBR2</td>
+<td> PTR0 PTR1 PTR2 PBR0 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">led_d_Z[1]</td>
@@ -360,12 +360,17 @@ Generate output files:
 <td> -</td>
 </tr>
 <tr>
-<td class="label">gw_gao_inst_0/u_la0_top/data_out_shift_reg_139_9</td>
+<td class="label">gw_gao_inst_0/u_la0_top/data_out_shift_reg_156_9</td>
 <td>LW</td>
 <td> -</td>
 </tr>
 <tr>
-<td class="label">eth_transceiver_u/n2742_3</td>
+<td class="label">eth_transceiver_u/n2744_3</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">eth_transceiver_u/n5285_4</td>
 <td>LW</td>
 <td> -</td>
 </tr>

@@ -8,7 +8,7 @@ Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_arp.v
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_crc.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_rxdv_ddr\eth_rxdv_ddr.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v'
-Undeclared symbol 'clk_125m_90', assumed default net type 'wire'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":51)
+Undeclared symbol 'clk_125m_90', assumed default net type 'wire'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":55)
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_eth2rf\fifo_eth2rf.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_rf_databuf\fifo_rf_databuf.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_rf_tx\fifo_rf.v'
@@ -87,7 +87,7 @@ Compiling module 'Gowin_PLL_rfclk'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\s
 Compiling module 'Gowin_PLL_rfclk_MOD'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_rfclk\gowin_pll_rfclk_mod.v":11)
 Compiling module 'PLL_INIT(CLK_PERIOD=33,MULTI_FAC=23)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\pll_init.v":4)
 Compiling module 'eth_transceiver(BOARD_IP=32'b11000000101010000000001100000010,DES_IP=32'b11000000101010000000001100000011)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":1)
-Extracting RAM for identifier 'tx_buffer'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":409)
+Extracting RAM for identifier 'tx_buffer'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":413)
 Compiling module 'GMII_PLL'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll\gmii_pll.v":1)
 Compiling module 'GMII_PLL_MOD'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll\gmii_pll_mod.v":11)
 Compiling module 'PLL_INIT(MULTI_FAC=15)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\pll_init.v":4)
@@ -95,7 +95,7 @@ Compiling module 'eth_DDR'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin
 Compiling module 'eth_rxdv_ddr'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_rxdv_ddr\eth_rxdv_ddr.v":10)
 Compiling module 'crc'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_crc.v":3)
 Compiling module 'GMII2RGMII'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_ddr\eth_GMII2RGMII.v":10)
-WARN  (EX2565) : Input 'mdclk' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":52)
+WARN  (EX2565) : Input 'mdclk' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":56)
 Compiling module 'eth2rf_processor'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_process.v":1)
 Compiling module 'fifo_eth2rf'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_eth2rf\fifo_eth2rf.v":701)
 Compiling module '**'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_eth2rf\fifo_eth2rf.v":700)
@@ -331,9 +331,10 @@ WARN  (NL0002) : The module "spram/RRC_FIR_Filter_Top" instantiated to "spram_da
 [95%] Generate netlist file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\GoWinSDRv2.vg" completed
 WARN  (CK3000) : Can't calculate clocks' relationship between: "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "bb_symbol_clk"
 WARN  (CK3000) : Can't calculate clocks' relationship between: "bb_symbol_clk" and "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
-WARN  (CK3000) : Can't calculate clocks' relationship between: "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "eth_transceiver_u/pll_inst/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
-WARN  (CK3000) : Can't calculate clocks' relationship between: "eth_transceiver_u/pll_inst/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
-WARN  (CK3000) : Can't calculate clocks' relationship between: "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "sys_clk"
+WARN  (CK3000) : Can't calculate clocks' relationship between: "rf_process/bb_byte_clk_div[1]" and "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
 WARN  (CK3000) : Can't calculate clocks' relationship between: "RGMII_RXCLK" and "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
+WARN  (CK3000) : Can't calculate clocks' relationship between: "eth_transceiver_u/pll_inst/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
+WARN  (CK3000) : Can't calculate clocks' relationship between: "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "eth_transceiver_u/pll_inst/u_pll/PLLA_inst/CLKOUT0.default_gen_clk"
+WARN  (CK3000) : Can't calculate clocks' relationship between: "u_ad9361_cmos_dev/u_Gowin_PLL_rfclk/u_pll/PLLA_inst/CLKOUT0.default_gen_clk" and "sys_clk"
 [100%] Generate report file "D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\GoWinSDRv2_syn.rpt.html" completed
 GowinSynthesis finish

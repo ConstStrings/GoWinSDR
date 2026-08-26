@@ -23,6 +23,7 @@ from audio_stream_worker import AudioInputWorker, AudioOutputWorker
 from realtime_video_widget import RealtimeVideoWidget
 from camera_worker import CameraWorker
 from iot_widget import IoTWidget
+from temperature_fan_widget import TemperatureFanWidget
 
 try:
     from ad9363_config import AD9363_GET_COMMANDS
@@ -65,9 +66,11 @@ class MainWindow(QMainWindow):
         self.config_widget = ConfigWidget()
         self.ethernet_widget = EthernetWidget()
         self.params_widget = ParamsWidget()
+        self.temperature_fan_widget = TemperatureFanWidget()
         left_layout.addWidget(self.config_widget)
         left_layout.addWidget(self.ethernet_widget)
         left_layout.addWidget(self.params_widget)
+        left_layout.addWidget(self.temperature_fan_widget)
         left_layout.addStretch()
 
         right_panel = QWidget()
@@ -124,6 +127,7 @@ class MainWindow(QMainWindow):
         self.serial_worker.log_received.connect(self.log_widget.append_log)
         self.serial_worker.error_occurred.connect(self.on_serial_error)
         self.serial_worker.param_response_received.connect(self.on_param_response)
+        self.serial_worker.log_received.connect(self._handle_temperature_and_fan_response)
 
         # --- IoT 逻辑连接 ---
         self.iot_widget.send_command_signal.connect(self._handle_param_set_command)
@@ -138,6 +142,13 @@ class MainWindow(QMainWindow):
         self.config_widget.disconnect_clicked.connect(self.serial_worker.disconnect_serial)
         self.params_widget.send_command_signal.connect(self._handle_param_set_command)
         self.params_widget.query_all_signal.connect(self.query_all_parameters)
+        self.temperature_fan_widget.temperature_monitor_toggled.connect(
+            self.on_temperature_monitor_toggled
+        )
+        self.temperature_fan_widget.fan_state_requested.connect(self.set_fan_state)
+        self.temperature_poll_timer = QTimer(self)
+        self.temperature_poll_timer.setInterval(1000)
+        self.temperature_poll_timer.timeout.connect(self.query_temperature)
         self.serial_thread.start()
 
     @pyqtSlot(str)
@@ -155,6 +166,36 @@ class MainWindow(QMainWindow):
         msg = log_msg.strip()
         if msg == "1" or msg == "0":
             self.iot_widget.handle_response(msg)
+
+    def _handle_temperature_and_fan_response(self, log_msg):
+        """处理不符合 key=value 格式的温度、风扇串口回执。"""
+        if self.temperature_fan_widget.update_from_temperature_response(log_msg):
+            return
+
+        response = "".join(char for char in log_msg if char.isprintable()).strip().upper()
+        if response == "FAN ON":
+            self.temperature_fan_widget.update_fan_state(True)
+        elif response == "FAN OFF":
+            self.temperature_fan_widget.update_fan_state(False)
+
+    def on_temperature_monitor_toggled(self, enabled):
+        if enabled:
+            self.log_widget.append_log("温度监控已开启（每 1 秒查询）")
+            self.query_temperature()
+            self.temperature_poll_timer.start()
+        else:
+            self.temperature_poll_timer.stop()
+            self.log_widget.append_log("温度监控已关闭")
+
+    def query_temperature(self):
+        if self.serial_worker and self.serial_worker.serial and self.serial_worker.serial.is_open:
+            self.serial_worker.send_data("query_temp?")
+        else:
+            self.temperature_poll_timer.stop()
+
+    def set_fan_state(self, is_on):
+        command = "fan_state_set=1" if is_on else "fan_state_set=0"
+        self._handle_param_set_command(command)
 
     def setup_ethernet_thread(self):
         self.eth_thread = QThread()
@@ -313,6 +354,7 @@ class MainWindow(QMainWindow):
         self.log_widget.append_log(message)
         self.config_widget.set_connection_state(True)
         self.params_widget.set_enabled(True)
+        self.temperature_fan_widget.set_connection_state(True)
         self.log_widget.append_log("连接成功, 正在查询 AD9363 参数...")
         QTimer.singleShot(100, self.query_all_parameters)
 
@@ -321,6 +363,8 @@ class MainWindow(QMainWindow):
         self.config_widget.set_connection_state(False)
         self.params_widget.set_enabled(False)
         self.params_widget.clear_all_fields()
+        self.temperature_poll_timer.stop()
+        self.temperature_fan_widget.set_connection_state(False)
         self.query_list.clear()
 
     def on_serial_error(self, message):
@@ -408,6 +452,8 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         self.log_widget.append_log("正在关闭应用程序...")
         self.query_list.clear()
+        if hasattr(self, "temperature_poll_timer"):
+            self.temperature_poll_timer.stop()
 
         try:
             if hasattr(self, 'audio_input_worker'): self.audio_input_worker.stop_streaming()
