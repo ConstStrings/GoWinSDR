@@ -3,7 +3,7 @@
     parameter                           SYMBOL_RATE = 32'd7680000  ,
     // 1: insert a carrier when the TX byte FIFO is empty.
     // 0: transmit only queued data (burst mode).
-    parameter                           IDLE_CARRIER_ENABLE = 1'b0,
+    parameter                           IDLE_CARRIER_ENABLE = 1'b1,
     // 1: bypass the RRC output and feed DQPSK I/Q directly to the DAC FIFO.
     parameter                           RRC_BYPASS_ENABLE = 1'b1
 )(
@@ -219,8 +219,8 @@ wire signed [11:0] dac_i_12b;
 wire signed [11:0] dac_q_12b;
 wire               tx_sample_valid;
 
-assign dac_i_12b       = RRC_BYPASS_ENABLE ? qpsk_i_out : fir_data_tx_i[22:11];
-assign dac_q_12b       = RRC_BYPASS_ENABLE ? qpsk_q_out : fir_data_tx_q[22:11];
+assign dac_i_12b       = RRC_BYPASS_ENABLE ? qpsk_i_out : fir_data_tx_i[23:12];
+assign dac_q_12b       = RRC_BYPASS_ENABLE ? qpsk_q_out : fir_data_tx_q[23:12];
 assign tx_sample_valid = RRC_BYPASS_ENABLE ? fir_valid_in :
                          (fir_valid_tx_i && fir_valid_tx_q);
 
@@ -369,21 +369,29 @@ assign rrc_out_q_adc = adc_data_in_q1;
 wire signed [11:0] costas_out_i_dbg;
 wire signed [11:0] costas_out_q_dbg;
 
-costas costas_u0 (
-    .rst_n      (rst_n        ),
-    .sample_clk (sample_clk   ),
-    .sample_i1  (rrc_out_i_adc),
-    .sample_q1  (rrc_out_q_adc),
-    .data_out_i (costas_out_i_dbg ),
-    .data_out_q (costas_out_q_dbg )
-);
+assign costas_out_i_dbg = rrc_out_i_adc;
+assign costas_out_q_dbg = rrc_out_q_adc;
+
+// costas costas_u0 (
+//     .rst_n      (rst_n        ),
+//     .sample_clk (sample_clk   ),
+//     .sample_i1  (rrc_out_i_adc),
+//     .sample_q1  (rrc_out_q_adc),
+//     .data_out_i (costas_out_i_dbg ),
+//     .data_out_q (costas_out_q_dbg )
+// );
 
 // // Gardner Timing Synchronization
-wire gardner_sync_I;
-wire gardner_sync_Q;
-wire gardner_sync_flag;
+(* keep = "true" *) wire gardner_sync_I;
+(* keep = "true" *) wire gardner_sync_Q;
+(* keep = "true" *) wire gardner_sync_flag;
 
-gardner_sync gardner_sync_u0 (
+gardner_sync #(
+    .SAMPLE_RATE          (SAMPLE_RATE),
+    .SYMBOL_RATE          (SYMBOL_RATE),
+    // TX/RX 均由本机 AD9361 同一采样时钟驱动，固定在自动计算的标称步进。
+    .TIMING_TRACK_ENABLE  (1'b0)
+) gardner_sync_u0 (
     .clk(sample_clk),
     .rst_n(rst_n),
     .data_in_I(costas_out_i_dbg),

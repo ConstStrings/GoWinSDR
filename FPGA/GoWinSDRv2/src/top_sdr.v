@@ -196,6 +196,12 @@ eth2rf_processor #(
 wire                   [  11:0]         dac_data_out_i1            ;
 wire                   [  11:0]         dac_data_out_q1            ;
 wire                                    dac_out_valid              ;
+// 保留 RX 定时恢复及解码链路，方便 ILA 观察 Gardner 输出；
+// 顶层暂不将其接入以太网发送路径。
+(* keep = "true" *) wire [7:0]          rf_rx_data                ;
+(* keep = "true" *) wire                rf_rx_clk                 ;
+(* keep = "true" *) wire                rf_rx_data_valid          ;
+(* keep = "true" *) wire                rf_rx_data_missing        ;
 
 rf_process #(
     .SAMPLE_RATE          (SAMPLE_RATE),
@@ -213,6 +219,12 @@ rf_process #(
     .adc_data_in_i1  (adc_data_out_i1),
     .adc_data_in_q1  (adc_data_out_q1),
     .adc_in_valid    (adc_out_valid),
+
+    // RX（保留以避免综合裁剪 Gardner 链路）
+    .rx_data_out     (rf_rx_data),
+    .rx_clk_out      (rf_rx_clk),
+    .rx_data_valid   (rf_rx_data_valid),
+    .rx_data_missing (rf_rx_data_missing),
 
     // TX (from Ethernet via CDC)
     .tx_data_in      (rf_tx_data),

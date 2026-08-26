@@ -157,6 +157,37 @@
                 <Signal>rf_tx_data[1]</Signal>
                 <Signal>rf_tx_data[0]</Signal>
             </Bus>
+            <Signal capture_enable="true">u_rf_process/gardner_sync_flag</Signal>
+            <Signal capture_enable="true">u_rf_process/gardner_sync_I</Signal>
+            <Signal capture_enable="true">u_rf_process/gardner_sync_Q</Signal>
+            <Bus capture_enable="true" name="u_rf_process/costas_out_i_dbg[11:0]">
+                <Signal>u_rf_process/costas_out_i_dbg[11]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[10]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[9]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[8]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[7]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[6]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[5]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[4]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[3]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[2]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[1]</Signal>
+                <Signal>u_rf_process/costas_out_i_dbg[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="u_rf_process/costas_out_q_dbg[11:0]">
+                <Signal>u_rf_process/costas_out_q_dbg[11]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[10]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[9]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[8]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[7]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[6]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[5]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[4]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[3]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[2]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[1]</Signal>
+                <Signal>u_rf_process/costas_out_q_dbg[0]</Signal>
+            </Bus>
         </SignalList>
         <Triggers>
             <Trigger index="0">
@@ -215,5 +246,5 @@
             <Expression>M2</Expression>
         </Expressions>
     </AoCore>
-    <GAO_ID>0001000010010101</GAO_ID>
+    <GAO_ID>0110000101001110</GAO_ID>
 </GAO_CONFIG>

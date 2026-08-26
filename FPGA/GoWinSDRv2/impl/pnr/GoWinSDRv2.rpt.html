@@ -83,7 +83,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Tue Aug 25 23:08:32 2026
+<td>Wed Aug 26 10:31:48 2026
 </td>
 </tr>
 <tr>
@@ -97,24 +97,24 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td class="label">Place & Route Process</td>
 <td>Running placement:
-   Placement Phase 0: CPU time = 0h 0m 0.554s, Elapsed time = 0h 0m 0.554s
-   Placement Phase 1: CPU time = 0h 0m 0.505s, Elapsed time = 0h 0m 0.505s
-   Placement Phase 2: CPU time = 0h 0m 0.942s, Elapsed time = 0h 0m 0.942s
-   Placement Phase 3: CPU time = 0h 0m 0.894s, Elapsed time = 0h 0m 0.894s
-   Total Placement: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s
+   Placement Phase 0: CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s
+   Placement Phase 1: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
+   Placement Phase 2: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s
+   Placement Phase 3: CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s
+   Total Placement: CPU time = 0h 0m 8s, Elapsed time = 0h 0m 8s
 Running routing:
-   Routing Phase 0: CPU time = 0h 0m 0.002s, Elapsed time = 0h 0m 0.002s
-   Routing Phase 1: CPU time = 0h 0m 15s, Elapsed time = 0h 0m 15s
-   Routing Phase 2: CPU time = 0h 0m 0.082s, Elapsed time = 0h 0m 0.082s
+   Routing Phase 0: CPU time = 0h 0m 0.003s, Elapsed time = 0h 0m 0.003s
+   Routing Phase 1: CPU time = 0h 0m 22s, Elapsed time = 0h 0m 22s
+   Routing Phase 2: CPU time = 0h 0m 0.151s, Elapsed time = 0h 0m 0.152s
    Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-   Total Routing: CPU time = 0h 0m 15s, Elapsed time = 0h 0m 15s
+   Total Routing: CPU time = 0h 0m 22s, Elapsed time = 0h 0m 22s
 Generate output files:
-   CPU time = 0h 0m 6s, Elapsed time = 0h 0m 6s
+   CPU time = 0h 0m 7s, Elapsed time = 0h 0m 7s
 </td>
 </tr>
 <tr>
 <td class="label">Total Time and Memory Usage</td>
-<td>CPU time = 0h 0m 23s, Elapsed time = 0h 0m 23s, Peak memory usage = 2209MB</td>
+<td>CPU time = 0h 0m 37s, Elapsed time = 0h 0m 37s, Peak memory usage = 2093MB</td>
 </tr>
 </table>
 <br/>
@@ -129,12 +129,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Logic</td>
-<td>2476/59904</td>
+<td>2704/59904</td>
 <td>5%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --LUT,ALU,ROM16</td>
-<td>2476(2269 LUT, 207 ALU, 0 ROM16)</td>
+<td>2704(2219 LUT, 485 ALU, 0 ROM16)</td>
 <td>-</td>
 </tr>
 <tr>
@@ -144,7 +144,7 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Register</td>
-<td>2085/60780</td>
+<td>2235/60780</td>
 <td>4%</td>
 </tr>
 <tr>
@@ -154,7 +154,7 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as FF</td>
-<td>2081/59904</td>
+<td>2231/59904</td>
 <td>4%</td>
 </tr>
 <tr>
@@ -169,7 +169,7 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">CLS</td>
-<td>2158/29952</td>
+<td>2346/29952</td>
 <td>8%</td>
 </tr>
 <tr>
@@ -204,8 +204,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">BSRAM</td>
-<td>91 SDPB<br/>1 pROM<br/></td>
-<td>78%</td>
+<td>105 SDPB<br/>1 pROM<br/></td>
+<td>90%</td>
+</tr>
+<tr>
+<td class="label">DSP</td>
+<td>6 MULTALU27X18<br/></td><td>6%</td>
 </tr>
 </table>
 <h2><a name="I/O_Bank_Usage_Summary">I/O Bank Usage Summary:</a></h2>
@@ -278,8 +282,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">LW</td>
-<td>5/8</td>
-<td>63%</td>
+<td>4/8</td>
+<td>50%</td>
 </tr>
 <tr>
 <td class="label">GCLK_PIN</td>
@@ -318,7 +322,7 @@ Generate output files:
 <tr>
 <td class="label">bb_symbol_clk</td>
 <td>PRIMARY</td>
-<td> PTR1 PTR2</td>
+<td> PTR1 PTR2 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">data_clk</td>
@@ -333,7 +337,7 @@ Generate output files:
 <tr>
 <td class="label">bb_byte_clk_div[1]</td>
 <td>PRIMARY</td>
-<td> PTR1 PTR2 PBR1</td>
+<td> PTR1 PBR1</td>
 </tr>
 <tr>
 <td class="label">gw_gao_inst_0/control0[0]</td>
@@ -356,12 +360,7 @@ Generate output files:
 <td> -</td>
 </tr>
 <tr>
-<td class="label">gw_gao_inst_0/u_la0_top/data_out_shift_reg_128_9</td>
-<td>LW</td>
-<td> -</td>
-</tr>
-<tr>
-<td class="label">eth_transceiver_u/n2713_3</td>
+<td class="label">gw_gao_inst_0/u_la0_top/data_out_shift_reg_155_9</td>
 <td>LW</td>
 <td> -</td>
 </tr>

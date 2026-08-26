@@ -128,6 +128,33 @@ module gw_gao(
     \rf_tx_data[2] ,
     \rf_tx_data[1] ,
     \rf_tx_data[0] ,
+    \u_rf_process/gardner_sync_flag ,
+    \u_rf_process/gardner_sync_I ,
+    \u_rf_process/gardner_sync_Q ,
+    \u_rf_process/costas_out_i_dbg[11] ,
+    \u_rf_process/costas_out_i_dbg[10] ,
+    \u_rf_process/costas_out_i_dbg[9] ,
+    \u_rf_process/costas_out_i_dbg[8] ,
+    \u_rf_process/costas_out_i_dbg[7] ,
+    \u_rf_process/costas_out_i_dbg[6] ,
+    \u_rf_process/costas_out_i_dbg[5] ,
+    \u_rf_process/costas_out_i_dbg[4] ,
+    \u_rf_process/costas_out_i_dbg[3] ,
+    \u_rf_process/costas_out_i_dbg[2] ,
+    \u_rf_process/costas_out_i_dbg[1] ,
+    \u_rf_process/costas_out_i_dbg[0] ,
+    \u_rf_process/costas_out_q_dbg[11] ,
+    \u_rf_process/costas_out_q_dbg[10] ,
+    \u_rf_process/costas_out_q_dbg[9] ,
+    \u_rf_process/costas_out_q_dbg[8] ,
+    \u_rf_process/costas_out_q_dbg[7] ,
+    \u_rf_process/costas_out_q_dbg[6] ,
+    \u_rf_process/costas_out_q_dbg[5] ,
+    \u_rf_process/costas_out_q_dbg[4] ,
+    \u_rf_process/costas_out_q_dbg[3] ,
+    \u_rf_process/costas_out_q_dbg[2] ,
+    \u_rf_process/costas_out_q_dbg[1] ,
+    \u_rf_process/costas_out_q_dbg[0] ,
     rst_n,
     \eth_transceiver_u/rx_state[3] ,
     \eth_transceiver_u/rx_state[2] ,
@@ -268,6 +295,33 @@ input \rf_tx_data[3] ;
 input \rf_tx_data[2] ;
 input \rf_tx_data[1] ;
 input \rf_tx_data[0] ;
+input \u_rf_process/gardner_sync_flag ;
+input \u_rf_process/gardner_sync_I ;
+input \u_rf_process/gardner_sync_Q ;
+input \u_rf_process/costas_out_i_dbg[11] ;
+input \u_rf_process/costas_out_i_dbg[10] ;
+input \u_rf_process/costas_out_i_dbg[9] ;
+input \u_rf_process/costas_out_i_dbg[8] ;
+input \u_rf_process/costas_out_i_dbg[7] ;
+input \u_rf_process/costas_out_i_dbg[6] ;
+input \u_rf_process/costas_out_i_dbg[5] ;
+input \u_rf_process/costas_out_i_dbg[4] ;
+input \u_rf_process/costas_out_i_dbg[3] ;
+input \u_rf_process/costas_out_i_dbg[2] ;
+input \u_rf_process/costas_out_i_dbg[1] ;
+input \u_rf_process/costas_out_i_dbg[0] ;
+input \u_rf_process/costas_out_q_dbg[11] ;
+input \u_rf_process/costas_out_q_dbg[10] ;
+input \u_rf_process/costas_out_q_dbg[9] ;
+input \u_rf_process/costas_out_q_dbg[8] ;
+input \u_rf_process/costas_out_q_dbg[7] ;
+input \u_rf_process/costas_out_q_dbg[6] ;
+input \u_rf_process/costas_out_q_dbg[5] ;
+input \u_rf_process/costas_out_q_dbg[4] ;
+input \u_rf_process/costas_out_q_dbg[3] ;
+input \u_rf_process/costas_out_q_dbg[2] ;
+input \u_rf_process/costas_out_q_dbg[1] ;
+input \u_rf_process/costas_out_q_dbg[0] ;
 input rst_n;
 input \eth_transceiver_u/rx_state[3] ;
 input \eth_transceiver_u/rx_state[2] ;
@@ -407,6 +461,33 @@ wire \rf_tx_data[3] ;
 wire \rf_tx_data[2] ;
 wire \rf_tx_data[1] ;
 wire \rf_tx_data[0] ;
+wire \u_rf_process/gardner_sync_flag ;
+wire \u_rf_process/gardner_sync_I ;
+wire \u_rf_process/gardner_sync_Q ;
+wire \u_rf_process/costas_out_i_dbg[11] ;
+wire \u_rf_process/costas_out_i_dbg[10] ;
+wire \u_rf_process/costas_out_i_dbg[9] ;
+wire \u_rf_process/costas_out_i_dbg[8] ;
+wire \u_rf_process/costas_out_i_dbg[7] ;
+wire \u_rf_process/costas_out_i_dbg[6] ;
+wire \u_rf_process/costas_out_i_dbg[5] ;
+wire \u_rf_process/costas_out_i_dbg[4] ;
+wire \u_rf_process/costas_out_i_dbg[3] ;
+wire \u_rf_process/costas_out_i_dbg[2] ;
+wire \u_rf_process/costas_out_i_dbg[1] ;
+wire \u_rf_process/costas_out_i_dbg[0] ;
+wire \u_rf_process/costas_out_q_dbg[11] ;
+wire \u_rf_process/costas_out_q_dbg[10] ;
+wire \u_rf_process/costas_out_q_dbg[9] ;
+wire \u_rf_process/costas_out_q_dbg[8] ;
+wire \u_rf_process/costas_out_q_dbg[7] ;
+wire \u_rf_process/costas_out_q_dbg[6] ;
+wire \u_rf_process/costas_out_q_dbg[5] ;
+wire \u_rf_process/costas_out_q_dbg[4] ;
+wire \u_rf_process/costas_out_q_dbg[3] ;
+wire \u_rf_process/costas_out_q_dbg[2] ;
+wire \u_rf_process/costas_out_q_dbg[1] ;
+wire \u_rf_process/costas_out_q_dbg[0] ;
 wire rst_n;
 wire \eth_transceiver_u/rx_state[3] ;
 wire \eth_transceiver_u/rx_state[2] ;
@@ -488,7 +569,7 @@ ao_top_0  u_la0_top(
     .trig0_i(rst_n),
     .trig1_i({\eth_transceiver_u/rx_state[3] ,\eth_transceiver_u/rx_state[2] ,\eth_transceiver_u/rx_state[1] ,\eth_transceiver_u/rx_state[0] }),
     .trig2_i(\u_eth2rf_processor/rx_data_valid ),
-    .data_i({\adc_data_out_i1[11] ,\adc_data_out_i1[10] ,\adc_data_out_i1[9] ,\adc_data_out_i1[8] ,\adc_data_out_i1[7] ,\adc_data_out_i1[6] ,\adc_data_out_i1[5] ,\adc_data_out_i1[4] ,\adc_data_out_i1[3] ,\adc_data_out_i1[2] ,\adc_data_out_i1[1] ,\adc_data_out_i1[0] ,\adc_data_out_q1[11] ,\adc_data_out_q1[10] ,\adc_data_out_q1[9] ,\adc_data_out_q1[8] ,\adc_data_out_q1[7] ,\adc_data_out_q1[6] ,\adc_data_out_q1[5] ,\adc_data_out_q1[4] ,\adc_data_out_q1[3] ,\adc_data_out_q1[2] ,\adc_data_out_q1[1] ,\adc_data_out_q1[0] ,\dac_data_out_i1[11] ,\dac_data_out_i1[10] ,\dac_data_out_i1[9] ,\dac_data_out_i1[8] ,\dac_data_out_i1[7] ,\dac_data_out_i1[6] ,\dac_data_out_i1[5] ,\dac_data_out_i1[4] ,\dac_data_out_i1[3] ,\dac_data_out_i1[2] ,\dac_data_out_i1[1] ,\dac_data_out_i1[0] ,\dac_data_out_q1[11] ,\dac_data_out_q1[10] ,\dac_data_out_q1[9] ,\dac_data_out_q1[8] ,\dac_data_out_q1[7] ,\dac_data_out_q1[6] ,\dac_data_out_q1[5] ,\dac_data_out_q1[4] ,\dac_data_out_q1[3] ,\dac_data_out_q1[2] ,\dac_data_out_q1[1] ,\dac_data_out_q1[0] ,bb_symbol_clk,data_clk,bb_byte_clk,\u_rf_process/tx_data_in[7] ,\u_rf_process/tx_data_in[6] ,\u_rf_process/tx_data_in[5] ,\u_rf_process/tx_data_in[4] ,\u_rf_process/tx_data_in[3] ,\u_rf_process/tx_data_in[2] ,\u_rf_process/tx_data_in[1] ,\u_rf_process/tx_data_in[0] ,\u_eth2rf_processor/send_state[2] ,\u_eth2rf_processor/send_state[1] ,\u_eth2rf_processor/send_state[0] ,\eth_transceiver_u/gmii_rxd[7] ,\eth_transceiver_u/gmii_rxd[6] ,\eth_transceiver_u/gmii_rxd[5] ,\eth_transceiver_u/gmii_rxd[4] ,\eth_transceiver_u/gmii_rxd[3] ,\eth_transceiver_u/gmii_rxd[2] ,\eth_transceiver_u/gmii_rxd[1] ,\eth_transceiver_u/gmii_rxd[0] ,\eth_udp_length[15] ,\eth_udp_length[14] ,\eth_udp_length[13] ,\eth_udp_length[12] ,\eth_udp_length[11] ,\eth_udp_length[10] ,\eth_udp_length[9] ,\eth_udp_length[8] ,\eth_udp_length[7] ,\eth_udp_length[6] ,\eth_udp_length[5] ,\eth_udp_length[4] ,\eth_udp_length[3] ,\eth_udp_length[2] ,\eth_udp_length[1] ,\eth_udp_length[0] ,\u_eth2rf_processor/fifo_data_in[7] ,\u_eth2rf_processor/fifo_data_in[6] ,\u_eth2rf_processor/fifo_data_in[5] ,\u_eth2rf_processor/fifo_data_in[4] ,\u_eth2rf_processor/fifo_data_in[3] ,\u_eth2rf_processor/fifo_data_in[2] ,\u_eth2rf_processor/fifo_data_in[1] ,\u_eth2rf_processor/fifo_data_in[0] ,\u_eth2rf_processor/rx_data[7] ,\u_eth2rf_processor/rx_data[6] ,\u_eth2rf_processor/rx_data[5] ,\u_eth2rf_processor/rx_data[4] ,\u_eth2rf_processor/rx_data[3] ,\u_eth2rf_processor/rx_data[2] ,\u_eth2rf_processor/rx_data[1] ,\u_eth2rf_processor/rx_data[0] ,\u_eth2rf_processor/rx_data_valid ,\u_eth2rf_processor/eth_data_cnt[15] ,\u_eth2rf_processor/eth_data_cnt[14] ,\u_eth2rf_processor/eth_data_cnt[13] ,\u_eth2rf_processor/eth_data_cnt[12] ,\u_eth2rf_processor/eth_data_cnt[11] ,\u_eth2rf_processor/eth_data_cnt[10] ,\u_eth2rf_processor/eth_data_cnt[9] ,\u_eth2rf_processor/eth_data_cnt[8] ,\u_eth2rf_processor/eth_data_cnt[7] ,\u_eth2rf_processor/eth_data_cnt[6] ,\u_eth2rf_processor/eth_data_cnt[5] ,\u_eth2rf_processor/eth_data_cnt[4] ,\u_eth2rf_processor/eth_data_cnt[3] ,\u_eth2rf_processor/eth_data_cnt[2] ,\u_eth2rf_processor/eth_data_cnt[1] ,\u_eth2rf_processor/eth_data_cnt[0] ,rf_tx_ready,rf_tx_valid,\rf_tx_data[7] ,\rf_tx_data[6] ,\rf_tx_data[5] ,\rf_tx_data[4] ,\rf_tx_data[3] ,\rf_tx_data[2] ,\rf_tx_data[1] ,\rf_tx_data[0] }),
+    .data_i({\adc_data_out_i1[11] ,\adc_data_out_i1[10] ,\adc_data_out_i1[9] ,\adc_data_out_i1[8] ,\adc_data_out_i1[7] ,\adc_data_out_i1[6] ,\adc_data_out_i1[5] ,\adc_data_out_i1[4] ,\adc_data_out_i1[3] ,\adc_data_out_i1[2] ,\adc_data_out_i1[1] ,\adc_data_out_i1[0] ,\adc_data_out_q1[11] ,\adc_data_out_q1[10] ,\adc_data_out_q1[9] ,\adc_data_out_q1[8] ,\adc_data_out_q1[7] ,\adc_data_out_q1[6] ,\adc_data_out_q1[5] ,\adc_data_out_q1[4] ,\adc_data_out_q1[3] ,\adc_data_out_q1[2] ,\adc_data_out_q1[1] ,\adc_data_out_q1[0] ,\dac_data_out_i1[11] ,\dac_data_out_i1[10] ,\dac_data_out_i1[9] ,\dac_data_out_i1[8] ,\dac_data_out_i1[7] ,\dac_data_out_i1[6] ,\dac_data_out_i1[5] ,\dac_data_out_i1[4] ,\dac_data_out_i1[3] ,\dac_data_out_i1[2] ,\dac_data_out_i1[1] ,\dac_data_out_i1[0] ,\dac_data_out_q1[11] ,\dac_data_out_q1[10] ,\dac_data_out_q1[9] ,\dac_data_out_q1[8] ,\dac_data_out_q1[7] ,\dac_data_out_q1[6] ,\dac_data_out_q1[5] ,\dac_data_out_q1[4] ,\dac_data_out_q1[3] ,\dac_data_out_q1[2] ,\dac_data_out_q1[1] ,\dac_data_out_q1[0] ,bb_symbol_clk,data_clk,bb_byte_clk,\u_rf_process/tx_data_in[7] ,\u_rf_process/tx_data_in[6] ,\u_rf_process/tx_data_in[5] ,\u_rf_process/tx_data_in[4] ,\u_rf_process/tx_data_in[3] ,\u_rf_process/tx_data_in[2] ,\u_rf_process/tx_data_in[1] ,\u_rf_process/tx_data_in[0] ,\u_eth2rf_processor/send_state[2] ,\u_eth2rf_processor/send_state[1] ,\u_eth2rf_processor/send_state[0] ,\eth_transceiver_u/gmii_rxd[7] ,\eth_transceiver_u/gmii_rxd[6] ,\eth_transceiver_u/gmii_rxd[5] ,\eth_transceiver_u/gmii_rxd[4] ,\eth_transceiver_u/gmii_rxd[3] ,\eth_transceiver_u/gmii_rxd[2] ,\eth_transceiver_u/gmii_rxd[1] ,\eth_transceiver_u/gmii_rxd[0] ,\eth_udp_length[15] ,\eth_udp_length[14] ,\eth_udp_length[13] ,\eth_udp_length[12] ,\eth_udp_length[11] ,\eth_udp_length[10] ,\eth_udp_length[9] ,\eth_udp_length[8] ,\eth_udp_length[7] ,\eth_udp_length[6] ,\eth_udp_length[5] ,\eth_udp_length[4] ,\eth_udp_length[3] ,\eth_udp_length[2] ,\eth_udp_length[1] ,\eth_udp_length[0] ,\u_eth2rf_processor/fifo_data_in[7] ,\u_eth2rf_processor/fifo_data_in[6] ,\u_eth2rf_processor/fifo_data_in[5] ,\u_eth2rf_processor/fifo_data_in[4] ,\u_eth2rf_processor/fifo_data_in[3] ,\u_eth2rf_processor/fifo_data_in[2] ,\u_eth2rf_processor/fifo_data_in[1] ,\u_eth2rf_processor/fifo_data_in[0] ,\u_eth2rf_processor/rx_data[7] ,\u_eth2rf_processor/rx_data[6] ,\u_eth2rf_processor/rx_data[5] ,\u_eth2rf_processor/rx_data[4] ,\u_eth2rf_processor/rx_data[3] ,\u_eth2rf_processor/rx_data[2] ,\u_eth2rf_processor/rx_data[1] ,\u_eth2rf_processor/rx_data[0] ,\u_eth2rf_processor/rx_data_valid ,\u_eth2rf_processor/eth_data_cnt[15] ,\u_eth2rf_processor/eth_data_cnt[14] ,\u_eth2rf_processor/eth_data_cnt[13] ,\u_eth2rf_processor/eth_data_cnt[12] ,\u_eth2rf_processor/eth_data_cnt[11] ,\u_eth2rf_processor/eth_data_cnt[10] ,\u_eth2rf_processor/eth_data_cnt[9] ,\u_eth2rf_processor/eth_data_cnt[8] ,\u_eth2rf_processor/eth_data_cnt[7] ,\u_eth2rf_processor/eth_data_cnt[6] ,\u_eth2rf_processor/eth_data_cnt[5] ,\u_eth2rf_processor/eth_data_cnt[4] ,\u_eth2rf_processor/eth_data_cnt[3] ,\u_eth2rf_processor/eth_data_cnt[2] ,\u_eth2rf_processor/eth_data_cnt[1] ,\u_eth2rf_processor/eth_data_cnt[0] ,rf_tx_ready,rf_tx_valid,\rf_tx_data[7] ,\rf_tx_data[6] ,\rf_tx_data[5] ,\rf_tx_data[4] ,\rf_tx_data[3] ,\rf_tx_data[2] ,\rf_tx_data[1] ,\rf_tx_data[0] ,\u_rf_process/gardner_sync_flag ,\u_rf_process/gardner_sync_I ,\u_rf_process/gardner_sync_Q ,\u_rf_process/costas_out_i_dbg[11] ,\u_rf_process/costas_out_i_dbg[10] ,\u_rf_process/costas_out_i_dbg[9] ,\u_rf_process/costas_out_i_dbg[8] ,\u_rf_process/costas_out_i_dbg[7] ,\u_rf_process/costas_out_i_dbg[6] ,\u_rf_process/costas_out_i_dbg[5] ,\u_rf_process/costas_out_i_dbg[4] ,\u_rf_process/costas_out_i_dbg[3] ,\u_rf_process/costas_out_i_dbg[2] ,\u_rf_process/costas_out_i_dbg[1] ,\u_rf_process/costas_out_i_dbg[0] ,\u_rf_process/costas_out_q_dbg[11] ,\u_rf_process/costas_out_q_dbg[10] ,\u_rf_process/costas_out_q_dbg[9] ,\u_rf_process/costas_out_q_dbg[8] ,\u_rf_process/costas_out_q_dbg[7] ,\u_rf_process/costas_out_q_dbg[6] ,\u_rf_process/costas_out_q_dbg[5] ,\u_rf_process/costas_out_q_dbg[4] ,\u_rf_process/costas_out_q_dbg[3] ,\u_rf_process/costas_out_q_dbg[2] ,\u_rf_process/costas_out_q_dbg[1] ,\u_rf_process/costas_out_q_dbg[0] }),
     .clk_i(data_clk)
 );
 

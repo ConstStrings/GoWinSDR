@@ -22,6 +22,8 @@
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_mult_gardner\gowin_mult_gardner.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll\gmii_pll.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll\gmii_pll_mod.v" type="verilog"/>
+        <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_rfclk\gowin_pll_rfclk.v" type="verilog"/>
+        <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_rfclk\gowin_pll_rfclk_mod.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\phy_ad9361_cmos_dev.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\phy_gc0802_cmos_dev.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\phy_led.v" type="verilog"/>
@@ -38,8 +40,6 @@
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_pll\rf_pll_mod.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_process.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\top_sdr.v" type="verilog"/>
-        <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_rfclk\gowin_pll_rfclk.v" type="verilog"/>
-        <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_rfclk\gowin_pll_rfclk_mod.v" type="verilog"/>
         <File path="D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_crc32.v" type="gao"/>
         <File path="D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_match.v" type="gao"/>
         <File path="D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_mem_ctrl.v" type="gao"/>
