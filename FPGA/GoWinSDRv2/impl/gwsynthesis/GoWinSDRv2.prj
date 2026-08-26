@@ -40,6 +40,7 @@
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_pll\rf_pll_mod.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_process.v" type="verilog"/>
         <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\top_sdr.v" type="verilog"/>
+        <File path="D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf2eth_process.v" type="verilog"/>
         <File path="D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_crc32.v" type="gao"/>
         <File path="D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_match.v" type="gao"/>
         <File path="D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_mem_ctrl.v" type="gao"/>

@@ -65,18 +65,18 @@ always @(posedge data_clk or negedge rst_n) begin
 end
 
 // IDDR instances (bits 0..11)
-IDDR IDDR_rx_frame_data_p_n_inst_0  (.Q0(adc_data_out_i1[0]),  .Q1(adc_data_out_q1[0]),  .CLK(data_clk), .D(rx_data_in[0]));
-IDDR IDDR_rx_frame_data_p_n_inst_1  (.Q0(adc_data_out_i1[1]),  .Q1(adc_data_out_q1[1]),  .CLK(data_clk), .D(rx_data_in[1]));
-IDDR IDDR_rx_frame_data_p_n_inst_2  (.Q0(adc_data_out_i1[2]),  .Q1(adc_data_out_q1[2]),  .CLK(data_clk), .D(rx_data_in[2]));
-IDDR IDDR_rx_frame_data_p_n_inst_3  (.Q0(adc_data_out_i1[3]),  .Q1(adc_data_out_q1[3]),  .CLK(data_clk), .D(rx_data_in[3]));
-IDDR IDDR_rx_frame_data_p_n_inst_4  (.Q0(adc_data_out_i1[4]),  .Q1(adc_data_out_q1[4]),  .CLK(data_clk), .D(rx_data_in[4]));
-IDDR IDDR_rx_frame_data_p_n_inst_5  (.Q0(adc_data_out_i1[5]),  .Q1(adc_data_out_q1[5]),  .CLK(data_clk), .D(rx_data_in[5]));
-IDDR IDDR_rx_frame_data_p_n_inst_6  (.Q0(adc_data_out_i1[6]),  .Q1(adc_data_out_q1[6]),  .CLK(data_clk), .D(rx_data_in[6]));
-IDDR IDDR_rx_frame_data_p_n_inst_7  (.Q0(adc_data_out_i1[7]),  .Q1(adc_data_out_q1[7]),  .CLK(data_clk), .D(rx_data_in[7]));
-IDDR IDDR_rx_frame_data_p_n_inst_8  (.Q0(adc_data_out_i1[8]),  .Q1(adc_data_out_q1[8]),  .CLK(data_clk), .D(rx_data_in[8]));
-IDDR IDDR_rx_frame_data_p_n_inst_9  (.Q0(adc_data_out_i1[9]),  .Q1(adc_data_out_q1[9]),  .CLK(data_clk), .D(rx_data_in[9]));
-IDDR IDDR_rx_frame_data_p_n_inst_10 (.Q0(adc_data_out_i1[10]), .Q1(adc_data_out_q1[10]), .CLK(data_clk), .D(rx_data_in[10]));
-IDDR IDDR_rx_frame_data_p_n_inst_11 (.Q0(adc_data_out_i1[11]), .Q1(adc_data_out_q1[11]), .CLK(data_clk), .D(rx_data_in[11]));
+IDDR IDDR_rx_frame_data_p_n_inst_0  (.Q0(adc_data_out_q1[0]),  .Q1(adc_data_out_i1[0]),  .CLK(data_clk), .D(rx_data_in[0]));
+IDDR IDDR_rx_frame_data_p_n_inst_1  (.Q0(adc_data_out_q1[1]),  .Q1(adc_data_out_i1[1]),  .CLK(data_clk), .D(rx_data_in[1]));
+IDDR IDDR_rx_frame_data_p_n_inst_2  (.Q0(adc_data_out_q1[2]),  .Q1(adc_data_out_i1[2]),  .CLK(data_clk), .D(rx_data_in[2]));
+IDDR IDDR_rx_frame_data_p_n_inst_3  (.Q0(adc_data_out_q1[3]),  .Q1(adc_data_out_i1[3]),  .CLK(data_clk), .D(rx_data_in[3]));
+IDDR IDDR_rx_frame_data_p_n_inst_4  (.Q0(adc_data_out_q1[4]),  .Q1(adc_data_out_i1[4]),  .CLK(data_clk), .D(rx_data_in[4]));
+IDDR IDDR_rx_frame_data_p_n_inst_5  (.Q0(adc_data_out_q1[5]),  .Q1(adc_data_out_i1[5]),  .CLK(data_clk), .D(rx_data_in[5]));
+IDDR IDDR_rx_frame_data_p_n_inst_6  (.Q0(adc_data_out_q1[6]),  .Q1(adc_data_out_i1[6]),  .CLK(data_clk), .D(rx_data_in[6]));
+IDDR IDDR_rx_frame_data_p_n_inst_7  (.Q0(adc_data_out_q1[7]),  .Q1(adc_data_out_i1[7]),  .CLK(data_clk), .D(rx_data_in[7]));
+IDDR IDDR_rx_frame_data_p_n_inst_8  (.Q0(adc_data_out_q1[8]),  .Q1(adc_data_out_i1[8]),  .CLK(data_clk), .D(rx_data_in[8]));
+IDDR IDDR_rx_frame_data_p_n_inst_9  (.Q0(adc_data_out_q1[9]),  .Q1(adc_data_out_i1[9]),  .CLK(data_clk), .D(rx_data_in[9]));
+IDDR IDDR_rx_frame_data_p_n_inst_10 (.Q0(adc_data_out_q1[10]), .Q1(adc_data_out_i1[10]), .CLK(data_clk), .D(rx_data_in[10]));
+IDDR IDDR_rx_frame_data_p_n_inst_11 (.Q0(adc_data_out_q1[11]), .Q1(adc_data_out_i1[11]), .CLK(data_clk), .D(rx_data_in[11]));
 
 // ODDR instances (bits 0..11)
 ODDR ODDR_tx_data_inst_0  (.Q0(tx_data_out[0]),  .CLK(data_clk), .D0(dac_data_in_q1[0]),  .D1(dac_data_in_i1[0]),  .TX(1'b1));

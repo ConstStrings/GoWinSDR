@@ -144,6 +144,10 @@
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
    "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf2eth_process.v",
+   "Type" : "verilog"
   }
  ],
  "IncludePath" : [

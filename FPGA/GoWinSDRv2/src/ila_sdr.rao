@@ -2,7 +2,7 @@
 <GAO_CONFIG>
     <Version>3.0</Version>
     <Mode>Standard</Mode>
-    <AoCore index="0" sample_clock="data_clk" trig_type="0" storage_depth="8192" window_num="1" capture_amount="8192" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
+    <AoCore index="0" sample_clock="RGMII_GTXCLK" trig_type="0" storage_depth="8192" window_num="1" capture_amount="8192" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
         <SignalList>
             <Bus capture_enable="true" name="adc_data_out_i1[11:0]">
                 <Signal>adc_data_out_i1[11]</Signal>
@@ -78,44 +78,6 @@
                 <Signal>u_eth2rf_processor/send_state[1]</Signal>
                 <Signal>u_eth2rf_processor/send_state[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="eth_transceiver_u/gmii_rxd[7:0]">
-                <Signal>eth_transceiver_u/gmii_rxd[7]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[6]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[5]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[4]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[3]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[2]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[1]</Signal>
-                <Signal>eth_transceiver_u/gmii_rxd[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="eth_udp_length[15:0]">
-                <Signal>eth_udp_length[15]</Signal>
-                <Signal>eth_udp_length[14]</Signal>
-                <Signal>eth_udp_length[13]</Signal>
-                <Signal>eth_udp_length[12]</Signal>
-                <Signal>eth_udp_length[11]</Signal>
-                <Signal>eth_udp_length[10]</Signal>
-                <Signal>eth_udp_length[9]</Signal>
-                <Signal>eth_udp_length[8]</Signal>
-                <Signal>eth_udp_length[7]</Signal>
-                <Signal>eth_udp_length[6]</Signal>
-                <Signal>eth_udp_length[5]</Signal>
-                <Signal>eth_udp_length[4]</Signal>
-                <Signal>eth_udp_length[3]</Signal>
-                <Signal>eth_udp_length[2]</Signal>
-                <Signal>eth_udp_length[1]</Signal>
-                <Signal>eth_udp_length[0]</Signal>
-            </Bus>
-            <Bus capture_enable="true" name="u_eth2rf_processor/fifo_data_in[7:0]">
-                <Signal>u_eth2rf_processor/fifo_data_in[7]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[6]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[5]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[4]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[3]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[2]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[1]</Signal>
-                <Signal>u_eth2rf_processor/fifo_data_in[0]</Signal>
-            </Bus>
             <Bus capture_enable="true" name="u_eth2rf_processor/rx_data[7:0]">
                 <Signal>u_eth2rf_processor/rx_data[7]</Signal>
                 <Signal>u_eth2rf_processor/rx_data[6]</Signal>
@@ -127,24 +89,6 @@
                 <Signal>u_eth2rf_processor/rx_data[0]</Signal>
             </Bus>
             <Signal capture_enable="true">u_eth2rf_processor/rx_data_valid</Signal>
-            <Bus capture_enable="true" name="u_eth2rf_processor/eth_data_cnt[15:0]">
-                <Signal>u_eth2rf_processor/eth_data_cnt[15]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[14]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[13]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[12]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[11]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[10]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[9]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[8]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[7]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[6]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[5]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[4]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[3]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[2]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[1]</Signal>
-                <Signal>u_eth2rf_processor/eth_data_cnt[0]</Signal>
-            </Bus>
             <Signal capture_enable="true">rf_tx_ready</Signal>
             <Signal capture_enable="true">rf_tx_valid</Signal>
             <Bus capture_enable="true" name="rf_tx_data[7:0]">
@@ -160,34 +104,76 @@
             <Signal capture_enable="true">u_rf_process/gardner_sync_flag</Signal>
             <Signal capture_enable="true">u_rf_process/gardner_sync_I</Signal>
             <Signal capture_enable="true">u_rf_process/gardner_sync_Q</Signal>
-            <Bus capture_enable="true" name="u_rf_process/costas_out_i_dbg[11:0]">
-                <Signal>u_rf_process/costas_out_i_dbg[11]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[10]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[9]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[8]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[7]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[6]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[5]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[4]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[3]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[2]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[1]</Signal>
-                <Signal>u_rf_process/costas_out_i_dbg[0]</Signal>
+            <Bus capture_enable="true" name="u_rf_process/dqpsk_rx_data[7:0]">
+                <Signal>u_rf_process/dqpsk_rx_data[7]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[6]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[5]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[4]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[3]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[2]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[1]</Signal>
+                <Signal>u_rf_process/dqpsk_rx_data[0]</Signal>
             </Bus>
-            <Bus capture_enable="true" name="u_rf_process/costas_out_q_dbg[11:0]">
-                <Signal>u_rf_process/costas_out_q_dbg[11]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[10]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[9]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[8]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[7]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[6]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[5]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[4]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[3]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[2]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[1]</Signal>
-                <Signal>u_rf_process/costas_out_q_dbg[0]</Signal>
+            <Bus capture_enable="true" name="u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[7:0]">
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[7]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[6]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[5]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[4]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[3]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[2]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[1]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/frame_aligned_data_dbg[0]</Signal>
             </Bus>
+            <Signal capture_enable="true">u_rf_process/u_rf_dqpsk_decoder/frame_head_found_dbg</Signal>
+            <Bus capture_enable="true" name="u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[1:0]">
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[1]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/deframe_state_dbg[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[15:0]">
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[15]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[14]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[13]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[12]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[11]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[10]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[9]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[8]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[7]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[6]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[5]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[4]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[3]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[2]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[1]</Signal>
+                <Signal>u_rf_process/u_rf_dqpsk_decoder/payload_count_dbg[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="eth_transceiver_u/gmii_txd[7:0]">
+                <Signal>eth_transceiver_u/gmii_txd[7]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[6]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[5]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[4]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[3]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[2]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[1]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="eth_transceiver_u/gmii_txd_r[7:0]">
+                <Signal>eth_transceiver_u/gmii_txd_r[7]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[6]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[5]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[4]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[3]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[2]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[1]</Signal>
+                <Signal>eth_transceiver_u/gmii_txd_r[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="eth_transceiver_u/txen_pipe[2:0]">
+                <Signal>eth_transceiver_u/txen_pipe[2]</Signal>
+                <Signal>eth_transceiver_u/txen_pipe[1]</Signal>
+                <Signal>eth_transceiver_u/txen_pipe[0]</Signal>
+            </Bus>
+            <Signal capture_enable="true">eth_transceiver_u/gmii_txen</Signal>
+            <Signal capture_enable="true">eth_transceiver_u/gmii_txen_r</Signal>
         </SignalList>
         <Triggers>
             <Trigger index="0">
@@ -210,7 +196,11 @@
                     <Signal>u_eth2rf_processor/rx_data_valid</Signal>
                 </SignalList>
             </Trigger>
-            <Trigger index="3"/>
+            <Trigger index="3">
+                <SignalList>
+                    <Signal>u_rf2eth_processor/eth_tx_frame_start</Signal>
+                </SignalList>
+            </Trigger>
             <Trigger index="4"/>
             <Trigger index="5"/>
             <Trigger index="6"/>
@@ -227,8 +217,8 @@
         <MatchUnits>
             <MatchUnit index="0" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="1" value1="0" trigger="0"/>
             <MatchUnit index="1" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="0101" value1="0000" trigger="1"/>
-            <MatchUnit index="2" enabled="1" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="1" value1="0" trigger="2"/>
-            <MatchUnit index="3" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="2" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="1" value1="0" trigger="2"/>
+            <MatchUnit index="3" enabled="1" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="1" value1="0" trigger="3"/>
             <MatchUnit index="4" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
             <MatchUnit index="5" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
             <MatchUnit index="6" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
@@ -243,8 +233,8 @@
             <MatchUnit index="15" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
         </MatchUnits>
         <Expressions type="Static">
-            <Expression>M2</Expression>
+            <Expression>M3</Expression>
         </Expressions>
     </AoCore>
-    <GAO_ID>0110000101001110</GAO_ID>
+    <GAO_ID>1001000101010001</GAO_ID>
 </GAO_CONFIG>

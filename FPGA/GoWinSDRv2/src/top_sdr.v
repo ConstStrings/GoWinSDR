@@ -136,7 +136,6 @@ eth_transceiver #(
 ) eth_transceiver_u(
     .sys_clk         (sys_clk),
     .rst_n           (rst_n),
-    .PHY_CLK         (),
     .RGMII_RXCLK     (RGMII_RXCLK),
     .RGMII_RXD       (RGMII_RXD),
     .RGMII_RXDV      (RGMII_RXDV),
@@ -156,10 +155,7 @@ eth_transceiver #(
     .eth_active      (eth_active)
 );
 
-// Ethernet TX loopback disabled (was test-only)
-assign eth_tx_data        = 8'd0;
-assign eth_tx_data_valid  = 1'b0;
-assign eth_tx_frame_start = 1'b0;
+// Ethernet TX is driven by rf2eth_processor below.
 
 // ============================================================
 // ETH -> RF byte-clock domain (FIFO crossing from RGMII_RXCLK to bb_byte_clk)
@@ -202,6 +198,7 @@ wire                                    dac_out_valid              ;
 (* keep = "true" *) wire                rf_rx_clk                 ;
 (* keep = "true" *) wire                rf_rx_data_valid          ;
 (* keep = "true" *) wire                rf_rx_data_missing        ;
+(* keep = "true" *) wire                rf_rx_to_eth_overflow     ;
 
 rf_process #(
     .SAMPLE_RATE          (SAMPLE_RATE),
@@ -236,6 +233,31 @@ rf_process #(
     .dac_data_out_i1 (dac_data_out_i1),
     .dac_data_out_q1 (dac_data_out_q1),
     .dac_out_valid   (dac_out_valid)
+);
+
+// ============================================================
+// RF RX -> Ethernet TX (asynchronous clock-domain crossing)
+// ============================================================
+rf2eth_processor #(
+    .FIFO_ADDR_WIDTH(10),
+    // A payload byte is emitted every 16 data_clk periods.  64 periods
+    // safely identifies the inter-frame idle without splitting payload.
+    .RF_IDLE_CYCLES (64)
+) u_rf2eth_processor (
+    .rf_rx_clk          (rf_rx_clk),
+    .rf_rx_rst_n        (rst_n),
+    .rf_rx_data         (rf_rx_data),
+    .rf_rx_data_valid   (rf_rx_data_valid),
+    .rf_rx_overflow     (rf_rx_to_eth_overflow),
+
+    // eth_transceiver's user TX interface is clocked by its 125 MHz
+    // RGMII transmit clock.
+    .eth_tx_clk         (RGMII_GTXCLK),
+    .eth_tx_rst_n       (rst_n),
+    .eth_tx_ready       (eth_tx_ready),
+    .eth_tx_data        (eth_tx_data),
+    .eth_tx_data_valid  (eth_tx_data_valid),
+    .eth_tx_frame_start (eth_tx_frame_start)
 );
 
 // Connect rf_process DAC outputs to RF frontend

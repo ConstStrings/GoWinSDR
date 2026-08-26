@@ -6,7 +6,7 @@
 //Part Number: GW5AT-LV60PG484AC1/I0
 //Device: GW5AT-60
 //Device Version: B
-//Created Time: Sat Jul 25 01:14:46 2026
+//Created Time: Wed Aug 26 14:30:59 2026
 
 module GMII_PLL_MOD (lock, clkout0, clkout1, mdrdo, clkin, reset, mdclk, mdopc, mdainc, mdwdi);
 
@@ -65,7 +65,7 @@ defparam PLLA_inst.FCLKIN = "50";
 defparam PLLA_inst.IDIV_SEL = 1;
 defparam PLLA_inst.FBDIV_SEL = 1;
 defparam PLLA_inst.ODIV0_SEL = 6;
-defparam PLLA_inst.ODIV1_SEL = 30;
+defparam PLLA_inst.ODIV1_SEL = 6;
 defparam PLLA_inst.ODIV2_SEL = 8;
 defparam PLLA_inst.ODIV3_SEL = 8;
 defparam PLLA_inst.ODIV4_SEL = 8;
@@ -107,8 +107,8 @@ defparam PLLA_inst.CLK6_OUT_SEL = 1'b0;
 defparam PLLA_inst.DYN_DPA_EN = "FALSE";
 defparam PLLA_inst.CLKOUT0_PE_COARSE = 0;
 defparam PLLA_inst.CLKOUT0_PE_FINE = 0;
-defparam PLLA_inst.CLKOUT1_PE_COARSE = 0;
-defparam PLLA_inst.CLKOUT1_PE_FINE = 0;
+defparam PLLA_inst.CLKOUT1_PE_COARSE = 1;
+defparam PLLA_inst.CLKOUT1_PE_FINE = 4;
 defparam PLLA_inst.CLKOUT2_PE_COARSE = 0;
 defparam PLLA_inst.CLKOUT2_PE_FINE = 0;
 defparam PLLA_inst.CLKOUT3_PE_COARSE = 0;

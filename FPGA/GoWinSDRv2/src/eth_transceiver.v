@@ -10,7 +10,6 @@
     input               rst_n,
     
     // PHY接口 - RGMII
-    output              PHY_CLK,            // PHY时钟输出
     input               RGMII_RXCLK,        // 接收时钟
     input [3:0]         RGMII_RXD,          // 接收数据
     input               RGMII_RXDV,         // 接收数据有效
@@ -49,7 +48,7 @@ wire clk_125m;
 GMII_PLL pll_inst(
     .clkin      (sys_clk        ),
     .clkout0    (clk_125m       ),  // 125MHz for RGMII
-    .clkout1    (PHY_CLK        )   // 25MHz for PHY
+    .clkout1    (clk_125m_90    )   
 );
 
 assign RGMII_GTXCLK = clk_125m;
@@ -710,12 +709,25 @@ GMII2RGMII gmii2rgmii_inst(
     .q      (RGMII_TXD  )
 );
 
+// RGMII TX_CTL must use the same DDR launch mechanism as TXD.  A fabric
+// output register can be edge-shifted relative to the DDR data at the PHY,
+// causing the final byte to be excluded from the valid window.
+wire rgmii_txen_q1;
+ODDR rgmii_txen_oddr (
+    .Q0 (RGMII_TXEN),
+    .Q1 (rgmii_txen_q1),
+    .D0 (gmii_txen_r),
+    .D1 (gmii_txen_r),
+    .TX (1'b0),
+    .CLK(clk_125m)
+);
+
+// Retained solely for the existing ILA probe configuration.  It is no longer
+// on the RGMII TX_CTL timing path.
 reg [2:0] txen_pipe;
 always @(posedge clk_125m) begin
     txen_pipe <= {txen_pipe[1:0], gmii_txen_r};
 end
-
-assign RGMII_TXEN = txen_pipe[0];
 
 endmodule
 
