@@ -405,7 +405,8 @@ localparam TX_ARP       = 4'd9;
 
 reg [3:0]   tx_state;
 reg [15:0]  tx_cnt;
-reg [7:0]   tx_buffer [0:1471];
+localparam integer MAX_UDP_PAYLOAD = 1472; // 1500-byte IP packet - IPv4/UDP headers
+reg [7:0]   tx_buffer [0:MAX_UDP_PAYLOAD-1];
 reg [15:0]  tx_buf_len;
 reg [10:0]  tx_wr_ptr;
 reg         tx_buf_ready;
@@ -448,9 +449,13 @@ always @(posedge clk_125m or negedge rst_n) begin
             tx_buf_ready <= 1'b0;
         end
         else if (tx_data_valid && !tx_buf_ready) begin
-            tx_buffer[tx_wr_ptr] <= tx_data;
-            tx_wr_ptr            <= tx_wr_ptr + 1'b1;
-            tx_buf_len           <= tx_wr_ptr + 1'b1;
+            // Keep writes within one standard-MTU UDP payload.  The RF bridge
+            // enforces the same bound, but this protects this interface too.
+            if (tx_wr_ptr < MAX_UDP_PAYLOAD) begin
+                tx_buffer[tx_wr_ptr] <= tx_data;
+                tx_wr_ptr            <= tx_wr_ptr + 1'b1;
+                tx_buf_len           <= tx_wr_ptr + 1'b1;
+            end
         end
         else if (tx_state == TX_DELAY && tx_cnt[3]) begin
             tx_buf_ready <= 1'b0;

@@ -238,8 +238,8 @@ rf_process #(
 // ============================================================
 // RF RX -> Ethernet TX (asynchronous clock-domain crossing)
 // ============================================================
-rf2eth_processor #(
-    .FIFO_ADDR_WIDTH(10),
+  rf2eth_processor #(
+      .FIFO_ADDR_WIDTH(11),
     // A payload byte is emitted every 16 data_clk periods.  64 periods
     // safely identifies the inter-frame idle without splitting payload.
     .RF_IDLE_CYCLES (64)

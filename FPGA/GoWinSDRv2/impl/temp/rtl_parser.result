@@ -241,7 +241,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
-      "InstLine" : 428,
+      "InstLine" : 429,
       "InstName" : "crc_inst",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_crc.v",
       "ModuleLine" : 3,
@@ -249,7 +249,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
-      "InstLine" : 706,
+      "InstLine" : 711,
       "InstName" : "gmii2rgmii_inst",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_GMII2RGMII.v",
       "ModuleLine" : 10,

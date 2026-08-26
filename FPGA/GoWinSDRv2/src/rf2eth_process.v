@@ -7,9 +7,12 @@
 // the FIFO.  The Ethernet-domain packet buffer is then filled before one
 // uninterrupted tx_data_valid burst is presented to eth_transceiver.
 module rf2eth_processor #(
-    parameter integer FIFO_ADDR_WIDTH    = 10,  // 2^10 = 1024 entries
+    // 2^11 = 2048 entries.  This accommodates a full Ethernet-MTU UDP
+    // payload (1472 bytes) plus the internal end-of-packet marker.
+    parameter integer FIFO_ADDR_WIDTH    = 11,
     parameter integer RF_IDLE_CYCLES     = 64,  // > 16 sample clocks/byte
-    parameter integer PACKET_COUNT_WIDTH = 4
+    parameter integer PACKET_COUNT_WIDTH = 4,
+    parameter integer MAX_UDP_PAYLOAD    = 1472
 ) (
     // RF receive clock domain
     input  wire       rf_rx_clk,
@@ -189,6 +192,7 @@ reg [2:0] eth_state;
 reg [FIFO_ADDR_WIDTH-1:0] eth_packet_wr_ptr;
 reg [FIFO_ADDR_WIDTH-1:0] eth_packet_rd_ptr;
 reg [FIFO_ADDR_WIDTH-1:0] eth_packet_len;
+reg                       eth_packet_overflow;
 
 always @(posedge eth_tx_clk or negedge eth_tx_rst_n) begin
     if (!eth_tx_rst_n) begin
@@ -201,6 +205,7 @@ always @(posedge eth_tx_clk or negedge eth_tx_rst_n) begin
         eth_packet_wr_ptr <= {FIFO_ADDR_WIDTH{1'b0}};
         eth_packet_rd_ptr <= {FIFO_ADDR_WIDTH{1'b0}};
         eth_packet_len <= {FIFO_ADDR_WIDTH{1'b0}};
+        eth_packet_overflow <= 1'b0;
     end else begin
         // tx_data_valid is assigned high throughout ETH_SEND_FRAME only.
         eth_tx_data_valid <= 1'b0;
@@ -211,6 +216,7 @@ always @(posedge eth_tx_clk or negedge eth_tx_rst_n) begin
             ETH_WAIT_PACKET: begin
                 if (packet_pending && eth_tx_ready) begin
                     eth_packet_wr_ptr <= {FIFO_ADDR_WIDTH{1'b0}};
+                    eth_packet_overflow <= 1'b0;
                     eth_state <= ETH_LOAD_REQUEST;
                 end
             end
@@ -228,13 +234,24 @@ always @(posedge eth_tx_clk or negedge eth_tx_rst_n) begin
                 if (fifo_rd_valid) begin
                     if (fifo_rd_data[8]) begin
                         // The complete packet is now local to eth_tx_clk.
-                        eth_packet_len <= eth_packet_wr_ptr;
-                        eth_packet_rd_ptr <= {FIFO_ADDR_WIDTH{1'b0}};
                         pkt_rd_bin <= pkt_rd_bin + 1'b1;
-                        eth_state <= ETH_START_FRAME;
+                        if (!eth_packet_overflow) begin
+                            eth_packet_len <= eth_packet_wr_ptr;
+                            eth_packet_rd_ptr <= {FIFO_ADDR_WIDTH{1'b0}};
+                            eth_state <= ETH_START_FRAME;
+                        end else begin
+                            // Discard an oversize UDP payload after draining
+                            // it completely, so the following packet remains
+                            // aligned in the asynchronous FIFO.
+                            eth_state <= ETH_WAIT_PACKET;
+                        end
                     end else begin
-                        eth_packet_mem[eth_packet_wr_ptr] <= fifo_rd_data[7:0];
-                        eth_packet_wr_ptr <= eth_packet_wr_ptr + 1'b1;
+                        if (eth_packet_wr_ptr < MAX_UDP_PAYLOAD) begin
+                            eth_packet_mem[eth_packet_wr_ptr] <= fifo_rd_data[7:0];
+                            eth_packet_wr_ptr <= eth_packet_wr_ptr + 1'b1;
+                        end else begin
+                            eth_packet_overflow <= 1'b1;
+                        end
                         eth_state <= ETH_LOAD_REQUEST;
                     end
                 end
