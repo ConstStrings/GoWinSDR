@@ -115,8 +115,7 @@ wire tx_data_pending;
 wire allow_carrier;
 
 assign tx_data_pending = tx_byte_held || tx_byte_prefetch_valid ||
-                         tx_byte_fifo_fetch ||
-                         !tx_byte_fifo_empty;
+                          tx_byte_fifo_fetch || !tx_byte_fifo_empty;
 assign allow_carrier   = IDLE_CARRIER_ENABLE && !tx_data_pending &&
                          dac_fifo_low && !stall_pipeline;
 assign qpsk_byte_done  = tx_byte_held && qpsk_ready;

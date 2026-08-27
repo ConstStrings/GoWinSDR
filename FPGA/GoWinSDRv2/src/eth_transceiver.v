@@ -29,7 +29,7 @@
     output [7:0]        rx_data,            // 接收到的数据
     output              rx_data_valid,      // 接收数据有效
     output              rx_frame_start,     // 帧开始
-    output              rx_frame_end,       // 帧结束
+    output              rx_frame_end,       // 有效 UDP payload 帧结束（单周期）
     output [15:0]       udp_length,         // UDP数据报长度
     
     // 状态指示
@@ -127,6 +127,8 @@ reg [47:0]  rx_dest_mac;
 reg [47:0]  rx_src_mac;
 reg [15:0]  rx_eth_type;
 reg [31:0]  rx_src_ip;
+reg [31:0]  rx_dest_ip;
+reg [7:0]   rx_ip_protocol;
 reg [15:0]  rx_src_port;
 reg [15:0]  rx_dest_port;
 reg [15:0]  udp_length_reg;
@@ -145,6 +147,11 @@ reg         rx_data_valid_reg;
 reg         rx_frame_start_reg;
 reg         rx_frame_end_reg;
 reg         rx_active_reg;
+// Set only after the received frame has passed MAC/IP/UDP-port filtering.
+// RX_END may span the Ethernet FCS cycles, therefore a separate flag makes
+// rx_frame_end a single pulse rather than a level for every raw frame.
+reg         rx_udp_payload_frame;
+reg         rx_end_pulse_sent;
 
 assign rx_data        = rx_data_reg;
 assign rx_data_valid  = rx_data_valid_reg;
@@ -164,6 +171,8 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
         rx_frame_end_reg    <= 1'b0;
         rx_active_reg       <= 1'b0;
         rx_dest_port        <= 16'd0;
+        rx_dest_ip          <= 32'd0;
+        rx_ip_protocol      <= 8'd0;
         udp_length_reg      <= 16'd0;
         arp_hw_type         <= 16'd0;
         arp_proto_type      <= 16'd0;
@@ -174,6 +183,8 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
         arp_sender_ip       <= 32'd0;
         arp_target_ip       <= 32'd0;
         arp_request_toggle  <= 1'b0;
+        rx_udp_payload_frame <= 1'b0;
+        rx_end_pulse_sent    <= 1'b0;
     end
     else begin
         rx_frame_start_reg <= 1'b0;
@@ -197,6 +208,8 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
                         rx_cnt              <= 16'd0;
                         rx_frame_start_reg  <= 1'b1;
                         rx_active_reg       <= 1'b1;
+                        rx_udp_payload_frame <= 1'b0;
+                        rx_end_pulse_sent    <= 1'b0;
                     end
                     else if (gmii_rxd != 8'h55) begin
                         rx_state <= RX_IDLE;
@@ -313,10 +326,15 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
                     rx_cnt <= rx_cnt + 1'b1;
                     
                     case (rx_cnt)
+                        16'd9:  rx_ip_protocol      <= gmii_rxd;
                         16'd12: rx_src_ip[31:24]     <= gmii_rxd;
                         16'd13: rx_src_ip[23:16]     <= gmii_rxd;
                         16'd14: rx_src_ip[15:8]      <= gmii_rxd;
                         16'd15: rx_src_ip[7:0]       <= gmii_rxd;
+                        16'd16: rx_dest_ip[31:24]    <= gmii_rxd;
+                        16'd17: rx_dest_ip[23:16]    <= gmii_rxd;
+                        16'd18: rx_dest_ip[15:8]     <= gmii_rxd;
+                        16'd19: rx_dest_ip[7:0]      <= gmii_rxd;
                     endcase
                     
                     if (rx_cnt == 16'd19) begin
@@ -343,9 +361,16 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
                     endcase
                     
                     if (rx_cnt == 16'd7) begin
-                        if (rx_dest_port == BOARD_PORT) begin
+                        // Only a UDP datagram actually addressed to this
+                        // FPGA reaches the SDR/DDR ingress path.  Broadcast,
+                        // ARP, IPv6 and unrelated UDP traffic must never
+                        // create a flow-control report.
+                        if ((rx_dest_port == BOARD_PORT) &&
+                            (rx_dest_ip == BOARD_IP) &&
+                            (rx_ip_protocol == 8'h11)) begin
                             rx_state <= RX_PAYLOAD;
                             rx_cnt   <= 16'd0;
+                            rx_udp_payload_frame <= 1'b1;
                             // rx_data_valid_reg <= 1'b1;
                             // rx_data_reg       <= gmii_rxd;
                         end
@@ -380,8 +405,11 @@ always @(posedge RGMII_RXCLK or negedge rst_n) begin
             
             RX_END: begin
                 rx_data_valid_reg  <= 1'b0;
-                rx_frame_end_reg   <= 1'b1;
                 rx_active_reg      <= 1'b0;
+                if (!rx_end_pulse_sent) begin
+                    rx_frame_end_reg <= rx_udp_payload_frame;
+                    rx_end_pulse_sent <= 1'b1;
+                end
                 
                 if (!gmii_rxdv) begin
                     rx_state <= RX_IDLE;

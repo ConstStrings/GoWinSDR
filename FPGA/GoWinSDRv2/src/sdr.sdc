@@ -1,3 +1,13 @@
+# DDR3 IP timing constraints.  These are the generated constraints from the
+# known-good DDR_FIFO reference, with the hierarchy adapted to this design.
+# The regenerated IP uses a 50 MHz controller clock and a 200 MHz PHY clock.
+create_clock -name ddr_clk50 -period 20.000 -waveform {0 10} [get_nets {u_eth2rf_processor/clk100m}]
+create_clock -name ddr_clk_x1 -period 20.000 -waveform {0 10} [get_pins {u_eth2rf_processor/u_ddr3/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT}]
+create_clock -name ddr_mem200 -period 5.000 -waveform {0 2.500} [get_nets {u_eth2rf_processor/memory_clk}]
+set_clock_groups -asynchronous -group [get_clocks {ddr_clk50}] -group [get_clocks {ddr_clk_x1}]
+set_clock_groups -asynchronous -group [get_clocks {ddr_clk_x1}] -group [get_clocks {ddr_mem200}]
+set_clock_groups -asynchronous -group [get_clocks {ddr_clk50}] -group [get_clocks {ddr_mem200}]
+
 create_clock -name {RX_CLK_125M} -period 8.000 [get_ports {RGMII_RXCLK}]
 create_clock -name {sys_clk} -period 20.000 [get_ports {sys_clk}]
 

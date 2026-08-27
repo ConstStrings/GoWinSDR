@@ -25,6 +25,10 @@ module rf2eth_processor #(
     input  wire       eth_tx_clk,
     input  wire       eth_tx_rst_n,
     input  wire       eth_tx_ready,
+    // A complete RF packet is waiting in the Ethernet-clock-domain FIFO.
+    // This is a request, not a grant.  The top-level packet arbiter uses it
+    // to ensure this source never races a control/status packet.
+    output wire       eth_tx_request,
     output reg  [7:0] eth_tx_data,
     output reg        eth_tx_data_valid,
     output reg        eth_tx_frame_start
@@ -92,6 +96,7 @@ function [PACKET_COUNT_WIDTH-1:0] pkt_bin_to_gray;
 endfunction
 
 wire packet_pending = (pkt_wr_gray_rsync2 != pkt_bin_to_gray(pkt_rd_bin));
+assign eth_tx_request = packet_pending;
 
 // RF clock domain: append payload bytes and, after a sufficiently long idle
 // interval, append the end marker.  The decoder emits one byte every 16

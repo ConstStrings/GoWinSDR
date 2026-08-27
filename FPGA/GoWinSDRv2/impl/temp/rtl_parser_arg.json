@@ -6,11 +6,19 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface/ddr3_memory_interface.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii/dds_ii.v",
    "Type" : "verilog"
   },
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii_costas/dds_ii.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
    "Type" : "verilog"
   },
   {
@@ -74,6 +82,14 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_ddr/gowin_pll_ddr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_ddr/gowin_pll_ddr_mod.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_rfclk/gowin_pll_rfclk.v",
    "Type" : "verilog"
   },
@@ -95,6 +111,10 @@
   },
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/pll_init.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf2eth_process.v",
    "Type" : "verilog"
   },
   {
@@ -146,7 +166,15 @@
    "Type" : "verilog"
   },
   {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf2eth_process.v",
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface_200/ddr3_memory_interface_200/ddr3_memory_interface_200.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_credit_status.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_tx_arbiter.v",
    "Type" : "verilog"
   }
  ],

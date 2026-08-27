@@ -31,6 +31,23 @@
     output                              RGMII_TXEN                 ,
     output                              RGMII_RST_N                ,
 
+    // DDR3 packet buffer
+    output [13:0]                       ddr_addr                   ,
+    output [2:0]                        ddr_bank                   ,
+    output                              ddr_cs                     ,
+    output                              ddr_ras                    ,
+    output                              ddr_cas                    ,
+    output                              ddr_we                     ,
+    output                              ddr_ck                     ,
+    output                              ddr_ck_n                   ,
+    output                              ddr_cke                    ,
+    output                              ddr_odt                    ,
+    output                              ddr_reset_n                ,
+    output [1:0]                        ddr_dm                     ,
+    inout  [15:0]                       ddr_dq                     ,
+    inout  [1:0]                        ddr_dqs                    ,
+    inout  [1:0]                        ddr_dqs_n                  ,
+
     output [4:0]                        led                        
                         
     );
@@ -168,27 +185,76 @@ wire                   [   7:0]         rf_tx_data                 ;
 wire                                    rf_tx_valid                ;
 wire                                    rf_tx_ready                ;
 wire                                    fifo_eth_almost_full       ;
+// RX/TX LEDs indicate valid RF payload activity, not Ethernet PHY traffic.
+// Reloading these counters on every valid RF byte leaves a visible tail after
+// a packet while also keeping the LED continuously on for a long RF burst.
+reg [19:0]                              rf_rx_led_hold;
+reg [18:0]                              rf_tx_led_hold;
+wire                                    rf_rx_packet_led;
+wire                                    rf_tx_packet_led;
+(* keep = "true" *) wire               ddr_init_done              ;
+(* keep = "true" *) wire               ddr_pll_lock_dbg           ;
+(* keep = "true" *) wire               ddr_phy_reset_dbg          ;
+(* keep = "true" *) wire               ddr_pll_stop_dbg           ;
+(* keep = "true" *) wire               eth_ingress_accept         ;
+(* keep = "true" *) wire               eth_ingress_drop           ;
+(* keep = "true" *) wire [15:0]        ddr_queued_words_dbg       ;
+(* keep = "true" *) wire [15:0]        eth_credit_packets_dbg     ;
+// Two independent FPGA-to-PC packet sources share this one Ethernet TX
+// interface.  They are selected only by eth_tx_arbiter at packet boundaries.
+wire [7:0]                             rf_eth_tx_data;
+wire                                   rf_eth_tx_data_valid;
+wire                                   rf_eth_tx_frame_start;
+wire                                   rf_eth_tx_request;
+wire                                   rf_eth_tx_grant;
+wire [7:0]                             credit_eth_tx_data;
+wire                                   credit_eth_tx_data_valid;
+wire                                   credit_eth_tx_frame_start;
+wire                                   credit_eth_tx_request;
+wire                                   credit_eth_tx_grant;
 
 
-eth2rf_processor #(
+eth2rf_ddr_queue #(
     .FRAME_HEAD (32'hEB90CAD3)
 ) u_eth2rf_processor (
+    .sys_clk          (sys_clk),
+    .rst_n            (rst_n),
     .eth_rx_clk       (RGMII_RXCLK),
-    .eth_rx_rst_n     (rst_n),
     .rx_data          (eth_rx_data),
     .rx_data_valid    (eth_rx_data_valid),
-    .rx_frame_start   (eth_rx_frame_start),
     .rx_frame_end     (eth_rx_frame_end),
-    .udp_length   (eth_udp_length),
+    .udp_length       (eth_udp_length),
     
     .rf_tx_clk        (bb_byte_clk),
-    .rf_tx_rst_n      (rst_n),
     .rf_tx_ready      (rf_tx_ready),
     .rf_tx_data       (rf_tx_data),
     .rf_tx_valid      (rf_tx_valid),
-
-    .fifo_almost_full (fifo_eth_almost_full)
+    .ingress_accept   (eth_ingress_accept),
+    .ingress_drop     (eth_ingress_drop),
+    .ddr_init_done    (ddr_init_done),
+    .ddr_pll_lock_dbg (ddr_pll_lock_dbg),
+    .ddr_phy_reset_dbg(ddr_phy_reset_dbg),
+    .ddr_pll_stop_dbg (ddr_pll_stop_dbg),
+    .queued_words_dbg (ddr_queued_words_dbg),
+    .credit_packets_dbg(eth_credit_packets_dbg),
+    .ddr_addr         (ddr_addr),
+    .ddr_bank         (ddr_bank),
+    .ddr_cs           (ddr_cs),
+    .ddr_ras          (ddr_ras),
+    .ddr_cas          (ddr_cas),
+    .ddr_we           (ddr_we),
+    .ddr_ck           (ddr_ck),
+    .ddr_ck_n         (ddr_ck_n),
+    .ddr_cke          (ddr_cke),
+    .ddr_odt          (ddr_odt),
+    .ddr_reset_n      (ddr_reset_n),
+    .ddr_dm           (ddr_dm),
+    .ddr_dq           (ddr_dq),
+    .ddr_dqs          (ddr_dqs),
+    .ddr_dqs_n        (ddr_dqs_n)
 );
+
+assign fifo_eth_almost_full = !eth_ingress_accept;
 
 // ============================================================
 // RF Signal Processing (DQPSK encoder + RRC + FIFO -> DAC)
@@ -258,10 +324,70 @@ rf_process #(
     // RGMII transmit clock.
     .eth_tx_clk         (RGMII_GTXCLK),
     .eth_tx_rst_n       (rst_n),
-    .eth_tx_ready       (eth_tx_ready),
-    .eth_tx_data        (eth_tx_data),
-    .eth_tx_data_valid  (eth_tx_data_valid),
-    .eth_tx_frame_start (eth_tx_frame_start)
+    .eth_tx_ready       (rf_eth_tx_grant),
+    .eth_tx_request     (rf_eth_tx_request),
+    .eth_tx_data        (rf_eth_tx_data),
+    .eth_tx_data_valid  (rf_eth_tx_data_valid),
+    .eth_tx_frame_start (rf_eth_tx_frame_start)
+);
+
+// rf_rx_data_valid is produced only by the RF deframer in READ_PAY, i.e.
+// after FRAME_HEAD and the length have been accepted.  rf_tx_valid is the
+// dequeued DDR frame byte stream presented to the RF modulator.
+always @(posedge rf_rx_clk or negedge rst_n) begin
+    if (!rst_n)
+        rf_rx_led_hold <= 20'd0;
+    else if (rf_rx_data_valid)
+        rf_rx_led_hold <= {20{1'b1}};
+    else if (rf_rx_led_hold != 20'd0)
+        rf_rx_led_hold <= rf_rx_led_hold - 1'b1;
+end
+
+always @(posedge bb_byte_clk or negedge rst_n) begin
+    if (!rst_n)
+        rf_tx_led_hold <= 19'd0;
+    else if (rf_tx_valid)
+        rf_tx_led_hold <= {19{1'b1}};
+    else if (rf_tx_led_hold != 19'd0)
+        rf_tx_led_hold <= rf_tx_led_hold - 1'b1;
+end
+
+assign rf_rx_packet_led = |rf_rx_led_hold;
+assign rf_tx_packet_led = |rf_tx_led_hold;
+
+// One coalesced status packet is requested after each received UDP frame.
+// Its snapshot is advisory; ingress_accept remains the final DDR safety gate.
+eth_credit_status u_eth_credit_status (
+    .eth_rx_clk       (RGMII_RXCLK),
+    .eth_rx_rst_n     (rst_n),
+    .rx_frame_end     (eth_rx_frame_end),
+    .credit_value     (eth_credit_packets_dbg),
+    .eth_tx_clk       (RGMII_GTXCLK),
+    .eth_tx_rst_n     (rst_n),
+    .tx_grant         (credit_eth_tx_grant),
+    .tx_request       (credit_eth_tx_request),
+    .tx_data          (credit_eth_tx_data),
+    .tx_data_valid    (credit_eth_tx_data_valid),
+    .tx_frame_start   (credit_eth_tx_frame_start)
+);
+
+eth_tx_arbiter u_eth_tx_arbiter (
+    .clk                (RGMII_GTXCLK),
+    .rst_n              (rst_n),
+    .downstream_ready   (eth_tx_ready),
+    .rf_request         (rf_eth_tx_request),
+    .rf_grant           (rf_eth_tx_grant),
+    .rf_data            (rf_eth_tx_data),
+    .rf_valid           (rf_eth_tx_data_valid),
+    .rf_frame_start     (rf_eth_tx_frame_start),
+    .status_request     (credit_eth_tx_request),
+    .status_grant       (credit_eth_tx_grant),
+    .status_data        (credit_eth_tx_data),
+    .status_valid       (credit_eth_tx_data_valid),
+    .status_frame_start (credit_eth_tx_frame_start),
+    .tx_data            (eth_tx_data),
+    .tx_valid           (eth_tx_data_valid),
+    .tx_frame_start     (eth_tx_frame_start)
 );
 
 // Connect rf_process DAC outputs to RF frontend
@@ -278,8 +404,8 @@ phy_led phy_led_u(
       .eth_act  (eth_active),
       .error    (fifo_eth_almost_full),
       .data_clk (data_clk),
-      .rx_act   (eth_rx_activity),
-      .tx_act   (eth_tx_activity),
+      .rx_act   (rf_rx_packet_led),
+      .tx_act   (rf_tx_packet_led),
     .led      (led)
 );
 

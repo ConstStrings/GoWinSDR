@@ -2,7 +2,7 @@
 <GAO_CONFIG>
     <Version>3.0</Version>
     <Mode>Standard</Mode>
-    <AoCore index="0" sample_clock="data_clk" trig_type="0" storage_depth="8192" window_num="1" capture_amount="8192" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
+    <AoCore index="0" sample_clock="bb_byte_clk" trig_type="0" storage_depth="2048" window_num="1" capture_amount="2048" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
         <SignalList>
             <Bus capture_enable="true" name="adc_data_out_i1[11:0]">
                 <Signal>adc_data_out_i1[11]</Signal>
@@ -185,6 +185,48 @@
             </Bus>
             <Signal capture_enable="true">u_rf_process/gardner_sync_u0/nco_strobe_flag</Signal>
             <Signal capture_enable="true">u_rf_process/gardner_sync_u0/ted_strobe_flag</Signal>
+            <Signal capture_enable="true">ddr_init_done</Signal>
+            <Signal capture_enable="true">ddr_pll_lock_dbg</Signal>
+            <Signal capture_enable="true">ddr_phy_reset_dbg</Signal>
+            <Signal capture_enable="true">ddr_pll_stop_dbg</Signal>
+            <Signal capture_enable="true">eth_ingress_accept</Signal>
+            <Signal capture_enable="true">eth_ingress_drop</Signal>
+            <Bus capture_enable="true" name="ddr_queued_words_dbg[15:0]">
+                <Signal>ddr_queued_words_dbg[15]</Signal>
+                <Signal>ddr_queued_words_dbg[14]</Signal>
+                <Signal>ddr_queued_words_dbg[13]</Signal>
+                <Signal>ddr_queued_words_dbg[12]</Signal>
+                <Signal>ddr_queued_words_dbg[11]</Signal>
+                <Signal>ddr_queued_words_dbg[10]</Signal>
+                <Signal>ddr_queued_words_dbg[9]</Signal>
+                <Signal>ddr_queued_words_dbg[8]</Signal>
+                <Signal>ddr_queued_words_dbg[7]</Signal>
+                <Signal>ddr_queued_words_dbg[6]</Signal>
+                <Signal>ddr_queued_words_dbg[5]</Signal>
+                <Signal>ddr_queued_words_dbg[4]</Signal>
+                <Signal>ddr_queued_words_dbg[3]</Signal>
+                <Signal>ddr_queued_words_dbg[2]</Signal>
+                <Signal>ddr_queued_words_dbg[1]</Signal>
+                <Signal>ddr_queued_words_dbg[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="eth_credit_packets_dbg[15:0]">
+                <Signal>eth_credit_packets_dbg[15]</Signal>
+                <Signal>eth_credit_packets_dbg[14]</Signal>
+                <Signal>eth_credit_packets_dbg[13]</Signal>
+                <Signal>eth_credit_packets_dbg[12]</Signal>
+                <Signal>eth_credit_packets_dbg[11]</Signal>
+                <Signal>eth_credit_packets_dbg[10]</Signal>
+                <Signal>eth_credit_packets_dbg[9]</Signal>
+                <Signal>eth_credit_packets_dbg[8]</Signal>
+                <Signal>eth_credit_packets_dbg[7]</Signal>
+                <Signal>eth_credit_packets_dbg[6]</Signal>
+                <Signal>eth_credit_packets_dbg[5]</Signal>
+                <Signal>eth_credit_packets_dbg[4]</Signal>
+                <Signal>eth_credit_packets_dbg[3]</Signal>
+                <Signal>eth_credit_packets_dbg[2]</Signal>
+                <Signal>eth_credit_packets_dbg[1]</Signal>
+                <Signal>eth_credit_packets_dbg[0]</Signal>
+            </Bus>
         </SignalList>
         <Triggers>
             <Trigger index="0">
@@ -204,7 +246,7 @@
             </Trigger>
             <Trigger index="2">
                 <SignalList>
-                    <Signal>u_eth2rf_processor/rx_data_valid</Signal>
+                    <Signal>rf_tx_valid</Signal>
                 </SignalList>
             </Trigger>
             <Trigger index="3">
@@ -247,5 +289,564 @@
             <Expression>M2</Expression>
         </Expressions>
     </AoCore>
-    <GAO_ID>1000101101100111</GAO_ID>
+    <AoCore index="1" sample_clock="u_eth2rf_processor/ddr_clk" trig_type="0" storage_depth="256" window_num="1" capture_amount="256" implementation="0" trigger_pos="0" module_name="top" force_trigger_by_falling_edge="false" capture_init_data_enabled="false">
+        <SignalList>
+            <Bus capture_enable="true" name="u_eth2rf_processor/in_fifo_q[7:0]">
+                <Signal>u_eth2rf_processor/in_fifo_q[7]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[6]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[5]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[4]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[3]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[2]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[1]</Signal>
+                <Signal>u_eth2rf_processor/in_fifo_q[0]</Signal>
+            </Bus>
+            <Signal capture_enable="true">ddr_init_done</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/ddr_clk100_counter_dbg[15:0]">
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[15]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[14]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[13]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[12]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[11]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[10]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[9]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[8]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[7]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[6]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[5]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[4]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[3]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[2]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[1]</Signal>
+                <Signal>u_eth2rf_processor/ddr_clk100_counter_dbg[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="u_eth2rf_processor/ddr_memclk_counter_dbg[15:0]">
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[15]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[14]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[13]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[12]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[11]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[10]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[9]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[8]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[7]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[6]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[5]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[4]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[3]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[2]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[1]</Signal>
+                <Signal>u_eth2rf_processor/ddr_memclk_counter_dbg[0]</Signal>
+            </Bus>
+            <Signal capture_enable="true">u_eth2rf_processor/in_fifo_empty</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/in_fifo_re_r</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/in_fifo_data_valid</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/app_cmd[2:0]">
+                <Signal>u_eth2rf_processor/app_cmd[2]</Signal>
+                <Signal>u_eth2rf_processor/app_cmd[1]</Signal>
+                <Signal>u_eth2rf_processor/app_cmd[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="u_eth2rf_processor/app_wr_mask[15:0]">
+                <Signal>u_eth2rf_processor/app_wr_mask[15]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[14]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[13]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[12]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[11]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[10]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[9]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[8]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[7]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[6]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[5]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[4]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[3]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[2]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[1]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_mask[0]</Signal>
+            </Bus>
+            <Signal capture_enable="true">u_eth2rf_processor/app_cmd_en</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/cmd_ready</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/app_wr_en</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/wr_data_rdy</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/write_pending</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/write_is_last</Signal>
+            <Bus capture_enable="true" name="ddr_queued_words_dbg[15:0]">
+                <Signal>ddr_queued_words_dbg[15]</Signal>
+                <Signal>ddr_queued_words_dbg[14]</Signal>
+                <Signal>ddr_queued_words_dbg[13]</Signal>
+                <Signal>ddr_queued_words_dbg[12]</Signal>
+                <Signal>ddr_queued_words_dbg[11]</Signal>
+                <Signal>ddr_queued_words_dbg[10]</Signal>
+                <Signal>ddr_queued_words_dbg[9]</Signal>
+                <Signal>ddr_queued_words_dbg[8]</Signal>
+                <Signal>ddr_queued_words_dbg[7]</Signal>
+                <Signal>ddr_queued_words_dbg[6]</Signal>
+                <Signal>ddr_queued_words_dbg[5]</Signal>
+                <Signal>ddr_queued_words_dbg[4]</Signal>
+                <Signal>ddr_queued_words_dbg[3]</Signal>
+                <Signal>ddr_queued_words_dbg[2]</Signal>
+                <Signal>ddr_queued_words_dbg[1]</Signal>
+                <Signal>ddr_queued_words_dbg[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="eth_credit_packets_dbg[15:0]">
+                <Signal>eth_credit_packets_dbg[15]</Signal>
+                <Signal>eth_credit_packets_dbg[14]</Signal>
+                <Signal>eth_credit_packets_dbg[13]</Signal>
+                <Signal>eth_credit_packets_dbg[12]</Signal>
+                <Signal>eth_credit_packets_dbg[11]</Signal>
+                <Signal>eth_credit_packets_dbg[10]</Signal>
+                <Signal>eth_credit_packets_dbg[9]</Signal>
+                <Signal>eth_credit_packets_dbg[8]</Signal>
+                <Signal>eth_credit_packets_dbg[7]</Signal>
+                <Signal>eth_credit_packets_dbg[6]</Signal>
+                <Signal>eth_credit_packets_dbg[5]</Signal>
+                <Signal>eth_credit_packets_dbg[4]</Signal>
+                <Signal>eth_credit_packets_dbg[3]</Signal>
+                <Signal>eth_credit_packets_dbg[2]</Signal>
+                <Signal>eth_credit_packets_dbg[1]</Signal>
+                <Signal>eth_credit_packets_dbg[0]</Signal>
+            </Bus>
+            <Signal capture_enable="true">u_eth2rf_processor/read_active</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/read_wait</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/rd_data_valid</Signal>
+            <Signal capture_enable="true">u_eth2rf_processor/out_fifo_we</Signal>
+            <Signal capture_enable="true">ddr_pll_lock_dbg</Signal>
+            <Signal capture_enable="true">ddr_phy_reset_dbg</Signal>
+            <Signal capture_enable="true">ddr_pll_stop_dbg</Signal>
+            <Bus capture_enable="true" name="u_eth2rf_processor/pending_word[127:0]">
+                <Signal>u_eth2rf_processor/pending_word[127]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[126]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[125]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[124]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[123]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[122]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[121]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[120]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[119]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[118]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[117]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[116]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[115]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[114]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[113]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[112]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[111]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[110]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[109]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[108]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[107]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[106]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[105]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[104]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[103]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[102]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[101]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[100]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[99]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[98]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[97]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[96]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[95]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[94]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[93]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[92]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[91]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[90]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[89]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[88]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[87]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[86]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[85]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[84]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[83]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[82]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[81]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[80]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[79]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[78]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[77]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[76]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[75]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[74]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[73]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[72]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[71]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[70]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[69]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[68]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[67]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[66]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[65]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[64]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[63]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[62]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[61]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[60]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[59]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[58]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[57]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[56]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[55]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[54]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[53]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[52]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[51]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[50]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[49]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[48]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[47]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[46]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[45]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[44]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[43]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[42]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[41]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[40]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[39]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[38]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[37]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[36]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[35]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[34]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[33]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[32]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[31]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[30]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[29]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[28]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[27]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[26]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[25]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[24]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[23]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[22]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[21]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[20]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[19]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[18]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[17]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[16]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[15]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[14]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[13]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[12]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[11]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[10]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[9]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[8]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[7]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[6]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[5]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[4]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[3]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[2]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[1]</Signal>
+                <Signal>u_eth2rf_processor/pending_word[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="u_eth2rf_processor/app_wr_data[127:0]">
+                <Signal>u_eth2rf_processor/app_wr_data[127]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[126]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[125]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[124]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[123]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[122]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[121]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[120]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[119]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[118]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[117]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[116]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[115]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[114]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[113]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[112]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[111]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[110]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[109]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[108]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[107]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[106]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[105]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[104]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[103]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[102]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[101]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[100]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[99]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[98]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[97]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[96]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[95]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[94]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[93]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[92]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[91]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[90]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[89]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[88]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[87]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[86]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[85]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[84]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[83]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[82]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[81]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[80]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[79]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[78]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[77]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[76]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[75]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[74]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[73]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[72]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[71]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[70]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[69]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[68]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[67]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[66]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[65]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[64]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[63]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[62]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[61]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[60]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[59]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[58]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[57]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[56]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[55]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[54]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[53]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[52]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[51]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[50]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[49]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[48]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[47]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[46]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[45]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[44]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[43]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[42]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[41]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[40]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[39]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[38]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[37]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[36]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[35]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[34]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[33]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[32]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[31]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[30]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[29]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[28]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[27]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[26]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[25]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[24]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[23]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[22]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[21]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[20]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[19]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[18]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[17]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[16]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[15]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[14]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[13]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[12]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[11]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[10]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[9]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[8]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[7]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[6]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[5]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[4]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[3]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[2]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[1]</Signal>
+                <Signal>u_eth2rf_processor/app_wr_data[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="u_eth2rf_processor/u_ddr3/rd_data[127:0]">
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[127]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[126]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[125]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[124]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[123]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[122]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[121]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[120]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[119]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[118]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[117]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[116]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[115]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[114]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[113]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[112]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[111]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[110]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[109]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[108]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[107]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[106]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[105]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[104]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[103]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[102]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[101]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[100]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[99]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[98]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[97]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[96]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[95]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[94]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[93]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[92]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[91]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[90]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[89]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[88]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[87]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[86]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[85]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[84]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[83]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[82]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[81]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[80]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[79]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[78]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[77]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[76]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[75]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[74]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[73]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[72]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[71]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[70]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[69]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[68]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[67]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[66]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[65]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[64]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[63]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[62]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[61]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[60]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[59]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[58]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[57]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[56]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[55]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[54]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[53]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[52]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[51]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[50]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[49]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[48]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[47]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[46]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[45]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[44]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[43]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[42]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[41]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[40]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[39]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[38]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[37]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[36]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[35]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[34]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[33]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[32]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[31]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[30]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[29]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[28]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[27]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[26]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[25]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[24]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[23]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[22]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[21]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[20]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[19]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[18]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[17]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[16]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[15]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[14]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[13]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[12]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[11]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[10]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[9]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[8]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[7]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[6]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[5]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[4]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[3]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[2]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[1]</Signal>
+                <Signal>u_eth2rf_processor/u_ddr3/rd_data[0]</Signal>
+            </Bus>
+        </SignalList>
+        <Triggers>
+            <Trigger index="0">
+                <SignalList>
+                    <Signal>u_eth2rf_processor/app_cmd_en</Signal>
+                </SignalList>
+            </Trigger>
+            <Trigger index="1"/>
+            <Trigger index="2"/>
+            <Trigger index="3"/>
+            <Trigger index="4"/>
+            <Trigger index="5"/>
+            <Trigger index="6"/>
+            <Trigger index="7"/>
+            <Trigger index="8"/>
+            <Trigger index="9"/>
+            <Trigger index="10"/>
+            <Trigger index="11"/>
+            <Trigger index="12"/>
+            <Trigger index="13"/>
+            <Trigger index="14"/>
+            <Trigger index="15"/>
+        </Triggers>
+        <MatchUnits>
+            <MatchUnit index="0" enabled="1" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="1" value1="0" trigger="0"/>
+            <MatchUnit index="1" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="2" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="3" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="4" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="5" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="6" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="7" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="8" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="9" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="10" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="11" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="12" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="13" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="14" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+            <MatchUnit index="15" enabled="0" match_type="0" counter_enable="0" counter_width="2" counter="2" countinuous="0" func="0" value0="" value1=""/>
+        </MatchUnits>
+        <Expressions type="Static">
+            <Expression>M0</Expression>
+        </Expressions>
+    </AoCore>
+    <GAO_ID>0111100011000011</GAO_ID>
 </GAO_CONFIG>

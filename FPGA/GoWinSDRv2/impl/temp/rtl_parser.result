@@ -1,5 +1,23 @@
 [
  {
+  "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface/ddr3_memory_interface.v",
+  "InstLine" : 19327,
+  "InstName" : "DDR3_Memory_Interface_Top",
+  "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface/ddr3_memory_interface.v",
+  "ModuleLine" : 19327,
+  "ModuleName" : "DDR3_Memory_Interface_Top",
+  "SubInsts" : [
+   {
+    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface/ddr3_memory_interface.v",
+    "InstLine" : 19412,
+    "InstName" : "gw3_top",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface/ddr3_memory_interface.v",
+    "ModuleLine" : 10,
+    "ModuleName" : "~GW_DDR3_PHY_MC.DDR3_Memory_Interface_Top"
+   }
+  ]
+ },
+ {
   "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii/dds_ii.v",
   "InstLine" : 2698,
   "InstName" : "DDS_II_Top",
@@ -14,6 +32,34 @@
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii/dds_ii.v",
     "ModuleLine" : 11,
     "ModuleName" : "~dds_ii_core.DDS_II_Top"
+   }
+  ]
+ },
+ {
+  "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
+  "InstLine" : 1,
+  "InstName" : "eth2rf_processor",
+  "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
+  "ModuleLine" : 1,
+  "ModuleName" : "eth2rf_processor",
+  "SubInsts" : [
+   {
+    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
+    "InstLine" : 193,
+    "InstName" : "u_fifo_eth2rf",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
+    "ModuleLine" : 701,
+    "ModuleName" : "fifo_eth2rf",
+    "SubInsts" : [
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
+      "InstLine" : 724,
+      "InstName" : "fifo_inst",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
+      "ModuleLine" : 14,
+      "ModuleName" : "~fifo.fifo_eth2rf"
+     }
+    ]
    }
   ]
  },
@@ -155,7 +201,7 @@
   "SubInsts" : [
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 87,
+    "InstLine" : 104,
     "InstName" : "u_ad9361_cmos_dev",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_ad9361_cmos_dev.v",
     "ModuleLine" : 1,
@@ -191,7 +237,7 @@
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 138,
+    "InstLine" : 155,
     "InstName" : "eth_transceiver_u",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
     "ModuleLine" : 1,
@@ -241,7 +287,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
-      "InstLine" : 433,
+      "InstLine" : 461,
       "InstName" : "crc_inst",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_crc.v",
       "ModuleLine" : 3,
@@ -249,7 +295,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
-      "InstLine" : 715,
+      "InstLine" : 743,
       "InstName" : "gmii2rgmii_inst",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_ddr/eth_GMII2RGMII.v",
       "ModuleLine" : 10,
@@ -259,35 +305,85 @@
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 175,
+    "InstLine" : 219,
     "InstName" : "u_eth2rf_processor",
-    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
-    "ModuleLine" : 1,
-    "ModuleName" : "eth2rf_processor",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+    "ModuleLine" : 6,
+    "ModuleName" : "eth2rf_ddr_queue",
     "SubInsts" : [
      {
-      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_process.v",
-      "InstLine" : 193,
-      "InstName" : "u_fifo_eth2rf",
-      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
-      "ModuleLine" : 701,
-      "ModuleName" : "fifo_eth2rf",
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "InstLine" : 211,
+      "InstName" : "u_ingress_fifo",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "ModuleLine" : 617,
+      "ModuleName" : "packet_async_fifo_registered"
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "InstLine" : 291,
+      "InstName" : "u_ddr_pll",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_ddr/gowin_pll_ddr.v",
+      "ModuleLine" : 1,
+      "ModuleName" : "Gowin_PLL_DDR",
       "SubInsts" : [
        {
-        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
-        "InstLine" : 724,
-        "InstName" : "fifo_inst",
-        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_eth2rf/fifo_eth2rf.v",
-        "ModuleLine" : 14,
-        "ModuleName" : "~fifo.fifo_eth2rf"
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_ddr/gowin_pll_ddr.v",
+        "InstLine" : 28,
+        "InstName" : "u_pll",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_ddr/gowin_pll_ddr_mod.v",
+        "ModuleLine" : 10,
+        "ModuleName" : "Gowin_PLL_DDR_MOD"
+       },
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/gowin_pll_ddr/gowin_pll_ddr.v",
+        "InstLine" : 43,
+        "InstName" : "u_pll_init",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/pll_init.v",
+        "ModuleLine" : 4,
+        "ModuleName" : "PLL_INIT"
        }
       ]
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "InstLine" : 296,
+      "InstName" : "u_ddr3",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface_200/ddr3_memory_interface_200/ddr3_memory_interface_200.v",
+      "ModuleLine" : 19336,
+      "ModuleName" : "DDR3_Memory_Interface_200",
+      "SubInsts" : [
+       {
+        "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface_200/ddr3_memory_interface_200/ddr3_memory_interface_200.v",
+        "InstLine" : 19421,
+        "InstName" : "gw3_top",
+        "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface_200/ddr3_memory_interface_200/ddr3_memory_interface_200.v",
+        "ModuleLine" : 10,
+        "ModuleName" : "~GW_DDR3_PHY_MC.DDR3_Memory_Interface_200"
+       }
+      ]
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "InstLine" : 340,
+      "InstName" : "u_descriptor_fifo",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "ModuleLine" : 617,
+      "ModuleName" : "packet_async_fifo_registered"
+     },
+     {
+      "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "InstLine" : 554,
+      "InstName" : "u_egress_fifo",
+      "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth2rf_ddr_queue.v",
+      "ModuleLine" : 695,
+      "ModuleName" : "packet_async_fifo"
      }
     ]
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 212,
+    "InstLine" : 278,
     "InstName" : "u_rf_process",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
     "ModuleLine" : 1,
@@ -313,7 +409,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 170,
+      "InstLine" : 169,
       "InstName" : "u_rf_dqpsk_encoder",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_dqpsk_encoder.v",
       "ModuleLine" : 1,
@@ -321,7 +417,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 193,
+      "InstLine" : 192,
       "InstName" : "RRC_FIR_Filter_TX_i",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/RRC_fir_filter/RRC_fir_filter.v",
       "ModuleLine" : 16971,
@@ -339,7 +435,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 205,
+      "InstLine" : 204,
       "InstName" : "RRC_FIR_Filter_TX_q",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/RRC_fir_filter/RRC_fir_filter.v",
       "ModuleLine" : 16971,
@@ -357,7 +453,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 333,
+      "InstLine" : 332,
       "InstName" : "fifo_rf_tx_i",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_tx/fifo_rf.v",
       "ModuleLine" : 1200,
@@ -375,7 +471,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 346,
+      "InstLine" : 345,
       "InstName" : "fifo_rf_tx_q",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/fifo_rf_tx/fifo_rf.v",
       "ModuleLine" : 1200,
@@ -393,7 +489,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 394,
+      "InstLine" : 393,
       "InstName" : "gardner_sync_u0",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_gardner_sync.v",
       "ModuleLine" : 3,
@@ -477,7 +573,7 @@
      },
      {
       "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_process.v",
-      "InstLine" : 413,
+      "InstLine" : 412,
       "InstName" : "u_rf_dqpsk_decoder",
       "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf_dqpsk_decoder.v",
       "ModuleLine" : 6,
@@ -487,7 +583,7 @@
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 250,
+    "InstLine" : 316,
     "InstName" : "u_rf2eth_processor",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/rf2eth_process.v",
     "ModuleLine" : 9,
@@ -495,7 +591,23 @@
    },
    {
     "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-    "InstLine" : 275,
+    "InstLine" : 360,
+    "InstName" : "u_eth_credit_status",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_credit_status.v",
+    "ModuleLine" : 15,
+    "ModuleName" : "eth_credit_status"
+   },
+   {
+    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
+    "InstLine" : 374,
+    "InstName" : "u_eth_tx_arbiter",
+    "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_tx_arbiter.v",
+    "ModuleLine" : 6,
+    "ModuleName" : "eth_tx_arbiter"
+   },
+   {
+    "InstFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
+    "InstLine" : 401,
     "InstName" : "phy_led_u",
     "ModuleFile" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/phy_led.v",
     "ModuleLine" : 1,
