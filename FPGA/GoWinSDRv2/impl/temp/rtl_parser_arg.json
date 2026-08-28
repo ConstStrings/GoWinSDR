@@ -10,6 +10,10 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface_200/ddr3_memory_interface_200/ddr3_memory_interface_200.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/dds_ii/dds_ii.v",
    "Type" : "verilog"
   },
@@ -34,11 +38,19 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_credit_status.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_rxdv_ddr/eth_rxdv_ddr.v",
    "Type" : "verilog"
   },
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_transceiver.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_tx_arbiter.v",
    "Type" : "verilog"
   },
   {
@@ -163,18 +175,6 @@
   },
   {
    "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/top_sdr.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/ddr3_memory_interface_200/ddr3_memory_interface_200/ddr3_memory_interface_200.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_credit_status.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "D:/Code/Project/GoWinSDRv2/FPGA/GoWinSDRv2/src/eth_tx_arbiter.v",
    "Type" : "verilog"
   }
  ],

@@ -2,15 +2,18 @@ GowinSynthesis start
 Running parser ...
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\RRC_fir_filter\RRC_fir_filter.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\ddr3_memory_interface\ddr3_memory_interface.v'
+Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\ddr3_memory_interface_200\ddr3_memory_interface_200\ddr3_memory_interface_200.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\dds_ii\dds_ii.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\dds_ii_costas\dds_ii.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_process.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_arp.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_crc.v'
+Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_credit_status.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_rxdv_ddr\eth_rxdv_ddr.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v'
 Undeclared symbol 'clk_125m_90', assumed default net type 'wire'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":55)
+Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_tx_arbiter.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_eth2rf\fifo_eth2rf.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_rf_databuf\fifo_rf_databuf.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_rf_tx\fifo_rf.v'
@@ -43,9 +46,6 @@ Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_pll\rf
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_process.v'
 Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\top_sdr.v'
 WARN  (EX3801) : Parameter 'BB_SYMBOL_DIV' becomes localparam in 'top' with formal parameter declaration list("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\top_sdr.v":65)
-Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\ddr3_memory_interface_200\ddr3_memory_interface_200\ddr3_memory_interface_200.v'
-Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_credit_status.v'
-Analyzing Verilog file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_tx_arbiter.v'
 Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_crc32.v'
 Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_match.v'
 Analyzing included file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_match.v":374)
@@ -90,6 +90,28 @@ Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynth
 Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_top.v":3042)
 Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_1\gw_ao_init.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_top.v":3042)
 Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_top.v":3042)
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_crc32.v'
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v'
+Analyzing included file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_top_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_init.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v'
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_top_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v":1256)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v":1256)
+Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v'
+Analyzing included file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_top_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_expression.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_parameter.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_2\gw_ao_init.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
 Analyzing Verilog file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_CON\gw_con_top.v'
 Analyzing included file 'D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\impl\gwsynthesis\RTL_GAO\ao_control\gw_con_top_define.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_CON\gw_con_top.v":377)
 Back to file 'D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_CON\gw_con_top.v'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_CON\gw_con_top.v":377)
@@ -126,15 +148,15 @@ Compiling module 'crc'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_crc.v
 Compiling module 'GMII2RGMII'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_ddr\eth_GMII2RGMII.v":10)
 WARN  (EX2565) : Input 'mdclk' on this instance is undriven. Assigning to 0, simulation mismatch possible. Please assign the input or remove the declaration("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth_transceiver.v":56)
 Compiling module 'eth2rf_ddr_queue'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":6)
-Compiling module 'packet_async_fifo_registered(ADDR_WIDTH=11,ALMOST_FULL_LEVEL=1800)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":617)
-Extracting RAM for identifier 'mem'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":628)
+Compiling module 'packet_async_fifo_registered(ADDR_WIDTH=11,ALMOST_FULL_LEVEL=1800)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":720)
+Extracting RAM for identifier 'mem'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":731)
 Compiling module 'Gowin_PLL_DDR'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_ddr\gowin_pll_ddr.v":1)
 Compiling module 'Gowin_PLL_DDR_MOD'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\gowin_pll_ddr\gowin_pll_ddr_mod.v":10)
 Compiling module 'PLL_INIT(MULTI_FAC=16)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\pll_init.v":4)
 Compiling module 'DDR3_Memory_Interface_200'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\ddr3_memory_interface_200\ddr3_memory_interface_200\ddr3_memory_interface_200.v":19336)
 Compiling module '**'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\ddr3_memory_interface_200\ddr3_memory_interface_200\ddr3_memory_interface_200.v":19335)
-Compiling module 'packet_async_fifo(DATA_WIDTH=133,ADDR_WIDTH=3)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":695)
-Extracting RAM for identifier 'mem'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":705)
+Compiling module 'packet_async_fifo(DATA_WIDTH=133,ADDR_WIDTH=3)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":798)
+Extracting RAM for identifier 'mem'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\eth2rf_ddr_queue.v":808)
 Compiling module 'rf_process(SAMPLE_RATE=32'b00000001110101001100000000000000,SYMBOL_RATE=32'b00000000011101010011000000000000)'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\rf_process.v":1)
 Compiling module 'fifo_rf_databuf'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_rf_databuf\fifo_rf_databuf.v":360)
 Compiling module '**'("D:\Code\Project\GoWinSDRv2\FPGA\GoWinSDRv2\src\fifo_rf_databuf\fifo_rf_databuf.v":359)
@@ -162,6 +184,7 @@ Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GA
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_top.v":3042)
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_mem_ctrl.v":1256)
 Extracting RAM for identifier '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_mem_ctrl.v":1256)
+WARN  (EX3791) : Expression size ** truncated to fit in target size **("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_mem_ctrl.v":1256)
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_crc32.v":74)
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_0\gw_ao_match.v":374)
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_top.v":3042)
@@ -169,6 +192,12 @@ Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GA
 Extracting RAM for identifier '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_mem_ctrl.v":1256)
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_crc32.v":74)
 Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_1\gw_ao_match.v":374)
+Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_top.v":3042)
+Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v":1256)
+Extracting RAM for identifier '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v":1256)
+WARN  (EX3791) : Expression size ** truncated to fit in target size **("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_mem_ctrl.v":1256)
+Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_crc32.v":74)
+Compiling module '**'("D:\Program\Gowin\Gowin_V1.9.12.01_x64\IDE\data\ipcores\GAO\GW_AO_2\gw_ao_match.v":374)
 Trying to combine GAO to RTL design
 NOTE  (EX0101) : Current top module is "top"
 [5%] Running netlist conversion ...

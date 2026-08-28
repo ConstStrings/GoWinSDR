@@ -35,6 +35,11 @@ module eth2rf_ddr_queue #(
     output wire        ddr_pll_stop_dbg,
     output wire [15:0] queued_words_dbg,
     output wire [15:0] credit_packets_dbg,
+    // RF-side read-cache underrun observability.  dbg_tx_underrun is a
+    // one-rf_tx_clk pulse; dbg_tx_underrun_sticky remains asserted until
+    // reset so the event is still observable after the ILA capture window.
+    output wire        dbg_tx_underrun,
+    output wire        dbg_tx_underrun_sticky,
 
     output wire [13:0] ddr_addr,
     output wire [2:0]  ddr_bank,
@@ -374,9 +379,16 @@ module eth2rf_ddr_queue #(
     wire [15:0] pack_mask_with_input = (pack_bytes == 5'd15) ? 16'h0000 : (16'hFFFF << (pack_bytes + 1'b1));
     wire [15:0] read_valid_bytes = (read_bytes_left >= 16) ? 16'd16 : read_bytes_left;
     wire out_fifo_full, out_fifo_empty, out_fifo_re;
+    wire [OUT_FIFO_ADDR_BITS:0] out_fifo_wr_count;
     wire [132:0] out_fifo_q;
     reg out_fifo_we;
     reg [132:0] out_fifo_d;
+    // Keep two physical FIFO words free for the one outstanding DDR response
+    // and pointer synchronization.  Below this level, RF playback wins over
+    // Ethernet ingress so a sustained write burst cannot starve the reader.
+    localparam [OUT_FIFO_ADDR_BITS:0] OUT_FIFO_REFILL_WORDS = (1 << OUT_FIFO_ADDR_BITS) - 2;
+    wire read_refill_needed = (out_fifo_wr_count < OUT_FIFO_REFILL_WORDS);
+    wire read_path_pending = read_active || (desc_read_state != 3'd0) || !desc_fifo_empty;
 
     // The ring keeps 256 words of margin, so an asynchronous status update
     // cannot cause an accepted max-MTU packet to overlap unread data.
@@ -390,9 +402,11 @@ module eth2rf_ddr_queue #(
     assign credit_packets_dbg = desc_fifo_almost_full ? 16'd0 :
                                 (|credit_packets_wide[RING_WORD_ADDR_BITS:16] ? 16'hFFFF : credit_packets_wide[15:0]);
 
-    // A single controller interface is arbitrated in this clock domain:
-    // writes have priority (to absorb Ethernet bursts); reads are still far
-    // above the 1.92 MB/s RF byte requirement at the configured symbol rate.
+    // A single controller interface is arbitrated in this clock domain.
+    // Responses must always be captured first.  When the RF egress FIFO is
+    // below its refill watermark, descriptor/DDR reads then preempt ingress
+    // writes; otherwise a continuous Ethernet burst can leave RF playback
+    // with no data even though completed descriptors already exist in DDR.
     always @(posedge ddr_clk or negedge rst_n) begin
         if (!rst_n) begin
             app_cmd <= 3'd0; app_cmd_en <= 1'b0; app_addr <= 30'd0;
@@ -427,6 +441,57 @@ module eth2rf_ddr_queue #(
                 read_active <= 0; read_wait <= 0; read_resp_pending <= 0; read_resp_data <= 0;
                 wr_word_ptr <= 0; rd_word_ptr <= 0; used_words <= 0;
                 desc_write_pending <= 0; desc_write_low_byte <= 0; desc_read_state <= 0;
+            end else if (read_wait) begin
+                // The DDR read return is a one-cycle pulse.  It must be
+                // captured before servicing a write, otherwise a concurrent
+                // Ethernet write can lose the response permanently.
+                if (rd_data_valid) begin
+                    read_resp_data    <= rd_data;
+                    read_resp_pending <= 1'b1;
+                    read_wait         <= 1'b0;
+                end
+            end else if (read_resp_pending) begin
+                if (!out_fifo_full) begin
+                    out_fifo_d <= {read_valid_bytes[4:0], read_resp_data};
+                    out_fifo_we <= 1'b1;
+                    rd_word_ptr <= rd_word_ptr + 1'b1;
+                    used_words <= used_words - 1'b1;
+                    read_resp_pending <= 1'b0;
+                    if (read_words_left == 16'd1) begin
+                        read_words_left <= 0;
+                        read_bytes_left <= 0;
+                        read_active <= 1'b0;
+                    end else begin
+                        read_words_left <= read_words_left - 1'b1;
+                        read_bytes_left <= read_bytes_left - read_valid_bytes;
+                    end
+                end
+            end else if (read_refill_needed && read_path_pending) begin
+                // Progress descriptor fetch and DDR reads until the egress
+                // FIFO has a bounded cushion for the RF clock domain.
+                if (desc_read_state == 3'd1) begin
+                    desc_read_state <= 3'd2;
+                end else if (desc_read_state == 3'd2) begin
+                    desc_read_len[15:8] <= desc_fifo_q;
+                    desc_fifo_re_r <= 1'b1;
+                    desc_read_state <= 3'd3;
+                end else if (desc_read_state == 3'd3) begin
+                    desc_read_state <= 3'd4;
+                end else if (desc_read_state == 3'd4) begin
+                    read_bytes_left <= {desc_read_len[15:8],desc_fifo_q};
+                    read_words_left <= ({desc_read_len[15:8],desc_fifo_q} + 16'd15) >> 4;
+                    read_active <= 1'b1;
+                    desc_read_state <= 3'd0;
+                end else if (read_active && !out_fifo_full) begin
+                    if (cmd_ready) begin
+                        app_cmd <= 3'd1; app_cmd_en <= 1'b1;
+                        app_addr <= {3'd0,rd_word_ptr,3'b000};
+                        read_wait <= 1'b1;
+                    end
+                end else if (!desc_fifo_empty) begin
+                    desc_fifo_re_r <= 1'b1;
+                    desc_read_state <= 3'd1;
+                end
             end else if (write_pending) begin
                 if (cmd_ready && wr_data_rdy) begin
                     app_cmd <= 3'd0; app_cmd_en <= 1'b1;
@@ -464,31 +529,6 @@ module eth2rf_ddr_queue #(
                 end else begin
                     desc_write_low_byte <= 1'b1;
                 end
-            end else if (read_wait) begin
-                // The DDR read return is a one-cycle pulse.  It must be
-                // captured even while the small egress FIFO is full; waiting
-                // for !out_fifo_full here drops that final word permanently.
-                if (rd_data_valid) begin
-                    read_resp_data    <= rd_data;
-                    read_resp_pending <= 1'b1;
-                    read_wait         <= 1'b0;
-                end
-            end else if (read_resp_pending) begin
-                if (!out_fifo_full) begin
-                    out_fifo_d <= {read_valid_bytes[4:0], read_resp_data};
-                    out_fifo_we <= 1'b1;
-                    rd_word_ptr <= rd_word_ptr + 1'b1;
-                    used_words <= used_words - 1'b1;
-                    read_resp_pending <= 1'b0;
-                    if (read_words_left == 16'd1) begin
-                        read_words_left <= 0;
-                        read_bytes_left <= 0;
-                        read_active <= 1'b0;
-                    end else begin
-                        read_words_left <= read_words_left - 1'b1;
-                        read_bytes_left <= read_bytes_left - read_valid_bytes;
-                    end
-                end
             end else if (in_fifo_data_valid) begin
                 in_fifo_data_valid <= 1'b0;
                 pack_word <= pack_with_input;
@@ -523,30 +563,6 @@ module eth2rf_ddr_queue #(
                 // FIFO clock.
                 in_fifo_re_r <= 1'b1;
                 in_fifo_read_wait <= 1'b1;
-            end else if (desc_read_state == 3'd1) begin
-                // Wait for the registered FIFO Q after requesting length MSB.
-                desc_read_state <= 3'd2;
-            end else if (desc_read_state == 3'd2) begin
-                desc_read_len[15:8] <= desc_fifo_q;
-                desc_fifo_re_r <= 1'b1;
-                desc_read_state <= 3'd3;
-            end else if (desc_read_state == 3'd3) begin
-                // Wait for the registered FIFO Q after requesting length LSB.
-                desc_read_state <= 3'd4;
-            end else if (desc_read_state == 3'd4) begin
-                read_bytes_left <= {desc_read_len[15:8],desc_fifo_q};
-                read_words_left <= ({desc_read_len[15:8],desc_fifo_q} + 16'd15) >> 4;
-                read_active <= 1'b1;
-                desc_read_state <= 3'd0;
-            end else if (read_active && !out_fifo_full) begin
-                if (cmd_ready) begin
-                    app_cmd <= 3'd1; app_cmd_en <= 1'b1;
-                    app_addr <= {3'd0,rd_word_ptr,3'b000};
-                    read_wait <= 1'b1;
-                end
-            end else if (!desc_fifo_empty) begin
-                desc_fifo_re_r <= 1'b1;
-                desc_read_state <= 3'd1;
             end
         end
     end
@@ -555,7 +571,7 @@ module eth2rf_ddr_queue #(
         .wr_clk(ddr_clk), .rd_clk(rf_tx_clk), .rst_n(rst_n),
         .wr_en(out_fifo_we), .wr_data(out_fifo_d), .rd_en(out_fifo_re),
         .rd_data(out_fifo_q), .full(out_fifo_full), .empty(out_fifo_empty),
-        .wr_count(), .rd_count()
+        .wr_count(out_fifo_wr_count), .rd_count()
     );
 
     // ---------------------------------------------------------------------
@@ -567,6 +583,19 @@ module eth2rf_ddr_queue #(
     reg [4:0] tx_word_bytes, tx_next_bytes, tx_byte_index;
     reg tx_word_valid, tx_next_valid;
     reg out_fifo_re_r;
+    // Debug-only RF frame tracker.  It parses the RF header on the exact
+    // tx_data/tx_ready handshake.  An idle gap is an underrun only after a
+    // complete header was accepted and before its payload+CRC is exhausted.
+    reg [2:0]  dbg_header_count;
+    reg [7:0]  dbg_length_hi;
+    reg [15:0] dbg_frame_bytes_left;
+    reg        dbg_frame_active;
+    reg        dbg_gap_reported;
+    reg        dbg_tx_underrun_r;
+    reg        dbg_tx_underrun_sticky_r;
+
+    assign dbg_tx_underrun = dbg_tx_underrun_r;
+    assign dbg_tx_underrun_sticky = dbg_tx_underrun_sticky_r;
     assign out_fifo_re = out_fifo_re_r;
     assign rf_tx_valid = tx_word_valid;
     assign rf_tx_data = tx_word[tx_byte_index*8 +: 8];
@@ -576,8 +605,82 @@ module eth2rf_ddr_queue #(
             tx_word <= 0; tx_next_word <= 0;
             tx_word_bytes <= 0; tx_next_bytes <= 0; tx_byte_index <= 0;
             tx_word_valid <= 0; tx_next_valid <= 0; out_fifo_re_r <= 0;
+            dbg_header_count <= 0;
+            dbg_length_hi <= 0;
+            dbg_frame_bytes_left <= 0;
+            dbg_frame_active <= 1'b0;
+            dbg_gap_reported <= 1'b0;
+            dbg_tx_underrun_r <= 1'b0;
+            dbg_tx_underrun_sticky_r <= 1'b0;
         end else begin
             out_fifo_re_r <= 1'b0;
+            dbg_tx_underrun_r <= 1'b0;
+
+            // A gap is reported once per continuous empty interval.  The
+            // flag is cleared once byte delivery resumes, allowing later
+            // faults in the same frame to be observed independently.
+            if (tx_word_valid)
+                dbg_gap_reported <= 1'b0;
+            else if (dbg_frame_active && !dbg_gap_reported) begin
+                dbg_tx_underrun_r <= 1'b1;
+                dbg_tx_underrun_sticky_r <= 1'b1;
+                dbg_gap_reported <= 1'b1;
+            end
+
+            // Track only bytes actually accepted by rf_process.
+            if (tx_word_valid && rf_tx_ready) begin
+                if (dbg_frame_active) begin
+                    if (dbg_frame_bytes_left == 16'd1) begin
+                        dbg_frame_bytes_left <= 16'd0;
+                        dbg_frame_active <= 1'b0;
+                    end else begin
+                        dbg_frame_bytes_left <= dbg_frame_bytes_left - 1'b1;
+                    end
+                end else begin
+                    case (dbg_header_count)
+                        3'd0: begin
+                            if (rf_tx_data == FRAME_HEAD[31:24])
+                                dbg_header_count <= 3'd1;
+                        end
+                        3'd1: begin
+                            if (rf_tx_data == FRAME_HEAD[23:16])
+                                dbg_header_count <= 3'd2;
+                            else if (rf_tx_data == FRAME_HEAD[31:24])
+                                dbg_header_count <= 3'd1;
+                            else
+                                dbg_header_count <= 3'd0;
+                        end
+                        3'd2: begin
+                            if (rf_tx_data == FRAME_HEAD[15:8])
+                                dbg_header_count <= 3'd3;
+                            else if (rf_tx_data == FRAME_HEAD[31:24])
+                                dbg_header_count <= 3'd1;
+                            else
+                                dbg_header_count <= 3'd0;
+                        end
+                        3'd3: begin
+                            if (rf_tx_data == FRAME_HEAD[7:0])
+                                dbg_header_count <= 3'd4;
+                            else if (rf_tx_data == FRAME_HEAD[31:24])
+                                dbg_header_count <= 3'd1;
+                            else
+                                dbg_header_count <= 3'd0;
+                        end
+                        3'd4: begin
+                            dbg_length_hi <= rf_tx_data;
+                            dbg_header_count <= 3'd5;
+                        end
+                        default: begin
+                            // The length excludes the 4-byte CRC.  The six
+                            // header bytes have already been accepted here.
+                            dbg_frame_bytes_left <= {dbg_length_hi, rf_tx_data} + 16'd4;
+                            dbg_frame_active <= 1'b1;
+                            dbg_header_count <= 3'd0;
+                        end
+                    endcase
+                end
+            end
+
             if (!tx_word_valid && !out_fifo_empty) begin
                 tx_word <= out_fifo_q[127:0];
                 tx_word_bytes <= out_fifo_q[132:128];

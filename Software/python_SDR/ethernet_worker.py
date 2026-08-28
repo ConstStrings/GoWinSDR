@@ -25,16 +25,25 @@ HEADER_SIZE = struct.calcsize(HEADER_FORMAT)
 CRC_SIZE = struct.calcsize('!I')
 
 # --- [!! 停等协议 (Stop-and-Wait) 常量 !!] ---
-RETRY_COUNT = 128
+RETRY_COUNT = 8
 ACK_TIMEOUT = 0.01
 
 # --- [!! SR 滑动窗口 (Selective Repeat) 新增常量 !!] ---
-WINDOW_SIZE = 4
-RELIABLE_TIMEOUT = 0.01
-SR_MAX_RETRIES = 15
+WINDOW_SIZE = 16
+# A full 1024-byte RF packet plus its reflected ACK takes several milliseconds.
+# 10 ms causes premature SR retransmissions when a four-packet window is busy.
+RELIABLE_TIMEOUT = 0.05
+SR_MAX_RETRIES = 8
 
 # --- [!! 發送速率 (Pacer) 新增常量 !!] ---
 MIN_SEND_INTERVAL = 0.00  # 每個數據包的最小發送間隔 (秒)
+
+# FPGA DDR3 ingress flow control.  The FPGA sends this *bare* nine-byte UDP
+# payload, i.e. it does not carry this application's HEADER_FORMAT/CRC.
+CREDIT_MAGIC = b'CRED'
+CREDIT_PACKET_LEN = 9
+CREDIT_VERSION = 1
+CREDIT_WAIT_TIMEOUT = 0.20
 
 
 # --- [!! 結束新增 !!] ---
@@ -58,6 +67,9 @@ class EthernetWorker(QObject):
     finished = pyqtSignal()
     file_received = pyqtSignal(str, bytes)
     audio_chunk_received = pyqtSignal(bytes)
+    # free MTU-packet slots, whether an FPGA report has been seen, whether the
+    # current state is the CRED-timeout fallback.
+    ddr_credit_updated = pyqtSignal(int, bool, bool)
 
     file_send_progress = pyqtSignal(int, int, float)
     file_receive_progress = pyqtSignal(int, int, float)
@@ -78,6 +90,10 @@ class EthernetWorker(QObject):
         self.is_lan_mode = False
         self.ack_event = threading.Event()
         self.last_received_ack_seq = -1
+        # ACK only carries a 32-bit sequence number.  Never reuse seq=0 for
+        # unrelated text commands and file headers, otherwise an old echoed
+        # ACK can falsely complete a newly-started transfer.
+        self._next_tx_sequence = random.randint(1, 0x3FFFFFFF)
 
         # --- [!! 新增：视频组包缓存 !!] ---
         # 结构: { frame_id: { 'chunks': {idx: data}, 'total': count, 'timestamp': time } }
@@ -103,6 +119,117 @@ class EthernetWorker(QObject):
         self.pacer_lock = threading.Lock()
         self.last_send_time = 0
 
+        # FPGA DDR3 queue credit state.  CRED's sequence number counts ingress
+        # frames accepted by the FPGA, so locally sent but not yet reported
+        # frames must be subtracted from the most recent free-slot report.
+        self.credit_cv = threading.Condition()
+        self.credit_packets = 0
+        self.credit_sequence = None
+        self.credit_sent_count = 0
+        self.credit_acknowledged_sends = 0
+        self.credit_known = False
+        self.credit_bootstrap_sent = False
+        self.credit_timeout_fallback = False
+        self.credit_timeouts = 0
+
+    @staticmethod
+    def _credit_sequence_delta(new_value, old_value):
+        if old_value is None:
+            return None
+        return (new_value - old_value) & 0xFFFF
+
+    def _emit_credit_status(self):
+        with self.credit_cv:
+            free_packets = self.credit_packets
+            known = self.credit_known
+            fallback = self.credit_timeout_fallback
+        self.ddr_credit_updated.emit(free_packets, known, fallback)
+
+    def _reset_credit_state(self):
+        with self.credit_cv:
+            self.credit_packets = 0
+            self.credit_sequence = None
+            self.credit_sent_count = 0
+            self.credit_acknowledged_sends = 0
+            self.credit_known = False
+            self.credit_bootstrap_sent = False
+            self.credit_timeout_fallback = False
+            self.credit_timeouts = 0
+            self.credit_cv.notify_all()
+        self._emit_credit_status()
+
+    def _handle_credit_packet(self, data):
+        """Handle the FPGA's bare CRED v1 UDP datagram."""
+        if len(data) != CREDIT_PACKET_LEN or not data.startswith(CREDIT_MAGIC):
+            return False
+        if data[4] != CREDIT_VERSION:
+            self.log_received.emit(f"[流控警告] 忽略未知 CRED 版本: {data[4]}")
+            return True
+
+        free_packets = int.from_bytes(data[5:7], 'big')
+        ingress_sequence = int.from_bytes(data[7:9], 'big')
+        with self.credit_cv:
+            delta = self._credit_sequence_delta(ingress_sequence, self.credit_sequence)
+            if delta is None:
+                # The bootstrap rule allows only the first packet before an
+                # FPGA report, therefore all previous local sends are known.
+                self.credit_acknowledged_sends = self.credit_sent_count
+                self.credit_known = True
+            elif 0 < delta <= 0x7FFF:
+                self.credit_acknowledged_sends = min(
+                    self.credit_sent_count,
+                    self.credit_acknowledged_sends + delta)
+            elif delta > 0x7FFF:
+                # Delayed old UDP report.  Keep the newer state unchanged.
+                return True
+
+            self.credit_sequence = ingress_sequence
+            self.credit_packets = free_packets
+            self.credit_timeout_fallback = False
+            self.credit_cv.notify_all()
+        self._emit_credit_status()
+        return True
+
+    def _credit_slots_available_locked(self):
+        if self.credit_timeout_fallback:
+            return 1
+        if not self.credit_known:
+            return 0 if self.credit_bootstrap_sent else 1
+        outstanding = self.credit_sent_count - self.credit_acknowledged_sends
+        return max(0, self.credit_packets - outstanding)
+
+    def _reserve_credit_slot(self, timeout=CREDIT_WAIT_TIMEOUT):
+        """Reserve one FPGA ingress slot before sending a non-ACK packet."""
+        timed_out = False
+        with self.credit_cv:
+            deadline = time.monotonic() + timeout
+            while self._credit_slots_available_locked() <= 0:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    # CRED is UDP too.  Do not let one lost status packet
+                    # permanently stall the entire GUI transfer.
+                    self.credit_timeout_fallback = True
+                    self.credit_timeouts += 1
+                    timed_out = True
+                    break
+                self.credit_cv.wait(min(remaining, 0.05))
+
+            self.credit_sent_count += 1
+            self.credit_bootstrap_sent = True
+
+        if timed_out:
+            self.log_received.emit(
+                "[流控警告] CRED 超时；暂按 FPGA 缓冲区未满继续发送，"
+                "收到下一份 CRED 后恢复严格流控")
+            self._emit_credit_status()
+        return True
+
+    def _note_unreserved_credit_send(self):
+        """Account for an urgent ACK sent directly by the receive thread."""
+        with self.credit_cv:
+            self.credit_sent_count += 1
+            self.credit_bootstrap_sent = True
+
     @pyqtSlot(bool)
     def set_lan_mode(self, enabled):
         # (此方法保持不变)
@@ -125,6 +252,7 @@ class EthernetWorker(QObject):
             self.recv_base = 0
             self.recv_buffer.clear()
             self.recv_acked.clear()
+            self._reset_credit_state()
             self._running = True
             self._recv_thread = threading.Thread(
                 target = self._recv_loop, args = (local_listen_ip, local_listen_port), daemon = True
@@ -150,6 +278,10 @@ class EthernetWorker(QObject):
             while self._running:
                 try:
                     data, addr = self.sock.recvfrom(65536)
+                    # CRED is a bare FPGA control datagram, not one of this
+                    # application's prefix/sequence/CRC packets.
+                    if self._handle_credit_packet(data):
+                        continue
                     if not data or len(data) < (HEADER_SIZE + CRC_SIZE):
                         continue
 
@@ -183,6 +315,16 @@ class EthernetWorker(QObject):
                     # [!! 🔥 关键修复：提前检测并处理文件头 !!]
                     # ============================================
                     if prefix == PREFIX_FILE_INFO:
+                        # A file header establishes the next expected SR
+                        # sequence even when the local user only *sends* a
+                        # file.  In RF loopback the sender sees its own
+                        # header/data again; without this reset recv_base
+                        # remains 0, so seq=4 is wrongly rejected as outside
+                        # the [0, 3] receive window and retransmits forever.
+                        self.recv_base = seq_num + 1
+                        self.recv_buffer.clear()
+                        self.recv_acked.clear()
+
                         if not self.enable_file_reception:
                             self._send_ack(seq_num, addr)
                             continue
@@ -191,14 +333,6 @@ class EthernetWorker(QObject):
                             info_str = payload.decode('utf-8')
                             filename, filesize_str = info_str.split(':', 1)
                             filesize = int(filesize_str)
-
-                            # === 立即重置接收窗口（在任何窗口检查之前） ===
-                            self.recv_base = 0
-                            self.recv_buffer.clear()
-                            self.recv_acked.clear()
-
-                            # 标记为已确认
-                            self.recv_acked.add(0)  # 假设文件头总是 seq_num=0
 
                             # 重置文件接收状态
                             self.current_file_info = {
@@ -216,9 +350,6 @@ class EthernetWorker(QObject):
                             self.log_received.emit(
                                 f"[UDP 文件] (SEQ={seq_num}) 开始接收: {filename} ({filesize} 字节)"
                             )
-
-                            # 滑动窗口到下一个位置
-                            self.recv_base = 1
 
                         except Exception as e:
                             self.log_received.emit(f"[UDP 错误] 收到损坏的文件头: {e}")
@@ -462,6 +593,23 @@ class EthernetWorker(QObject):
         crc = zlib.crc32(data_without_crc)
         return data_without_crc + struct.pack('!I', crc)
 
+    def _allocate_tx_sequence_range(self, count: int) -> int:
+        """Return a non-overlapping sequence range for one outbound transfer.
+
+        Callers already hold ``self._lock``.  A range is used for a file so
+        its header and every SR chunk cannot be acknowledged by delayed ACKs
+        belonging to an earlier command or transfer.
+        """
+        count = max(1, count)
+        if self._next_tx_sequence + count - 1 > 0xFFFFFFFF:
+            # Wrap only between transfers, never inside one file's sequence
+            # range.  Choosing a non-zero new base avoids the historical
+            # all-transactions-use-zero collision.
+            self._next_tx_sequence = 1
+        start_seq = self._next_tx_sequence
+        self._next_tx_sequence += count
+        return start_seq
+
     def _send_udp_payload(self, raw_bytes: bytes) -> bool:
         """
         [!! 重大修改: 添加 Pacer (速率控制器) !!]
@@ -471,6 +619,8 @@ class EthernetWorker(QObject):
         addr = self.fpga_addr
         if not addr:
             self.error_occurred.emit("发送失败: 目标地址未设置")
+            return False
+        if not self._reserve_credit_slot():
             return False
         with self.pacer_lock:
             now = time.time()
@@ -496,6 +646,11 @@ class EthernetWorker(QObject):
         try:
             if self.sock:
                 self.sock.sendto(ack_packet, target_addr)
+                # The receive thread must never wait for CRED here, otherwise
+                # it could prevent the very CRED packet that releases it from
+                # being received.  Still include the ACK in local accounting.
+                if target_addr == self.fpga_addr:
+                    self._note_unreserved_credit_send()
         except Exception as e:
             self.log_received.emit(f"发送 ACK {seq_num_to_ack} 失败: {e}")
 
@@ -631,7 +786,7 @@ class EthernetWorker(QObject):
     def send_command(self, cmd_str: str):
         # (保持不变 - 停等协议)
         with self._lock:
-            seq_num = 0
+            seq_num = self._allocate_tx_sequence_range(1)
             payload = cmd_str.encode('utf-8')
             self.log_received.emit(f"-> [UDP发送 文本]: {cmd_str} (SEQ={seq_num})")
             success = self._send_reliable_payload(PREFIX_TEXT, seq_num, payload)
@@ -643,8 +798,8 @@ class EthernetWorker(QObject):
     def send_file_udp(self, file_path: str):
         """
         [!! SR !!]
-        1. 使用 "停等" (_send_reliable_payload) 发送文件头 (SEQ=0)
-        2. 使用 "SR" (_send_sr_stream) 发送文件数据 (SEQ=1...N)
+        1. 使用 "停等" (_send_reliable_payload) 发送唯一序号的文件头
+        2. 使用 "SR" (_send_sr_stream) 发送紧随其后的唯一序号数据块
         添加了进度信号发射
         """
         with self._lock:
@@ -661,8 +816,11 @@ class EthernetWorker(QObject):
                 # 发送前发射初始进度
                 self.file_send_progress.emit(0, file_size, 0.0)
 
-                # --- 1. 发送文件头 (SEQ=0, 停等) ---
-                seq_num = 0
+                # Each transfer owns one unique on-wire sequence range.  This
+                # prevents a delayed ACK for a previous TEST command/header
+                # from being mistaken for this file header's ACK.
+                chunk_count = (file_size + CHUNK_SIZE - 1) // CHUNK_SIZE
+                seq_num = self._allocate_tx_sequence_range(chunk_count + 1)
                 info_str = f"{filename}:{file_size}"
                 info_payload = info_str.encode('utf-8')
                 self.log_received.emit(f"-> [UDP发送 文件头] (SEQ={seq_num})")
@@ -696,7 +854,7 @@ class EthernetWorker(QObject):
                         yield chunk
 
                 with open(file_path, 'rb') as f:
-                    start_seq_num = 1
+                    start_seq_num = seq_num + 1
                     self.log_received.emit(f"-> [UDP SR 发送] 文件数据 (从 SEQ={start_seq_num} 开始)...")
                     if not self._send_sr_stream(PREFIX_FILE_DATA, start_seq_num,
                                                 file_chunk_generator_with_progress(f)):
@@ -742,7 +900,8 @@ class EthernetWorker(QObject):
                         yield data[idx: idx + size]
                         idx += size
 
-                start_seq_num = 0
+                chunk_count = (data_size + CHUNK_SIZE - 1) // CHUNK_SIZE
+                start_seq_num = self._allocate_tx_sequence_range(chunk_count)
                 start_time = time.time()
                 success = self._send_sr_stream(PREFIX_AUDIO_DATA, start_seq_num,
                                                audio_chunk_generator(audio_bytes, CHUNK_SIZE))

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QGridLayout, QLabel,
                              QLineEdit, QPushButton, QSpinBox, QGroupBox)
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal, pyqtSlot
 
 
 class EthernetWidget(QWidget):
@@ -57,6 +57,21 @@ class EthernetWidget(QWidget):
 
         main_layout.addWidget(group_fpga)
         main_layout.addWidget(group_local)
+
+        # FPGA CRED v1 reports free DDR ingress space in MTU-packet units.
+        # Keep this on the main network page so the current radio backpressure
+        # is visible without opening a transfer-specific dialog.
+        group_ddr = QGroupBox("FPGA DDR3 缓冲区（CRED 流控）")
+        layout_ddr = QGridLayout(group_ddr)
+        layout_ddr.addWidget(QLabel("剩余空间:"), 0, 0)
+        self.lbl_ddr_free = QLabel("等待 CRED…")
+        self.lbl_ddr_free.setStyleSheet("font-weight: bold; color: #666;")
+        layout_ddr.addWidget(self.lbl_ddr_free, 0, 1)
+        layout_ddr.addWidget(QLabel("流控状态:"), 1, 0)
+        self.lbl_ddr_flow = QLabel("未连接")
+        self.lbl_ddr_flow.setStyleSheet("color: #666;")
+        layout_ddr.addWidget(self.lbl_ddr_flow, 1, 1)
+        main_layout.addWidget(group_ddr)
         main_layout.addWidget(self.btn_start)
         main_layout.addWidget(self.btn_stop)
         main_layout.addWidget(self.btn_send_cmd)
@@ -92,4 +107,35 @@ class EthernetWidget(QWidget):
         self.spin_fpga_port.setEnabled(not listening)
         self.txt_listen_ip.setEnabled(not listening)
         self.spin_listen_port.setEnabled(not listening)
+
+        if not listening:
+            self.update_ddr_credit_status(0, False, False)
+
+    @pyqtSlot(int, bool, bool)
+    def update_ddr_credit_status(self, free_packets, known, fallback):
+        """Show FPGA's latest remaining DDR ingress capacity."""
+        if not known:
+            if fallback:
+                self.lbl_ddr_free.setText("未知（按未满发送）")
+                self.lbl_ddr_flow.setText("CRED 超时兜底")
+                self.lbl_ddr_flow.setStyleSheet("color: #b36b00;")
+            else:
+                self.lbl_ddr_free.setText("等待 CRED…")
+                self.lbl_ddr_flow.setText("等待 FPGA 状态包")
+                self.lbl_ddr_flow.setStyleSheet("color: #666;")
+            self.lbl_ddr_free.setStyleSheet("font-weight: bold; color: #666;")
+            return
+
+        # CRED reports packet slots, not exact byte count.  One application
+        # packet is capped at 1024-byte payload, hence the displayed KiB is an
+        # intentionally approximate capacity indicator.
+        self.lbl_ddr_free.setText(f"{free_packets} 个 MTU 包（约 {free_packets} KiB）")
+        if fallback:
+            self.lbl_ddr_flow.setText("CRED 超时兜底（上次上报值）")
+            self.lbl_ddr_flow.setStyleSheet("color: #b36b00;")
+            self.lbl_ddr_free.setStyleSheet("font-weight: bold; color: #b36b00;")
+        else:
+            self.lbl_ddr_flow.setText("严格流控")
+            self.lbl_ddr_flow.setStyleSheet("color: #16803c;")
+            self.lbl_ddr_free.setStyleSheet("font-weight: bold; color: #16803c;")
 

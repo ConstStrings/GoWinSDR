@@ -200,6 +200,8 @@ wire                                    rf_tx_packet_led;
 (* keep = "true" *) wire               eth_ingress_drop           ;
 (* keep = "true" *) wire [15:0]        ddr_queued_words_dbg       ;
 (* keep = "true" *) wire [15:0]        eth_credit_packets_dbg     ;
+(* keep = "true" *) wire               dbg_tx_underrun            ;
+(* keep = "true" *) wire               dbg_tx_underrun_sticky     ;
 // Two independent FPGA-to-PC packet sources share this one Ethernet TX
 // interface.  They are selected only by eth_tx_arbiter at packet boundaries.
 wire [7:0]                             rf_eth_tx_data;
@@ -237,6 +239,8 @@ eth2rf_ddr_queue #(
     .ddr_pll_stop_dbg (ddr_pll_stop_dbg),
     .queued_words_dbg (ddr_queued_words_dbg),
     .credit_packets_dbg(eth_credit_packets_dbg),
+    .dbg_tx_underrun  (dbg_tx_underrun),
+    .dbg_tx_underrun_sticky(dbg_tx_underrun_sticky),
     .ddr_addr         (ddr_addr),
     .ddr_bank         (ddr_bank),
     .ddr_cs           (ddr_cs),

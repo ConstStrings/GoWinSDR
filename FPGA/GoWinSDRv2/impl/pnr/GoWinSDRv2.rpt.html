@@ -83,7 +83,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Thu Aug 27 22:51:08 2026
+<td>Fri Aug 28 12:09:59 2026
 </td>
 </tr>
 <tr>
@@ -97,24 +97,24 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td class="label">Place & Route Process</td>
 <td>Running placement:
-   Placement Phase 0: CPU time = 0h 0m 11s, Elapsed time = 0h 0m 11s
-   Placement Phase 1: CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s
-   Placement Phase 2: CPU time = 0h 0m 35s, Elapsed time = 0h 0m 35s
-   Placement Phase 3: CPU time = 0h 0m 16s, Elapsed time = 0h 0m 16s
-   Total Placement: CPU time = 0h 1m 6s, Elapsed time = 0h 1m 6s
+   Placement Phase 0: CPU time = 0h 0m 8s, Elapsed time = 0h 0m 8s
+   Placement Phase 1: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
+   Placement Phase 2: CPU time = 0h 0m 19s, Elapsed time = 0h 0m 19s
+   Placement Phase 3: CPU time = 0h 0m 10s, Elapsed time = 0h 0m 10s
+   Total Placement: CPU time = 0h 0m 38s, Elapsed time = 0h 0m 38s
 Running routing:
-   Routing Phase 0: CPU time = 0h 0m 0.01s, Elapsed time = 0h 0m 0.01s
-   Routing Phase 1: CPU time = 0h 4m 26s, Elapsed time = 0h 4m 26s
-   Routing Phase 2: CPU time = 0h 0m 0.368s, Elapsed time = 0h 0m 0.368s
+   Routing Phase 0: CPU time = 0h 0m 0.008s, Elapsed time = 0h 0m 0.008s
+   Routing Phase 1: CPU time = 0h 3m 17s, Elapsed time = 0h 3m 17s
+   Routing Phase 2: CPU time = 0h 0m 0.274s, Elapsed time = 0h 0m 0.274s
    Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-   Total Routing: CPU time = 0h 4m 26s, Elapsed time = 0h 4m 26s
+   Total Routing: CPU time = 0h 3m 17s, Elapsed time = 0h 3m 17s
 Generate output files:
-   CPU time = 0h 0m 11s, Elapsed time = 0h 0m 11s
+   CPU time = 0h 0m 10s, Elapsed time = 0h 0m 10s
 </td>
 </tr>
 <tr>
 <td class="label">Total Time and Memory Usage</td>
-<td>CPU time = 0h 5m 43s, Elapsed time = 0h 5m 43s, Peak memory usage = 2515MB</td>
+<td>CPU time = 0h 4m 5s, Elapsed time = 0h 4m 5s, Peak memory usage = 2304MB</td>
 </tr>
 </table>
 <br/>
@@ -129,12 +129,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Logic</td>
-<td>8725/59904</td>
-<td>15%</td>
+<td>8340/59904</td>
+<td>14%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --LUT,ALU,ROM16</td>
-<td>8725(7817 LUT, 908 ALU, 0 ROM16)</td>
+<td>8340(7462 LUT, 878 ALU, 0 ROM16)</td>
 <td>-</td>
 </tr>
 <tr>
@@ -144,8 +144,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Register</td>
-<td>11261/60780</td>
-<td>19%</td>
+<td>8905/60780</td>
+<td>15%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as Latch</td>
@@ -154,8 +154,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as FF</td>
-<td>11257/59904</td>
-<td>19%</td>
+<td>8901/59904</td>
+<td>15%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --I/O Register as Latch</td>
@@ -169,8 +169,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">CLS</td>
-<td>9549/29952</td>
-<td>32%</td>
+<td>8256/29952</td>
+<td>28%</td>
 </tr>
 <tr>
 <td class="label">I/O Port</td>
@@ -204,8 +204,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">BSRAM</td>
-<td>37 SDPB<br/>59 SDPX9B<br/>2 pROM<br/></td>
-<td>84%</td>
+<td>50 SDPB<br/>10 SDPX9B<br/>2 pROM<br/></td>
+<td>53%</td>
 </tr>
 <tr>
 <td class="label">DSP</td>
@@ -322,12 +322,17 @@ Generate output files:
 <tr>
 <td class="label">RGMII_RXCLK_d</td>
 <td>PRIMARY</td>
-<td> PTR1 PTR2 PBR1 PBR2</td>
+<td> PTR1 PTR2 PBR1</td>
+</tr>
+<tr>
+<td class="label">bb_symbol_clk</td>
+<td>PRIMARY</td>
+<td> PTR1 PTR2</td>
 </tr>
 <tr>
 <td class="label">rf_rx_clk</td>
 <td>PRIMARY</td>
-<td> PTR1 PTR2 PBR2</td>
+<td> PTR1 PTR2</td>
 </tr>
 <tr>
 <td class="label">RGMII_GTXCLK_d</td>
@@ -335,29 +340,24 @@ Generate output files:
 <td> PTR1 PTR2 PBR1 PBR2</td>
 </tr>
 <tr>
-<td class="label">u_eth2rf_processor_456</td>
+<td class="label">u_eth2rf_processor_43</td>
 <td>PRIMARY</td>
 <td> PTR0 PTR1 PTR2 PBR0 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">bb_byte_clk_div[1]</td>
 <td>PRIMARY</td>
-<td> PTR1 PTR2 PBR2</td>
+<td> PTR1 PTR2 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">u_eth2rf_processor/clk100m</td>
 <td>PRIMARY</td>
-<td> PTR1 PBR1 PBR2</td>
+<td> PTR1 PBR1</td>
 </tr>
 <tr>
-<td class="label">u_eth2rf_processor/memory_clk</td>
+<td class="label">gw_gao_inst_0/control2[0]</td>
 <td>PRIMARY</td>
-<td> PBR2</td>
-</tr>
-<tr>
-<td class="label">gw_gao_inst_0/control1[0]</td>
-<td>PRIMARY</td>
-<td> PTR0 PTR1 PTR2 PBR1 PBR2</td>
+<td> PTR1 PTR2 PBR1 PBR2</td>
 </tr>
 <tr>
 <td class="label">sys_clk_d</td>
@@ -370,32 +370,32 @@ Generate output files:
 <td> -</td>
 </tr>
 <tr>
-<td class="label">bb_symbol_clk</td>
-<td>LW</td>
-<td> -</td>
-</tr>
-<tr>
-<td class="label">ddr_phy_reset_dbg</td>
-<td>LW</td>
-<td> -</td>
-</tr>
-<tr>
 <td class="label">led_d_Z[1]</td>
 <td>LW</td>
 <td> -</td>
 </tr>
 <tr>
+<td class="label">u_eth2rf_processor/pack_word_127_10</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">u_eth2rf_processor/u_ddr3/gw3_top/ddr_rst</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">u_eth2rf_processor/u_egress_fifo/mem_1149</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">u_eth2rf_processor/u_egress_fifo/mem_1151</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
 <td class="label">gw_gao_inst_0/gao_jtag_reset</td>
-<td>LW</td>
-<td> -</td>
-</tr>
-<tr>
-<td class="label">gw_gao_inst_0/u_la1_top/n20_3</td>
-<td>LW</td>
-<td> -</td>
-</tr>
-<tr>
-<td class="label">gw_gao_inst_0/u_la1_top/data_out_shift_reg_491_7</td>
 <td>LW</td>
 <td> -</td>
 </tr>

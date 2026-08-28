@@ -1,0 +1,4 @@
+`define CORE2_DEF_SIGNAL_IN_EN
+`define CORE2_DEF_TRIG_0_EN
+`define CORE2_DEF_SYN_BSRAM
+`define CORE2_SEG1

@@ -210,6 +210,10 @@ class MainWindow(QMainWindow):
         self.eth_worker.video_frame_ready.connect(self.realtime_video_widget.on_remote_frame_update)
         self.eth_worker.error_occurred.connect(self.on_eth_error)
         self.eth_worker.file_received.connect(self.file_receive_widget.add_received_file)
+        self.eth_worker.ddr_credit_updated.connect(
+            self.ethernet_widget.update_ddr_credit_status,
+            Qt.ConnectionType.QueuedConnection
+        )
 
         # --- 控制信号连接 ---
         self.ethernet_widget.start_listening_clicked.connect(
